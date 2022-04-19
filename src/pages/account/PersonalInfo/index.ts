@@ -1,0 +1,1 @@
+export { AccountPersonalInfoPage } from './PersonalInfo'

@@ -1,0 +1,26 @@
+export const ROUTE_NAMES = {
+  MAIN: '/',
+  SIGN_IN: '/sign-in',
+  SIGN_UP: '/sign-up',
+  ORIGINAL_SPARE_PARTS: '/original-spare-parts',
+  CAR_BODY_SPARE_PARTS: '/car-body-spare-parts',
+  CAR_OILS: '/car-oils',
+  ACCUMULATORS: '/accumulators',
+  NOT_ORIGINAL_SPARE_PARTS: '/not-original-spare-parts',
+  MAINTENANCE_SPARE_PARTS: '/maintenance-spare-parts',
+  CAR_CHEMISTRY: '/car-chemistry',
+  CAR_LAMPS: '/car-lamps',
+  VAZ_GAZ_KAMAZ_SPARE_PARTS: '/vaz-gaz-kamaz-spare-parts',
+  AUTO_GLASSES: '/auto-glasses',
+  WHEELS: '/wheels',
+  SHOPPING_CART: '/basket',
+  FORGOT_PASSWORD: '/forgot-password',
+  SUPPLIER_SIGN_UP: '/supplier-sign-up',
+
+  ACCOUNT: '/account',
+  ACCOUNT_PERSONAL_INFO: '/account/personal-info',
+  ACCOUNT_ORDER_HISTORY: '/account/order-history',
+  ACCOUNT_ADDRESSES: '/account/addresses',
+  ACCOUNT_REQUISITES: '/account/requisites',
+  ACCOUNT_CHATS: '/account/chats'
+} as const

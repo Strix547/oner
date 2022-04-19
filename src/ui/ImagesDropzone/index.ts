@@ -1,0 +1,1 @@
+export { ImagesDropzone } from './ImagesDropzone'

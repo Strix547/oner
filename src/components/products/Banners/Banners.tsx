@@ -1,0 +1,75 @@
+import Link from 'next/link'
+import Typography from '@mui/material/Typography'
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+import { ButtonWithArrow } from 'common/buttons'
+
+import * as S from './Banners.styled'
+
+import oilsImg from 'public/img/banners/oils.png'
+import wheelImg from 'public/img/banners/wheel.png'
+import brakersImg from 'public/img/banners/brakers.png'
+
+export const ProductsBanners = () => {
+  const banners = [
+    {
+      title: ['Моторные масла', 'Genesis'],
+      buttonText: 'Перейти',
+      link: '/',
+      bg: oilsImg
+    },
+    {
+      title: ['Шины зимние', 'дешевле'],
+      buttonText: 'Смотреть',
+      link: '/',
+      bg: wheelImg
+    },
+    {
+      title: ['Запчасти для', 'ТО'],
+      buttonText: 'Смотреть',
+      link: '/',
+      bg: brakersImg
+    },
+    {
+      title: ['Запчасти для', 'ТО'],
+      buttonText: 'Смотреть',
+      link: '/',
+      bg: brakersImg
+    }
+  ]
+
+  const bannersItems = banners.map(({ title, buttonText, link, bg }) => {
+    return (
+      <SwiperSlide key={title.join('')}>
+        <S.Banner style={{ backgroundImage: `url(${bg.src})` }}>
+          <Typography variant="h2" component="h4">
+            {title.map((text) => (
+              <span key={text}>{text}</span>
+            ))}
+          </Typography>
+
+          <Link href={link} passHref>
+            <ButtonWithArrow LinkComponent="a">{buttonText}</ButtonWithArrow>
+          </Link>
+        </S.Banner>
+      </SwiperSlide>
+    )
+  })
+
+  return (
+    <S.ProductsBanners>
+      <Swiper
+        slidesPerView="auto"
+        spaceBetween={20}
+        breakpoints={{
+          1200: {
+            slidesPerView: 3,
+            spaceBetween: 20
+          }
+        }}
+      >
+        {bannersItems}
+      </Swiper>
+    </S.ProductsBanners>
+  )
+}

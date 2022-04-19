@@ -1,0 +1,1 @@
+export { SupplierSignUpPage } from './SupplierSignUp'
