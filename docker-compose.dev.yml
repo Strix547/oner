@@ -1,6 +1,6 @@
 version: "3"
     services: 
-    blog_deepak:
+    oner:
         command: dev 
         volumes:
             - .:/usr/src/app
