@@ -59,11 +59,9 @@ export const MainSlider = () => {
         slidesPerView={1}
         spaceBetween={20}
         onInit={({ params, navigation }) => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           // eslint-disable-next-line no-param-reassign
           params.navigation.prevEl = prevRef.current
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           // eslint-disable-next-line no-param-reassign
           params.navigation.nextEl = nextRef.current

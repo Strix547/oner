@@ -5,14 +5,13 @@ import { Chat } from '../Chat'
 
 import * as S from './Container.styled'
 
+type Sender = 'me' | 'companion'
+
 interface Message {
   id: number
-  receiverId?: number
-  senderId?: number
-  ticketId?: number
-  dateTime: Date
-  isRead: boolean
   message: string
+  date: Date
+  sender: Sender
 }
 
 interface Chat {

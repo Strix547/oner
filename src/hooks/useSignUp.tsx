@@ -84,7 +84,9 @@ export const useSignUp = ({ onSendCode, onVerifySMS }: useSignUpProps) => {
 
   const verifySMS = useMutation('sms-verify', authAPI.verifyCode, {
     onSuccess: ({ phone, code }) => {
-      createToken.mutate({ phone, code }), onVerifySMS.success()
+      if (onVerifySMS?.success != undefined) {
+        createToken.mutate({ phone, code }), onVerifySMS.success()
+      }
     },
     onError: onVerifySMS?.error
   })

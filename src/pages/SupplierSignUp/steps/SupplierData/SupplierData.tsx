@@ -61,9 +61,9 @@ const CrossIcon = (props: any) => {
       <path
         d="M7.334 7.333l5.333 5.334M12.667 7.333l-5.333 5.334"
         stroke="#7A7680"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></path>
     </svg>
   )

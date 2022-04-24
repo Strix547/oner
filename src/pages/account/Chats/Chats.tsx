@@ -12,7 +12,6 @@ import * as S from './Chats.styled'
 
 export const AccountChatsPage: NextPage = () => {
   const { data: chats } = useQuery('chats', () => chatAPI.fetchChats(1))
-  console.log(chats?.results)
   // const { data: messages } = useQuery(['messages', chats], chatAPI.fetchChatMessages)
   // const createChat = useMutation(() => chatAPI.createChat({ orderId: 1, title: 'Тест' }))
   // const createChat = useMutation(() =>
@@ -29,7 +28,7 @@ export const AccountChatsPage: NextPage = () => {
 
       <PageLayout>
         <AccountLayout title="Персональная информация">
-          <ChatContainer chats={chats?.results} />
+          <ChatContainer />
         </AccountLayout>
       </PageLayout>
     </S.AccountChatsPage>
