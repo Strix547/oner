@@ -1,14 +1,13 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useQuery } from 'react-query'
 import InputAdornment from '@mui/material/InputAdornment'
-// import Image from 'next/image'
 
 import { Select, Autocomplete } from 'ui'
 
 import { brandsAPI, categoriesAPI } from 'api'
 
-// import SignRightIcon from 'public/icons/arrows/sign-right.svg'
-// import CrossIcon from 'public/icons/cross.svg'
+import SignRightIcon from 'public/icons/arrows/sign-right.svg'
+import CrossIcon from 'public/icons/cross.svg'
 
 import * as S from './SupplierData.styled'
 
@@ -23,50 +22,6 @@ interface Brand {
 interface Category {
   id: number
   title: string
-}
-
-const SignRightIcon = (props: any) => {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <path
-        d="M10 16L14 12L10 8"
-        stroke="#7a7680"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
-const CrossIcon = (props: any) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20px"
-      height="20px"
-      fill="none"
-      viewBox="0 0 20 20"
-      id="x"
-      {...props}
-    >
-      <rect width="20" height="20" rx="4" fill="#fff"></rect>
-      <path
-        d="M7.334 7.333l5.333 5.334M12.667 7.333l-5.333 5.334"
-        stroke="#7A7680"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>
-    </svg>
-  )
 }
 
 export const SupplierDataStep = () => {
@@ -157,45 +112,40 @@ export const SupplierDataStep = () => {
       </S.MultipleAutocomplete>
 
       <S.MultipleAutocomplete>
-        {useMemo(
-          () => (
-            <Autocomplete
-              multiple
-              filterSelectedOptions
-              name="supplier.brands"
-              loading={areBrandsLoading}
-              options={brandsAll}
-              getOptionLabel={({ name }) => name}
-              ChipProps={ChipProps}
-              renderInput={(props) => (
-                <S.TextField
-                  {...props}
-                  label="Бренд"
-                  placeholder="Бренд"
-                  InputProps={{
-                    ...props.InputProps,
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <SignRightIcon />
-                      </InputAdornment>
-                    )
-                  }}
-                />
-              )}
-              PaperComponent={(props) => (
-                <div
-                  {...props}
-                  onScroll={(e) =>
-                    incrementPageOnScrollEnd(e, Boolean(brands?.next), () => {
-                      setBrandsPage(brandsPage + 1)
-                    })
-                  }
-                />
-              )}
+        <Autocomplete
+          multiple
+          filterSelectedOptions
+          name="supplier.brands"
+          loading={areBrandsLoading}
+          options={brandsAll}
+          getOptionLabel={({ name }) => name}
+          ChipProps={ChipProps}
+          renderInput={(props) => (
+            <S.TextField
+              {...props}
+              label="Бренд"
+              placeholder="Бренд"
+              InputProps={{
+                ...props.InputProps,
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <SignRightIcon />
+                  </InputAdornment>
+                )
+              }}
             />
-          ),
-          [brandsAll]
-        )}
+          )}
+          PaperComponent={(props) => (
+            <div
+              {...props}
+              onScroll={(e) =>
+                incrementPageOnScrollEnd(e, Boolean(brands?.next), () => {
+                  setBrandsPage(brandsPage + 1)
+                })
+              }
+            />
+          )}
+        />
       </S.MultipleAutocomplete>
 
       <Select

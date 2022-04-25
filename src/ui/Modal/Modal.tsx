@@ -1,6 +1,5 @@
 import Typography from '@mui/material/Typography'
 import { ModalProps as MuiModalProps } from '@mui/material/Modal'
-import Image from 'next/image'
 
 import * as S from './Modal.styled'
 
@@ -26,7 +25,7 @@ export const Modal = ({ title, open, children, onClose, hideClose = false }: Mod
                 }
               }}
             >
-              <Image src={CrossIcon} />
+              <CrossIcon />
             </S.CloseButton>
           )}
         </S.ModalTop>

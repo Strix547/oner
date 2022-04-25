@@ -1,34 +1,13 @@
 import { ComponentsOverrides, ComponentsProps, ComponentsVariants } from '@mui/material'
 import { createTheme } from '@mui/material/styles'
 import MuiStepConnector from '@mui/material/StepConnector'
-import Image from 'next/image'
 
 import CheckboxCheckedIcon from 'public/icons/checkbox-checked.svg'
 import RadioIcon from 'public/icons/radio.svg'
 import RadioActiveIcon from 'public/icons/radio-active.svg'
 import RatingFilled from 'public/icons/rating/filled.svg'
 import RatingEmpty from 'public/icons/rating/empty.svg'
-
-const SignRightIcon = (props: any) => {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <path
-        d="M10 16L14 12L10 8"
-        stroke="#7a7680"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
+import SignRightIcon from 'public/icons/arrows/sign-right.svg'
 
 interface MuiButtonBase {
   defaultProps?: ComponentsProps['MuiButtonBase']
@@ -246,14 +225,14 @@ const MuiTab: MuiTab = {
 const MuiCheckbox: MuiCheckbox = {
   defaultProps: {
     icon: undefined,
-    checkedIcon: <Image src={CheckboxCheckedIcon} />
+    checkedIcon: <CheckboxCheckedIcon />
   }
 }
 
 const MuiRadio: MuiRadio = {
   defaultProps: {
-    icon: <Image src={RadioIcon} />,
-    checkedIcon: <Image src={RadioActiveIcon} />
+    icon: <RadioIcon />,
+    checkedIcon: <RadioActiveIcon />
   }
 }
 
@@ -331,8 +310,8 @@ const MuiMenuItem: MuiMenuItem = {
 
 const MuiRating: MuiRating = {
   defaultProps: {
-    emptyIcon: <Image src={RatingEmpty} />,
-    icon: <Image src={RatingFilled} />
+    emptyIcon: <RatingEmpty />,
+    icon: <RatingFilled />
   }
 }
 

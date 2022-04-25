@@ -60,9 +60,9 @@ export const Footer = () => {
   ]
 
   const payments = [
-    { label: 'visa', icon: <Image src={VisaIcon} /> },
-    { label: 'mastercard', icon: <Image src={MasterCardIcon} /> },
-    { label: 'mir', icon: <Image src={MirIcon} /> }
+    { label: 'visa', icon: <VisaIcon /> },
+    { label: 'mastercard', icon: <MasterCardIcon /> },
+    { label: 'mir', icon: <MirIcon /> }
   ]
 
   const navColumns = nav.map(({ tag, items }) => {
@@ -98,7 +98,7 @@ export const Footer = () => {
 
     return (
       <S.NavAccordion key={tag}>
-        <S.NavAccordionSummary expandIcon={<Image src={ArrowRightIcon} />}>
+        <S.NavAccordionSummary expandIcon={<ArrowRightIcon />}>
           <S.NavTag>{tag}</S.NavTag>
         </S.NavAccordionSummary>
 
@@ -126,7 +126,7 @@ export const Footer = () => {
             <S.Consultation>
               <Link href="/" passHref>
                 <S.ConsultationLink>
-                  <Image src={ChatIcon} layout="fixed" height={20} />
+                  <ChatIcon />
 
                   <span>
                     <span>Консультация Online</span>

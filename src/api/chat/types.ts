@@ -11,38 +11,35 @@ export interface CreateChatReq {
   isActive?: boolean
 }
 
-export interface ChatTicket {
+export interface Chat {
   id: number
   title: string
   is_active: boolean
   order: number
 }
 
-export interface Message {
+export interface MessageRes {
   id: number
   message: string
   timestamp: Date
   is_read: boolean
   ticket: number
   sender: number
-  receiver: number
+  receiver: number | null
+  file: string | null
 }
 
-export type FetchChatsRes = ResponsePagination<ChatTicket[]>
+export type FetchChatsRes = ResponsePagination<Chat[]>
 
-export type FetchChatMessagesRes = ResponsePagination<Message[]>
+export type FetchChatMessagesRes = ResponsePagination<MessageRes[] | []>
 
 export interface CreateMessageReq {
-  ticketId: number
-  senderId?: number
-  receiverId?: number
+  chatId: number
   message: string
-  isRead?: boolean
+  file: File | null
 }
 
 export interface FetchChatMessagesReq {
-  ticketId?: number
-  senderId?: number
-  receiverId?: number
+  chatId: number
   page: number
 }

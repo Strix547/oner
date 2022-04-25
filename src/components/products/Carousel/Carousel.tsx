@@ -66,13 +66,9 @@ export const ProductsCarousel = ({ title, products }: ProductsCarouselProps) => 
           }}
           modules={[Navigation]}
           onInit={({ params, navigation }) => {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            // eslint-disable-next-line no-param-reassign
             params.navigation.prevEl = prevRef.current
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            // eslint-disable-next-line no-param-reassign
             params.navigation.nextEl = nextRef.current
             navigation.init()
             navigation.update()

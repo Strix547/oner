@@ -14,7 +14,7 @@ import {
 
 const root = '/account'
 
-export const loginPhone = (phone: string) => {
+export const phoneLogin = (phone: string) => {
   return API.post(`${root}/login-phone/`, { phone })
 }
 
@@ -76,8 +76,9 @@ export const registerIndividual = ({ firstName, phone, email }: RegisterIndividu
   return API.post(`${root}/register-person/`, { first_name: firstName, phone, email })
 }
 
-export const createEmailToken = ({ email, password }: CreateEmailTokenReq) => {
-  return API.post(`${root}/token-email`, { email, password })
+export const createEmailToken = async ({ email, password }: CreateEmailTokenReq) => {
+  const { data } = await API.post<Tokens>(`${root}/token-email`, { email, password })
+  return { accessToken: data.access, refreshToken: data.refresh }
 }
 
 export const createPhoneToken = async ({ phone, code }: CreatePhoneTokenReq) => {

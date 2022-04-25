@@ -4,7 +4,6 @@ import Head from 'next/head'
 import Typography from '@mui/material/Typography'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
-import Image from 'next/image'
 
 import { PageLayout, WeSentCode } from 'components'
 import { Stepper, Step, StepLabel, Modal } from 'ui'
@@ -26,11 +25,11 @@ export const SupplierSignUpPage: NextPage = () => {
 
   const [shopImages, setShopImages] = useState<ImageFile[]>([])
   const [isShopAdded, setShopAdded] = useState(false)
-  const [step, setStep] = useState(2)
+  const [step, setStep] = useState(6)
   const [isVerifySMSModalOpen, setVerifySMSModalOpen] = useState(false)
 
   const signUpMethods = useSupplierSignUp()
-  const { user, loginPhone, verifyCode, confirmCode, isTokenCreating } = useAuth()
+  const { user, phoneLogin, verifyCode, confirmCode, isTokenCreating } = useAuth()
 
   const {
     addPersonalData,
@@ -62,7 +61,7 @@ export const SupplierSignUpPage: NextPage = () => {
         {step <= idx ? (
           <StepLabel>{label}</StepLabel>
         ) : (
-          <StepLabel icon={<Image src={CheckmarkIcon} />}>{label}</StepLabel>
+          <StepLabel icon={<CheckmarkIcon />}>{label}</StepLabel>
         )}
       </Step>
     )
@@ -89,10 +88,9 @@ export const SupplierSignUpPage: NextPage = () => {
     priceList,
     finalPostion
   }: FormFields) => {
-    console.log(step, userId)
     if (step === 0) {
       await addPersonalData.mutateAsync(personal)
-      loginPhone.mutate(personal.phone)
+      phoneLogin.mutate(personal.phone)
       setVerifySMSModalOpen(true)
     }
 

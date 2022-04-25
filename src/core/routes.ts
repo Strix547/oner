@@ -16,6 +16,7 @@ export const ROUTE_NAMES = {
   SHOPPING_CART: '/basket',
   FORGOT_PASSWORD: '/forgot-password',
   SUPPLIER_SIGN_UP: '/supplier-sign-up',
+  SUPPORT: '/support',
 
   ACCOUNT: '/account',
   ACCOUNT_PERSONAL_INFO: '/account/personal-info',

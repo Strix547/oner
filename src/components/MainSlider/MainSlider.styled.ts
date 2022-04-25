@@ -74,6 +74,15 @@ export const MainSlider = styled.div`
         bottom: 20px;
       }
     }
+
+    ${SlideButton} {
+      left: 0;
+
+      &:last-child {
+        left: auto;
+        right: 0;
+      }
+    }
   }
 `
 
@@ -207,21 +216,24 @@ export const Background = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  width: 100%;
+  width: 1260px;
   height: 420px;
   border-radius: 34px;
   overflow: hidden;
 
   svg {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 1260px;
-    height: 420px;
+    width: 100%;
+    height: auto;
+    border-radius: 34px;
+    overflow: hidden;
   }
 
   ${media1200} {
+    width: 100%;
     height: 230px;
+
+    svg {
+    }
   }
 
   ${media760} {
@@ -229,13 +241,13 @@ export const Background = styled.div`
   }
 `
 
-export const SliderMaskDesk = styled.div`
+export const BackgroundDesk = styled(Background)`
   ${media1200} {
     display: none;
   }
 `
 
-export const SliderMaskTablet = styled.div`
+export const BackgroundTablet = styled(Background)`
   display: none;
 
   ${media1200} {
@@ -247,10 +259,8 @@ export const SliderMaskTablet = styled.div`
   }
 `
 
-export const SliderMaskMobile = styled.div`
+export const BackgroundMobile = styled(Background)`
   display: none;
-  width: 110%;
-  right: -10%;
 
   ${media760} {
     display: block;

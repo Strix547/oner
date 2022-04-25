@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography'
 import TabContext from '@mui/lab/TabContext'
 
 import { PageLayout, WeSentCode } from 'components'
-import { Tabs, Tab, TabPanel, Link, TextField, PhoneField, Checkbox, Button } from 'ui'
+import { Tabs, Tab, TabPanel, Link, TextField, PhoneField, EmailField, Checkbox, Button } from 'ui'
 
 import { ROUTE_NAMES } from 'core'
 import { useAuth } from 'hooks'
@@ -35,10 +35,10 @@ export const SignInPage: NextPage = () => {
 
   const phone = getValues('phone')
 
-  const { loginPhone, confirmCode, isTokenCreating } = useAuth()
+  const { phoneLogin, confirmCode, emailLogin, isTokenCreating } = useAuth()
 
   const onCodeResend = () => {
-    loginPhone.mutate(phone)
+    phoneLogin.mutate(phone)
   }
 
   const onCodeSubmit = async (code: number) => {
@@ -52,11 +52,12 @@ export const SignInPage: NextPage = () => {
 
   const onSignIn = async ({ email, password, phone, remember }: FormFields) => {
     if (tab === 'email') {
-      console.log(email, password, remember)
+      await emailLogin.mutateAsync({ email, password })
+      router.push(ROUTE_NAMES.ACCOUNT_PERSONAL_INFO)
     }
 
     if (tab === 'phone') {
-      await loginPhone.mutateAsync(phone)
+      await phoneLogin.mutateAsync(phone)
       setStep('code')
     }
   }
@@ -82,7 +83,7 @@ export const SignInPage: NextPage = () => {
                 </Tabs>
 
                 <TabPanel value="email">
-                  <TextField type="email" name="email" label="Электронная почта" />
+                  <EmailField name="email" />
                   <TextField type="password" name="password" label="Пароль" />
 
                   <S.FormRow>
@@ -104,7 +105,7 @@ export const SignInPage: NextPage = () => {
                   )}
                 </TabPanel>
 
-                <Button type="submit">Войти</Button>
+                {(step !== 'code' || tab !== 'phone') && <Button type="submit">Войти</Button>}
               </S.Form>
             </FormProvider>
           </TabContext>

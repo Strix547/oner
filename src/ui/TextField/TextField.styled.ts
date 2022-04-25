@@ -25,7 +25,7 @@ export const TextField = styled(MuiTextField)`
 
   .text-field-input-root {
     border-radius: 6px;
-    padding: 6.5px 12px 4.5px 10px !important;
+    padding: 6.5px 12px 4.5px 10px;
 
     .text-field-input {
       font-size: 18px;

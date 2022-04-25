@@ -1,10 +1,15 @@
 import styled from 'styled-components'
 
+import { createMedia } from 'styled'
+
 import { Skeleton } from 'ui'
 import { Button } from 'ui/Button/Button.styled'
 
+const media500 = createMedia(500)
+
 export const ShopesStep = styled.div`
   .text-field-input-root {
+    // menu list suggests
     & > ymaps {
       width: 100% !important;
       top: 48.5px !important;
@@ -51,6 +56,17 @@ export const ButtonsRow = styled.div`
       margin-right: 20px;
     }
   }
+
+  ${media500} {
+    flex-direction: column;
+
+    ${Button} {
+      &:not(:last-child) {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+    }
+  }
 `
 
 export const Map = styled.div`
@@ -58,5 +74,20 @@ export const Map = styled.div`
 
   ${Skeleton} {
     height: 240px;
+  }
+
+  // yandex map container
+  & > div {
+    & > ymaps {
+      width: 100% !important;
+
+      & > ymaps {
+        width: 100% !important;
+
+        & > ymaps {
+          width: 100% !important;
+        }
+      }
+    }
   }
 `

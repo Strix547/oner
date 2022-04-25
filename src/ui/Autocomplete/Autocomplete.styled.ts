@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components'
 
+import { scrollStyles } from 'styled/scroll'
+
 interface Autocomplete {
   open?: boolean
 }
@@ -65,14 +67,7 @@ export const Autocomplete = styled.div<Autocomplete>`
       line-height: 20px;
       overflow: auto;
 
-      &::-webkit-scrollbar {
-        width: 6px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        background: var(--color-primary);
-      }
+      ${scrollStyles()}
     }
 
     .autocomplete-listbox {

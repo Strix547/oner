@@ -10,9 +10,17 @@ interface Option {
 type RadioGroup = UseControllerProps & {
   name: string
   options: Option[]
+  direction?: 'row' | 'column'
 }
 
-export const RadioGroup = ({ name, options, rules, defaultValue, ...props }: RadioGroup) => {
+export const RadioGroup = ({
+  name,
+  options,
+  rules,
+  defaultValue,
+  direction = 'row',
+  ...props
+}: RadioGroup) => {
   const { control } = useFormContext()
 
   const renderOptions = (options: Option[]) => {

@@ -46,38 +46,38 @@ export const Header = () => {
     {
       label: 'Оригинальные запчасти',
       link: ROUTE_NAMES.ORIGINAL_SPARE_PARTS,
-      icon: <Image src={OriginalPartsIcon} />
+      icon: <OriginalPartsIcon />
     },
     {
       label: 'Кузовные запчасти',
       link: ROUTE_NAMES.CAR_BODY_SPARE_PARTS,
-      icon: <Image src={BodyPartsIcon} />
+      icon: <BodyPartsIcon />
     },
-    { label: 'Автомасла', link: ROUTE_NAMES.CAR_OILS, icon: <Image src={OilsIcon} /> },
+    { label: 'Автомасла', link: ROUTE_NAMES.CAR_OILS, icon: <OilsIcon /> },
     {
       label: 'Аккумуляторы',
       link: ROUTE_NAMES.ACCUMULATORS,
-      icon: <Image src={AccumulatorsIcon} />
+      icon: <AccumulatorsIcon />
     },
     {
       label: 'Неоригинальные запчасти',
       link: ROUTE_NAMES.NOT_ORIGINAL_SPARE_PARTS,
-      icon: <Image src={NotOriginalPartsIcon} />
+      icon: <NotOriginalPartsIcon />
     },
     {
       label: 'Запчасти для ТО',
       link: ROUTE_NAMES.MAINTENANCE_SPARE_PARTS,
-      icon: <Image src={MaintenancePartsIcon} />
+      icon: <MaintenancePartsIcon />
     },
-    { label: 'Автохимия', link: ROUTE_NAMES.CAR_CHEMISTRY, icon: <Image src={ChemistryIcon} /> },
-    { label: 'Автолампы', link: ROUTE_NAMES.CAR_LAMPS, icon: <Image src={LampsIcon} /> },
+    { label: 'Автохимия', link: ROUTE_NAMES.CAR_CHEMISTRY, icon: <ChemistryIcon /> },
+    { label: 'Автолампы', link: ROUTE_NAMES.CAR_LAMPS, icon: <LampsIcon /> },
     {
       label: 'Запчасти ВАЗ, ГАЗ, КАМАЗ',
       link: ROUTE_NAMES.VAZ_GAZ_KAMAZ_SPARE_PARTS,
-      icon: <Image src={VazGazKamazPartsIcon} />
+      icon: <VazGazKamazPartsIcon />
     },
-    { label: 'Автостёкла', link: ROUTE_NAMES.AUTO_GLASSES, icon: <Image src={AutoGlassesIcon} /> },
-    { label: 'Диски', link: ROUTE_NAMES.WHEELS, icon: <Image src={WheelsIcon} /> }
+    { label: 'Автостёкла', link: ROUTE_NAMES.AUTO_GLASSES, icon: <AutoGlassesIcon /> },
+    { label: 'Диски', link: ROUTE_NAMES.WHEELS, icon: <WheelsIcon /> }
   ]
 
   const nav = [
@@ -113,7 +113,7 @@ export const Header = () => {
               },
               endAdornment: (
                 <InputAdornment position="end" classes={{ root: 'autocomplete-end-adornment' }}>
-                  <Image src={LoupeIcon} />
+                  <LoupeIcon />
                 </InputAdornment>
               )
             }}
@@ -152,26 +152,27 @@ export const Header = () => {
 
             <S.TopRight>
               <S.City>
-                <Image src={LocationIcon} />
+                <LocationIcon />
 
                 <span>{city}</span>
               </S.City>
 
               <S.PhoneLink href="tel:73472294645">
-                <Image src={PhoneIcon} />
+                <PhoneIcon />
 
                 <span>+ 7 (347) 229-46-45</span>
               </S.PhoneLink>
 
               <Link href={ROUTE_NAMES.SHOPPING_CART} passHref>
                 <S.ShoppingCartLinkMobile>
-                  <Image src={ShoppingCartIcon} />
+                  <ShoppingCartIcon />
+
                   <S.ShoppingCartItemsCount>{shoppingCartItemsCount}</S.ShoppingCartItemsCount>
                 </S.ShoppingCartLinkMobile>
               </Link>
 
               <S.Entry>
-                <Image src={UserIcon} />
+                <UserIcon />
 
                 {isAuth ? (
                   <Link href={ROUTE_NAMES.ACCOUNT_PERSONAL_INFO} passHref>
@@ -204,7 +205,7 @@ export const Header = () => {
                   passHref
                 >
                   <a>
-                    <Image src={UserIcon} />
+                    <UserIcon />
                   </a>
                 </Link>
               </S.EntryMobile>
@@ -215,7 +216,7 @@ export const Header = () => {
         <S.Bottom>
           <S.BottomWrapper>
             <S.CategoriesButton>
-              <Image src={GridIcon} />
+              <GridIcon />
               <span>Все категории</span>
             </S.CategoriesButton>
 
@@ -227,7 +228,7 @@ export const Header = () => {
 
             <Link href={ROUTE_NAMES.SHOPPING_CART} passHref>
               <S.ShoppingCart>
-                <Image src={ShoppingCartIcon} />
+                <ShoppingCartIcon />
                 <span>Корзина</span>
                 <S.ShoppingCartItemsCount>{shoppingCartItemsCount}</S.ShoppingCartItemsCount>
               </S.ShoppingCart>

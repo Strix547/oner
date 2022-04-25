@@ -1,5 +1,4 @@
 import React, { RefObject } from 'react'
-import Image from 'next/image'
 
 import * as S from './SlideNav.styled'
 
@@ -20,11 +19,11 @@ export const SlideNav = ({ prevRef, nextRef }: SlideNavProps) => {
   return (
     <>
       <S.SlidePrevButton ref={prevRef}>
-        <Image src={ArrowRightIcon} />
+        <ArrowRightIcon />
       </S.SlidePrevButton>
 
       <S.SlideNextButton ref={nextRef}>
-        <Image src={ArrowRightIcon} />
+        <ArrowRightIcon />
       </S.SlideNextButton>
     </>
   )

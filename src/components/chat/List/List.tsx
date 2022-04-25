@@ -5,31 +5,41 @@ import * as S from './List.styled'
 interface ChatItem {
   id: number
   title: string
-  date: Date
-  lastMessText: string
   unreadMessNumber?: number
+  lastMessage?: {
+    dateTime: Date
+    message: string
+  }
 }
 
 interface ChatListProps {
-  chats: ChatItem[]
+  chats?: ChatItem[]
+  onChatOpen: (id: number) => void
 }
 
-export const ChatList = ({ chats }: ChatListProps) => {
-  const chatItems = chats.map(({ id, title, date, lastMessText, unreadMessNumber }) => {
+export const ChatList = ({ chats, onChatOpen }: ChatListProps) => {
+  const chatItems = chats?.map(({ id, title, unreadMessNumber, lastMessage }) => {
+    const { message = '', dateTime = '' } = lastMessage || {}
+
     return (
-      <S.Item key={id}>
+      <S.Item
+        key={id}
+        onClick={() => {
+          onChatOpen(id)
+        }}
+      >
         <S.ItemTop>
           <S.Title>{title}</S.Title>
-          <S.Date>{date.toLocaleDateString()}</S.Date>
+          {dateTime && <S.Date>{new Date(dateTime).toLocaleDateString()}</S.Date>}
         </S.ItemTop>
 
-        <Typography>{lastMessText}</Typography>
+        {message && <Typography>{message}</Typography>}
 
-        {unreadMessNumber && (
+        {/* {unreadMessNumber !== 0 && (
           <S.UnreadMessageCounter>
             <span>{unreadMessNumber}</span>
           </S.UnreadMessageCounter>
-        )}
+        )} */}
       </S.Item>
     )
   })

@@ -1,6 +1,5 @@
 import { useState, ReactNode } from 'react'
 import { FileWithPath, useDropzone } from 'react-dropzone'
-import Image from 'next/image'
 
 import * as S from './ImagesDropzone.styled'
 
@@ -60,7 +59,7 @@ export const ImagesDropzone = ({ onChange }: ImagesDropzoneProps) => {
               removeImageFromList(images, name)
             }}
           >
-            <Image src={CrossIcon} />
+            <CrossIcon />
           </S.RemoveImageButton>
         </li>
       )
@@ -76,7 +75,7 @@ export const ImagesDropzone = ({ onChange }: ImagesDropzoneProps) => {
       <S.UploadZone {...getRootProps()}>
         <input {...getInputProps()} />
 
-        <Image src={PlusIcon} />
+        <PlusIcon />
       </S.UploadZone>
     </S.ImagesDropzone>
   )

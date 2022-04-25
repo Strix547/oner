@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 import { authAPI, accountAPI } from 'api'
 import { setCookie, deleteCookie } from 'utils'
 
-import { SignUpData, AuthContextType, ConfirmCode } from './types'
+import { SignUpData, AuthContextType, ConfirmCode, OnTokenCreate } from './types'
 
 export const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 
@@ -16,6 +16,12 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
   const router = useRouter()
 
   const [isAuth, setAuth] = useState(false)
+
+  const onTokenCreate = ({ accessToken, refreshToken }: OnTokenCreate) => {
+    setCookie('accessToken', accessToken)
+    setCookie('refreshToken', refreshToken)
+    setAuth(true)
+  }
 
   const { data: user, refetch: getMe } = useQuery('me', accountAPI.fetchMe, {
     onSuccess: () => {
@@ -29,20 +35,30 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
   const registerIndividual = useMutation('register-individual', authAPI.registerIndividual)
   const registerOOO = useMutation('register-ooo', authAPI.registerOOO)
   const registerEntrepreneur = useMutation('register-entrepreneur', authAPI.registerEntrepreneur)
-  const loginPhone = useMutation('login-phone', authAPI.loginPhone)
+  const phoneLogin = useMutation('phone-login', authAPI.phoneLogin)
+  const emailLogin = useMutation('email-token', authAPI.createEmailToken, {
+    onSuccess: onTokenCreate,
+    onError: ({ response }) => {
+      if (response.status === 400) {
+        toast.error('Неправильный пароль')
+      } else {
+        toast.error('Ошибка')
+      }
+    }
+  })
 
   const verifyCode = useMutation('sms-verify', authAPI.verifyCode, {
-    onError: () => {
-      toast.error('Неверно введёный код')
+    onError: ({ response }) => {
+      if (response.status === 400) {
+        toast.error('Код введён неверно')
+      } else {
+        toast.error('Ошибка')
+      }
     }
   })
 
   const createPhoneToken = useMutation('phone-token', authAPI.createPhoneToken, {
-    onSuccess: ({ accessToken, refreshToken }) => {
-      setCookie('accessToken', accessToken)
-      setCookie('refreshToken', refreshToken)
-      setAuth(true)
-    }
+    onSuccess: onTokenCreate
   })
 
   // send sms code
@@ -106,9 +122,10 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
       isTokenCreating,
       signUp,
       verifyCode,
-      loginPhone,
+      phoneLogin,
       logout,
-      confirmCode
+      confirmCode,
+      emailLogin
     }),
     [
       isAuth,
@@ -117,9 +134,10 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
       isTokenCreating,
       signUp,
       verifyCode,
-      loginPhone,
+      phoneLogin,
       logout,
-      confirmCode
+      confirmCode,
+      emailLogin
     ]
   )
 

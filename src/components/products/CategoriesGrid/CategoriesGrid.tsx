@@ -27,67 +27,67 @@ export const ProductsCategoriesGrid = () => {
       title: 'Оригинальные запчасти',
       amount: 730,
       link: ROUTE_NAMES.ORIGINAL_SPARE_PARTS,
-      icon: BrakersIcon
+      icon: <BrakersIcon />
     },
     {
       title: 'Неоригинальные запчасти',
       amount: 730,
       link: ROUTE_NAMES.NOT_ORIGINAL_SPARE_PARTS,
-      icon: EngineIcon
+      icon: <EngineIcon />
     },
     {
       title: 'Запчасти ВАЗ, ГАЗ, КАМАЗ',
       amount: 730,
       link: ROUTE_NAMES.VAZ_GAZ_KAMAZ_SPARE_PARTS,
-      icon: CarGarageIcon
+      icon: <CarGarageIcon />
     },
     {
       title: 'Кузовные запчасти',
       amount: 730,
       link: ROUTE_NAMES.CAR_BODY_SPARE_PARTS,
-      icon: FrontDoorIcon
+      icon: <FrontDoorIcon />
     },
     {
       title: 'Запчасти для ТО',
       amount: 730,
       link: ROUTE_NAMES.MAINTENANCE_SPARE_PARTS,
-      icon: SafetyBeltIcon
+      icon: <SafetyBeltIcon />
     },
     {
       title: 'Автостёкла',
       amount: 730,
       link: ROUTE_NAMES.AUTO_GLASSES,
-      icon: GlassWasherIcon
+      icon: <GlassWasherIcon />
     },
     {
       title: 'Автомасла',
       amount: 730,
       link: ROUTE_NAMES.CAR_OILS,
-      icon: CanisterIcon
+      icon: <CanisterIcon />
     },
     {
       title: 'Автохимия',
       amount: 730,
       link: ROUTE_NAMES.CAR_CHEMISTRY,
-      icon: CanisterIcon
+      icon: <CanisterIcon />
     },
     {
       title: 'Диски',
       amount: 730,
       link: ROUTE_NAMES.WHEELS,
-      icon: WheelIcon
+      icon: <WheelIcon />
     },
     {
       title: 'Аккумуляторы',
       amount: 730,
       link: ROUTE_NAMES.ACCUMULATORS,
-      icon: AccumulatorIcon
+      icon: <AccumulatorIcon />
     },
     {
       title: 'Автолампы',
       amount: 730,
       link: ROUTE_NAMES.CAR_LAMPS,
-      icon: ShortLightIcon
+      icon: <ShortLightIcon />
     }
   ]
 
@@ -96,9 +96,7 @@ export const ProductsCategoriesGrid = () => {
       <S.SectionItem key={title}>
         <Link href={link} passHref>
           <a>
-            <S.Icon>
-              <Image src={icon} layout="responsive" />
-            </S.Icon>
+            <S.Icon>{icon}</S.Icon>
 
             <S.Right>
               <Typography variant="h4">{title}</Typography>
@@ -118,14 +116,14 @@ export const ProductsCategoriesGrid = () => {
         <Link href="/" passHref>
           <a style={{ background: `url(${forSuppliersBg.src}) no-repeat center/cover` }}>
             <S.Icon>
-              <Image src={UserWithChartIcon} />
+              <UserWithChartIcon />
             </S.Icon>
 
             <S.Right>
               <Typography variant="h4">Поставщикам</Typography>
 
               <S.ForSuppliersItemArrow>
-                <Image src={ArrowRightIcon} />
+                <ArrowRightIcon />
               </S.ForSuppliersItemArrow>
             </S.Right>
           </a>

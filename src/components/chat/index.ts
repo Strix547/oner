@@ -1,3 +1,3 @@
-import { ChatContainer } from './Container'
+import { Chat } from './Chat'
 
-export { ChatContainer }
+export { Chat }

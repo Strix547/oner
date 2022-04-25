@@ -1,11 +1,15 @@
 import styled from 'styled-components'
 
+import { scrollStyles } from 'styled/scroll'
+
 export const ChatList = styled.ul`
   width: 280px;
   height: 100%;
   padding: 10px 10px 0 10px;
   border-right: 1px solid #e3e3e8;
   box-sizing: border-box;
+
+  ${scrollStyles('gray')}
 `
 
 export const Item = styled.li`
@@ -49,7 +53,7 @@ export const Date = styled.span`
 
 export const UnreadMessageCounter = styled.div`
   position: absolute;
-  right: 15px;
+  right: 15.5px;
   bottom: 15px;
   display: flex;
   justify-content: center;

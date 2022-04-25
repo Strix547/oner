@@ -3,49 +3,46 @@ import { API } from 'core'
 import {
   FetchChatsRes,
   CreateChatReq,
-  ChatTicket,
+  Chat,
   FetchChatMessagesRes,
   CreateMessageReq,
   FetchChatMessagesReq,
-  Message
+  MessageRes
 } from './types'
 
 const rootPath = '/chat'
 
-const transformMessages = (messages: Message[]) => {
+const transformMessages = (messages: MessageRes[]) => {
   return messages.map((messageItem) => {
     const {
       id,
       message,
       timestamp: dateTime,
       is_read: isRead,
-      ticket: ticketId,
+      ticket: chatId,
       sender: senderId,
-      receiver: receiverId
+      receiver: receiverId,
+      file
     } = messageItem
 
     return {
       id,
-      ticketId,
+      chatId,
       senderId,
       receiverId,
       dateTime,
       message,
-      isRead
+      isRead,
+      file
     }
   })
 }
 
-export const fetchChatMessages = async ({
-  ticketId,
-  senderId,
-  receiverId,
-  page
-}: FetchChatMessagesReq) => {
+export const fetchChatMessages = async ({ chatId, page }: FetchChatMessagesReq) => {
   const {
     data: { results: messages, ...rest }
   } = await API.get<FetchChatMessagesRes>(`${rootPath}/message/`, {
-    params: { ticket: ticketId, sender: senderId, receiver: receiverId, page }
+    params: { ticket: chatId, page }
   })
 
   return {
@@ -61,7 +58,7 @@ export const fetchChats = async (page: number) => {
 
   const chatsWithMessages = await Promise.all(
     chats.map(async ({ id, order, title, is_active }) => {
-      const { results: messages } = await fetchChatMessages({ ticketId: id, page: 1 })
+      const { results: messages } = await fetchChatMessages({ chatId: id, page: 1 })
 
       return {
         id,
@@ -84,21 +81,34 @@ export const createChat = ({ orderId, title, isActive }: CreateChatReq) => {
 }
 
 export const fetchChat = (ticketId: number) => {
-  return API.get<ChatTicket>(`${rootPath}/${ticketId}/`)
+  return API.get<Chat>(`${rootPath}/${ticketId}/`)
 }
 
-export const createMassage = ({
-  ticketId,
-  receiverId,
-  senderId,
-  message,
-  isRead
-}: CreateMessageReq) => {
-  return API.post(`${rootPath}/message/`, {
-    ticket: ticketId,
-    receiver: receiverId,
-    sender: senderId,
-    message,
-    is_read: isRead
+export const createMassage = ({ chatId, message, file }: CreateMessageReq) => {
+  const formData = new FormData()
+  formData.append('message', message)
+  formData.append('ticket', String(chatId))
+
+  if (file) {
+    formData.append('file', file)
+  }
+
+  return API.post(`${rootPath}/message/`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
   })
+}
+
+export const readMessage = (id: number, chatId: number, message: string) => {
+  return API.patch(`${rootPath}/message/${id}/`, {
+    id,
+    chatId,
+    message,
+    is_read: true
+  })
+}
+
+export const endChat = (chatId: number) => {
+  return API.patch(`${rootPath}/chat/${chatId}/`, { is_active: false })
 }

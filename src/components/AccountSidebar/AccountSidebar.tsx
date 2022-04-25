@@ -22,20 +22,20 @@ export const AccountSidebar = () => {
     {
       label: 'Персональная информация',
       href: ROUTE_NAMES.ACCOUNT_PERSONAL_INFO,
-      icon: <Image src={ProfileIcon} />
+      icon: <ProfileIcon />
     },
     {
       label: 'История заказов',
       href: ROUTE_NAMES.ACCOUNT_ORDER_HISTORY,
-      icon: <Image src={CartIcon} />
+      icon: <CartIcon />
     },
-    { label: 'Мои адреса', href: ROUTE_NAMES.ACCOUNT_ADDRESSES, icon: <Image src={AddressIcon} /> },
+    { label: 'Мои адреса', href: ROUTE_NAMES.ACCOUNT_ADDRESSES, icon: <AddressIcon /> },
     {
       label: 'Мои реквизиты',
       href: ROUTE_NAMES.ACCOUNT_REQUISITES,
-      icon: <Image src={CreditCardIcon} />
+      icon: <CreditCardIcon />
     },
-    { label: 'Мои чаты', href: ROUTE_NAMES.ACCOUNT_CHATS, icon: <Image src={ChatIcon} /> }
+    { label: 'Мои чаты', href: ROUTE_NAMES.ACCOUNT_CHATS, icon: <ChatIcon /> }
   ]
 
   const navLinkItems = nav.map(({ label, href, icon }) => {
@@ -64,7 +64,7 @@ export const AccountSidebar = () => {
           }}
         >
           <S.LogoutButton variant="text">
-            <Image src={LogoutIcon} />
+            <LogoutIcon />
 
             <span>Выйти</span>
           </S.LogoutButton>

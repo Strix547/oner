@@ -1,61 +1,70 @@
+import { useState } from 'react'
 import Typography from '@mui/material/Typography'
 
-import { Button } from 'ui'
-import { ChatInput } from '../Input'
+import { ChatList } from '../List'
+import { ChatDialog } from '../Dialog'
+
+import { useAuth } from 'hooks'
+
+import { Chat as IChat } from '../types'
 
 import * as S from './Chat.styled'
 
-type Sender = 'me' | 'companion'
-
-interface Message {
-  id: number
-  message: string
-  date: Date
-  sender: Sender
-}
+type OpenedChatId = number | null
 
 interface ChatProps {
-  title: string
-  messages: Message[]
+  chats: IChat[] | []
 }
 
-export const Chat = ({ title, messages }: ChatProps) => {
-  const messagesItems = messages.map(({ id, date, message, sender }, idx) => {
-    const nextMessSender = messages[idx + 1]?.sender
-    const isntLatMessage = messages.length - 1 !== idx
+export const Chat = ({ chats }: ChatProps) => {
+  const { user } = useAuth()
+  const [openedChatId, setOpenedChatId] = useState<OpenedChatId>(null)
+
+  const chatListItems = chats?.map(({ id, title, messages }) => {
+    const unreadedMessNumber = messages.filter(
+      ({ isRead, senderId }) => senderId !== user?.id && !isRead
+    ).length
+    const lastMessage = messages[messages.length - 1]
+
+    return {
+      id,
+      title: `Заказ ${title}`,
+      unreadMessNumber: unreadedMessNumber,
+      lastMessage: {
+        dateTime: lastMessage?.dateTime,
+        message: lastMessage?.message
+      }
+    }
+  })
+
+  const renderOpenedDialog = (chats: IChat[], openedChatId: OpenedChatId) => {
+    const openedChat = chats.find(({ id }) => id === openedChatId) as IChat
+    const { id, title, messages, isActive } = openedChat
 
     return (
-      <S.Message
-        key={id}
-        sender={sender}
-        style={
-          isntLatMessage
-            ? {
-                marginBottom: nextMessSender === sender ? 5 : 20
-              }
-            : {}
-        }
-      >
-        <Typography>{message}</Typography>
-        <S.MessageTime>{date.toLocaleTimeString().slice(0, 5)}</S.MessageTime>
-      </S.Message>
+      <ChatDialog
+        id={id}
+        isActive={isActive}
+        title={title}
+        messages={messages}
+        onDialogClose={() => {
+          setOpenedChatId(null)
+        }}
+      />
     )
-  })
+  }
 
   return (
     <S.Chat>
-      <S.Top>
-        <Typography variant="body2">{title}</Typography>
-        <Button variant="outlined">Завершить диалог</Button>
-      </S.Top>
+      <ChatList chats={chatListItems} onChatOpen={setOpenedChatId} />
 
-      <S.Content>
-        <S.MessagesContainer>
-          <S.MessagesList>{messagesItems}</S.MessagesList>
-        </S.MessagesContainer>
-
-        <ChatInput />
-      </S.Content>
+      {openedChatId ? (
+        renderOpenedDialog(chats, openedChatId)
+      ) : (
+        <S.SelectChatContainer>
+          <Typography variant="h4">Выберите чат</Typography>
+        </S.SelectChatContainer>
+      )}
     </S.Chat>
   )
 }

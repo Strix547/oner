@@ -1,8 +1,12 @@
 import styled, { css } from 'styled-components'
 
-import { Button } from 'ui'
+import { createMedia } from 'styled'
 
+import { Button } from 'ui'
 import { Button as ButtonStyled } from 'ui/Button/Button.styled'
+
+const media1200 = createMedia(1200)
+const media500 = createMedia(500)
 
 export const StepNav = styled.div`
   margin-top: auto;
@@ -13,6 +17,14 @@ export const StepNav = styled.div`
     &:not(:last-child) {
       margin-right: 10px;
     }
+  }
+
+  ${media1200} {
+    padding: 20px 30px;
+  }
+
+  ${media500} {
+    padding: 20px;
   }
 `
 

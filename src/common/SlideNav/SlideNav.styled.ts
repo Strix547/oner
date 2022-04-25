@@ -33,7 +33,7 @@ export const Button = styled.button`
 export const SlidePrevButton = styled(Button)`
   left: 5px;
 
-  img {
+  svg {
     transform: rotate(-180deg);
   }
 `

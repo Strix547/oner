@@ -11,6 +11,7 @@ export const TextField = ({
   name,
   rules = { required: true },
   defaultValue,
+  onChange,
   ...props
 }: TextFieldProps) => {
   const { control } = useFormContext()
@@ -55,7 +56,21 @@ export const TextField = ({
       render={({ field, fieldState }) => {
         const { error } = fieldState
 
-        return <S.TextField {...props} {...field} error={Boolean(error?.type)} />
+        return (
+          <S.TextField
+            {...props}
+            {...field}
+            type={type}
+            error={Boolean(error?.type)}
+            onChange={(e) => {
+              if (onChange) {
+                onChange(e)
+              }
+
+              return field.onChange(e)
+            }}
+          />
+        )
       }}
     />
   )

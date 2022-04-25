@@ -9,6 +9,7 @@ import { SlideNav } from 'common'
 import * as S from './MainSlider.styled'
 
 import productImg from 'public/img/main-slider/product.png'
+
 import SliderMaskBg from 'public/img/main-slider/slider-mask.svg'
 import SliderMaskTabletBg from 'public/img/main-slider/slider-mask-tablet.svg'
 import SliderMaskMobileBg from 'public/img/main-slider/slider-mask-mobile.svg'
@@ -33,19 +34,17 @@ export const MainSlider = () => {
           <Image src={productImg} />
         </S.SlideImg>
 
-        <S.Background>
-          <S.SliderMaskDesk>
-            <Image src={SliderMaskBg} layout="fixed" height={420} />
-          </S.SliderMaskDesk>
+        <S.BackgroundDesk>
+          <SliderMaskBg />
+        </S.BackgroundDesk>
 
-          <S.SliderMaskTablet>
-            <Image src={SliderMaskTabletBg} layout="responsive" />
-          </S.SliderMaskTablet>
+        <S.BackgroundTablet>
+          <SliderMaskTabletBg />
+        </S.BackgroundTablet>
 
-          <S.SliderMaskMobile>
-            <Image src={SliderMaskMobileBg} layout="responsive" />
-          </S.SliderMaskMobile>
-        </S.Background>
+        <S.BackgroundMobile>
+          <SliderMaskMobileBg />
+        </S.BackgroundMobile>
       </S.Slide>
     </SwiperSlide>
   )
@@ -59,13 +58,9 @@ export const MainSlider = () => {
         slidesPerView={1}
         spaceBetween={20}
         onInit={({ params, navigation }) => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          // eslint-disable-next-line no-param-reassign
           params.navigation.prevEl = prevRef.current
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          // eslint-disable-next-line no-param-reassign
           params.navigation.nextEl = nextRef.current
           navigation.init()
           navigation.update()

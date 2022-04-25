@@ -35,11 +35,22 @@ export type VerifyCode = UseMutationResult<
   unknown
 >
 
-export type LoginPhone = UseMutationResult<AxiosResponse<any, any>, unknown, string, unknown>
+export type PhoneLogin = UseMutationResult<AxiosResponse<any, any>, unknown, string, unknown>
+export type EmailLogin = UseMutationResult<
+  { accessToken: string; refreshToken: string },
+  unknown,
+  { email: string; password: string },
+  unknown
+>
 
 export interface ConfirmCode {
   phone: string
   code: string
+}
+
+export interface OnTokenCreate {
+  accessToken: string
+  refreshToken: string
 }
 
 export interface AuthContextType {
@@ -49,7 +60,8 @@ export interface AuthContextType {
   isTokenCreating: boolean
   signUp: (data: SignUpData) => void
   verifyCode: VerifyCode
-  loginPhone: LoginPhone
+  phoneLogin: PhoneLogin
+  emailLogin: EmailLogin
   confirmCode: ({ phone, code }: ConfirmCode) => Promise<void>
   logout: () => void
 }

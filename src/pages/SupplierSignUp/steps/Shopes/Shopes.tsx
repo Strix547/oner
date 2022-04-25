@@ -147,7 +147,7 @@ export const ShopesStep = ({ onShopImagesChange }: ShopesStepProps) => {
 
       <PhoneField name="shopes.phone" />
       <EmailField name="shopes.email" />
-      <TextField name="shopes.howToFindUs" label='Описание для покупателя "Как нас найти"' />
+      <TextField name="shopes.howToFindUs" label='Описание "Как нас найти"' />
 
       <ImagesDropzone onChange={onShopImagesChange} />
 
