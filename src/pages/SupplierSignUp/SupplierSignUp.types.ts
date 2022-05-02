@@ -1,9 +1,5 @@
 import { FileWithPath } from 'react-dropzone'
 
-export interface ImageFile extends FileWithPath {
-  preview: string | ArrayBuffer | null
-}
-
 interface PersonalDataFields {
   lastName: string
   firstName: string
@@ -53,6 +49,11 @@ interface ShopesFields {
   email: string
   howToFindUs: string
   addressCoords: [number, number]
+}
+
+export interface ImageFile extends FileWithPath {
+  preview: string | ArrayBuffer | null
+  webkitRelativePath: string
 }
 
 interface PriceListInformationFields {

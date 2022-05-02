@@ -14,10 +14,11 @@ import * as S from './StepFields.styled'
 
 interface StepFieldsProps {
   step: number
+  shopImages: ImageFile[]
   onShopImagesChange: (images: ImageFile[]) => void
 }
 
-export const StepFields = ({ step, onShopImagesChange }: StepFieldsProps) => {
+export const StepFields = ({ step, shopImages, onShopImagesChange }: StepFieldsProps) => {
   const getStepContent = (step: number) => {
     switch (step) {
       case 0:
@@ -29,7 +30,7 @@ export const StepFields = ({ step, onShopImagesChange }: StepFieldsProps) => {
       case 3:
         return <DeliveryTypesStep />
       case 4:
-        return <ShopesStep onShopImagesChange={onShopImagesChange} />
+        return <ShopesStep shopImages={shopImages} onShopImagesChange={onShopImagesChange} />
       case 5:
         return <PriceListInformationStep />
       case 6:

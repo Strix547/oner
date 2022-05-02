@@ -1,7 +1,6 @@
 import { Fragment, forwardRef } from 'react'
 import Link from 'next/link'
 import Typography from '@mui/material/Typography'
-import InfiniteScroll from 'react-infinite-scroller'
 
 import { useAuth } from 'hooks'
 import { Message, DialogMessage, MessagesByDay } from '../types'
@@ -12,13 +11,11 @@ type Ref = HTMLDivElement | null
 
 interface ChatMessagesContainerProps {
   messages: Message[]
-  hasMoreMessages: boolean
-  onLoadMore: () => void
 }
 
 // eslint-disable-next-line react/display-name
 export const ChatMessagesContainer = forwardRef<Ref, ChatMessagesContainerProps>(
-  ({ messages, hasMoreMessages, onLoadMore }, ref) => {
+  ({ messages }, ref) => {
     const { user } = useAuth()
 
     const dialogMessages: DialogMessage[] = messages.map(
@@ -108,16 +105,7 @@ export const ChatMessagesContainer = forwardRef<Ref, ChatMessagesContainerProps>
 
     return (
       <S.ChatMessagesContainer ref={ref}>
-        <InfiniteScroll
-          pageStart={1}
-          loadMore={onLoadMore}
-          hasMore={hasMoreMessages}
-          useWindow={false}
-          initialLoad={false}
-          isReverse
-        >
-          <S.MessagesList>{createMessagesByDayItems(messagesSplitedByDay)}</S.MessagesList>
-        </InfiniteScroll>
+        <S.MessagesList>{createMessagesByDayItems(messagesSplitedByDay)}</S.MessagesList>
       </S.ChatMessagesContainer>
     )
   }

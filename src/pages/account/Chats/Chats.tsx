@@ -1,7 +1,6 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
 import { useQuery } from 'react-query'
-import { useState } from 'react'
 
 import { PageLayout, AccountLayout } from 'components'
 import { Chat } from 'components/chat'
@@ -11,16 +10,17 @@ import { chatAPI } from 'api'
 import * as S from './Chats.styled'
 
 export const AccountChatsPage: NextPage = () => {
-  const [chatsPage, setChatsPage] = useState(1)
-  const { data: chats } = useQuery(['chats', chatsPage], () => chatAPI.fetchChats(chatsPage))
+  const { data: chats = [], isLoading: isChatsLoading } = useQuery('chats', chatAPI.fetchChats)
 
   return (
     <S.AccountChatsPage>
-      <Head>Мои чаты</Head>
+      <Head>
+        <title>Мои чаты</title>
+      </Head>
 
       <PageLayout>
-        <AccountLayout title="Персональная информация">
-          <Chat chats={chats?.results || []} />
+        <AccountLayout title="Мои чаты">
+          <Chat chats={chats} isLoading={isChatsLoading} />
         </AccountLayout>
       </PageLayout>
     </S.AccountChatsPage>

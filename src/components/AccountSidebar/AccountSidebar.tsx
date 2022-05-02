@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import Image from 'next/image'
 
 import { ROUTE_NAMES } from 'core'
 import { useAuth } from 'hooks'
@@ -14,7 +13,11 @@ import CreditCardIcon from 'public/icons/credit-card.svg'
 import ChatIcon from 'public/icons/chat-2.svg'
 import LogoutIcon from 'public/icons/logout.svg'
 
-export const AccountSidebar = () => {
+interface AccountSidebarProps {
+  onNavSelect?: () => void
+}
+
+export const AccountSidebar = ({ onNavSelect }: AccountSidebarProps) => {
   const { pathname } = useRouter()
   const { logout } = useAuth()
 
@@ -40,7 +43,7 @@ export const AccountSidebar = () => {
 
   const navLinkItems = nav.map(({ label, href, icon }) => {
     return (
-      <S.LinkItem key={href} active={href === pathname}>
+      <S.LinkItem key={href} active={href === pathname} onClick={onNavSelect}>
         <Link href={href} passHref>
           <a>
             {icon}

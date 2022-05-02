@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 
+import { createMedia } from 'styled/media'
 import { Wrapper } from 'styled/components'
+
+const media1200 = createMedia(1200)
 
 export { Wrapper }
 
@@ -23,4 +26,8 @@ export const PageLayout = styled.div`
 export const Content = styled.div`
   padding-top: 30px;
   padding-bottom: 60px;
+
+  ${media1200} {
+    padding-bottom: 40px;
+  }
 `

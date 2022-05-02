@@ -7,9 +7,12 @@ interface StepNavProps {
   loading: boolean
   isShopAdded: boolean
   onPrevStep: () => void
+  onNextStep: () => void
 }
 
-export const StepNav = ({ step, loading, isShopAdded, onPrevStep }: StepNavProps) => {
+export const StepNav = ({ step, loading, isShopAdded, onPrevStep, onNextStep }: StepNavProps) => {
+  const isShopStep = step === 4
+
   return (
     <S.StepNav>
       {/* {step !== 0 && step !== 1 && (
@@ -19,7 +22,16 @@ export const StepNav = ({ step, loading, isShopAdded, onPrevStep }: StepNavProps
       )} */}
 
       {step !== 6 ? (
-        <S.StepNextButton type="submit" loading={loading} disabled={!isShopAdded && step === 4}>
+        <S.StepNextButton
+          type={isShopStep ? undefined : 'submit'}
+          loading={loading}
+          disabled={isShopStep && !isShopAdded}
+          onClick={() => {
+            if (isShopStep && isShopAdded) {
+              onNextStep()
+            }
+          }}
+        >
           <span>Далее</span> <SignRightIcon />
         </S.StepNextButton>
       ) : (

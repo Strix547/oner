@@ -65,7 +65,6 @@ export const Autocomplete = styled.div<Autocomplete>`
       background-color: #fff;
       color: var(--color-black);
       line-height: 20px;
-      overflow: auto;
 
       ${scrollStyles()}
     }

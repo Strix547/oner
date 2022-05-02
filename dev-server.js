@@ -13,7 +13,7 @@ app.prepare().then(() => {
   server.use(
     '/api',
     createProxyMiddleware({
-      target: 'http://oner.ru',
+      target: 'http://api.oner.ru',
       changeOrigin: true
     })
   )

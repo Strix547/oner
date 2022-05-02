@@ -5,11 +5,19 @@ import { scrollStyles } from 'styled/scroll'
 export const ChatList = styled.ul`
   width: 280px;
   height: 100%;
-  padding: 10px 10px 0 10px;
+  padding: 10px;
   border-right: 1px solid #e3e3e8;
   box-sizing: border-box;
 
   ${scrollStyles('gray')}
+
+  & > p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-weight: 400;
+  }
 `
 
 export const Item = styled.li`

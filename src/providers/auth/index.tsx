@@ -23,7 +23,11 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     setAuth(true)
   }
 
-  const { data: user, refetch: getMe } = useQuery('me', accountAPI.fetchMe, {
+  const {
+    data: user,
+    refetch: getMe,
+    isLoading: isAccountLoading
+  } = useQuery('me', accountAPI.fetchMe, {
     onSuccess: () => {
       setAuth(true)
     },
@@ -118,6 +122,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     () => ({
       isAuth,
       user,
+      isAccountLoading,
       signUpProcessing,
       isTokenCreating,
       signUp,
@@ -130,6 +135,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     [
       isAuth,
       user,
+      isAccountLoading,
       signUpProcessing,
       isTokenCreating,
       signUp,

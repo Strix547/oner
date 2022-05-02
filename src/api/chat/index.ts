@@ -1,18 +1,19 @@
 import { API } from 'core'
 
+import { withBasePath } from 'utils'
+
 import {
-  FetchChatsRes,
   CreateChatReq,
   Chat,
   FetchChatMessagesRes,
   CreateMessageReq,
   FetchChatMessagesReq,
-  MessageRes
+  Message
 } from './types'
 
 const rootPath = '/chat'
 
-const transformMessages = (messages: MessageRes[]) => {
+const transformMessages = (messages: Message[]) => {
   return messages.map((messageItem) => {
     const {
       id,
@@ -33,7 +34,29 @@ const transformMessages = (messages: MessageRes[]) => {
       dateTime,
       message,
       isRead,
-      file
+      file: file && withBasePath(file)
+    }
+  })
+}
+
+const transformChats = (chats: Chat[]) => {
+  return chats.map((chat) => {
+    const {
+      id,
+      is_active: isActive,
+      messages,
+      order: orderId,
+      title,
+      unread_msgs_count: unreadMessNumber
+    } = chat
+
+    return {
+      id,
+      orderId,
+      title,
+      isActive,
+      unreadMessNumber,
+      messages: transformMessages(messages).reverse()
     }
   })
 }
@@ -51,29 +74,10 @@ export const fetchChatMessages = async ({ chatId, page }: FetchChatMessagesReq) 
   }
 }
 
-export const fetchChats = async (page: number) => {
-  const {
-    data: { results: chats, ...rest }
-  } = await API.get<FetchChatsRes>(`${rootPath}/chat/`, { params: { page } })
+export const fetchChats = async () => {
+  const { data: chats } = await API.get<Chat[]>(`${rootPath}/chat/`)
 
-  const chatsWithMessages = await Promise.all(
-    chats.map(async ({ id, order, title, is_active }) => {
-      const { results: messages } = await fetchChatMessages({ chatId: id, page: 1 })
-
-      return {
-        id,
-        orderId: order,
-        title,
-        isActive: is_active,
-        messages
-      }
-    })
-  )
-
-  return {
-    ...rest,
-    results: chatsWithMessages
-  }
+  return transformChats(chats)
 }
 
 export const createChat = ({ orderId, title, isActive }: CreateChatReq) => {
@@ -84,7 +88,31 @@ export const fetchChat = (ticketId: number) => {
   return API.get<Chat>(`${rootPath}/${ticketId}/`)
 }
 
-export const createMassage = ({ chatId, message, file }: CreateMessageReq) => {
+export const createMassage = async ({ chatId, message, file }: CreateMessageReq) => {
+  const transformMessage = (mess: Message) => {
+    const {
+      id,
+      message,
+      timestamp: dateTime,
+      is_read: isRead,
+      ticket: chatId,
+      sender: senderId,
+      receiver: receiverId,
+      file
+    } = mess
+
+    return {
+      id,
+      chatId,
+      senderId,
+      receiverId,
+      dateTime,
+      message,
+      isRead,
+      file
+    }
+  }
+
   const formData = new FormData()
   formData.append('message', message)
   formData.append('ticket', String(chatId))
@@ -93,11 +121,13 @@ export const createMassage = ({ chatId, message, file }: CreateMessageReq) => {
     formData.append('file', file)
   }
 
-  return API.post(`${rootPath}/message/`, formData, {
+  const { data: newMessage } = await API.post<Message>(`${rootPath}/message/`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
   })
+
+  return transformMessage(newMessage)
 }
 
 export const readMessage = (id: number, chatId: number, message: string) => {

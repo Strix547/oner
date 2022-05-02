@@ -1,4 +1,5 @@
 import Typography from '@mui/material/Typography'
+import Skeleton from 'react-loading-skeleton'
 
 import * as S from './List.styled'
 
@@ -14,10 +15,11 @@ interface ChatItem {
 
 interface ChatListProps {
   chats?: ChatItem[]
+  isLoading: boolean
   onChatOpen: (id: number) => void
 }
 
-export const ChatList = ({ chats, onChatOpen }: ChatListProps) => {
+export const ChatList = ({ chats, isLoading, onChatOpen }: ChatListProps) => {
   const chatItems = chats?.map(({ id, title, unreadMessNumber, lastMessage }) => {
     const { message = '', dateTime = '' } = lastMessage || {}
 
@@ -35,14 +37,32 @@ export const ChatList = ({ chats, onChatOpen }: ChatListProps) => {
 
         {message && <Typography>{message}</Typography>}
 
-        {/* {unreadMessNumber !== 0 && (
+        {unreadMessNumber !== 0 && (
           <S.UnreadMessageCounter>
             <span>{unreadMessNumber}</span>
           </S.UnreadMessageCounter>
-        )} */}
+        )}
       </S.Item>
     )
   })
 
-  return <S.ChatList>{chatItems}</S.ChatList>
+  if (isLoading) {
+    return (
+      <S.ChatList>
+        <Skeleton height="100%" />
+      </S.ChatList>
+    )
+  }
+
+  return (
+    <S.ChatList>
+      {chatItems?.length ? (
+        chatItems
+      ) : (
+        <Typography variant="h4" component="p">
+          Чаты отсутствуют
+        </Typography>
+      )}
+    </S.ChatList>
+  )
 }

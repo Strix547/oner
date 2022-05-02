@@ -25,7 +25,7 @@ export const SupplierSignUpPage: NextPage = () => {
 
   const [shopImages, setShopImages] = useState<ImageFile[]>([])
   const [isShopAdded, setShopAdded] = useState(false)
-  const [step, setStep] = useState(6)
+  const [step, setStep] = useState(4)
   const [isVerifySMSModalOpen, setVerifySMSModalOpen] = useState(false)
 
   const signUpMethods = useSupplierSignUp()
@@ -127,6 +127,7 @@ export const SupplierSignUpPage: NextPage = () => {
         break
       case 4:
         const { name, address, addressCoords, phone, email, howToFindUs } = shopes
+
         await addStore.mutateAsync({
           userId,
           name,
@@ -135,13 +136,11 @@ export const SupplierSignUpPage: NextPage = () => {
           phone,
           email,
           lat: addressCoords[0],
-          lng: addressCoords[1]
+          lng: addressCoords[1],
+          images: shopImages
         })
         setShopAdded(true)
 
-        if (isShopAdded) {
-          setStep(5)
-        }
         break
 
       case 5:
@@ -175,13 +174,16 @@ export const SupplierSignUpPage: NextPage = () => {
               <Typography component="span">Шаг {step + 1} из 7</Typography>
             </S.StepTop>
 
-            <StepFields step={step} onShopImagesChange={setShopImages} />
+            <StepFields step={step} shopImages={shopImages} onShopImagesChange={setShopImages} />
 
             <StepNav
               step={step}
               loading={isStepLoading}
               isShopAdded={isShopAdded}
               onPrevStep={onPrevStep}
+              onNextStep={() => {
+                setStep(step + 1)
+              }}
             />
           </S.StepBoxForm>
         </FormProvider>

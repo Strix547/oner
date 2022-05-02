@@ -1,4 +1,4 @@
-import { useState, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { FileWithPath, useDropzone } from 'react-dropzone'
 
 import * as S from './ImagesDropzone.styled'
@@ -8,32 +8,33 @@ import PlusIcon from 'public/icons/plus.svg'
 
 interface ImageFile extends FileWithPath {
   preview: string | ArrayBuffer | null
+  webkitRelativePath: string
 }
 
 interface ImagesDropzoneProps {
-  onChange: (files: ImageFile[]) => void
+  images: ImageFile[]
+  onChange: (images: ImageFile[]) => void
 }
 
-export const ImagesDropzone = ({ onChange }: ImagesDropzoneProps) => {
-  const [images, setImages] = useState<ImageFile[]>([])
-
+export const ImagesDropzone = ({ images = [], onChange }: ImagesDropzoneProps) => {
   const { getRootProps, getInputProps } = useDropzone({
-    accept: 'image/*',
-    onDrop: (files) => {
+    accept: '.jpg,.png',
+    multiple: false,
+    onDrop: (files: File[]) => {
       files.forEach((file) => {
+        const isDuplicate = images.some((img) => img.name === file.name)
+
+        if (isDuplicate) return
+
         const reader = new FileReader()
         reader.readAsDataURL(file)
 
         reader.addEventListener('load', () => {
-          const withNewImage = [
-            ...images,
-            Object.assign(file, {
-              preview: reader.result
-            })
-          ]
+          const imageWithPreview = Object.assign(file, {
+            preview: reader.result
+          })
 
-          setImages(withNewImage)
-          onChange(withNewImage)
+          onChange([...images, imageWithPreview])
         })
       })
     }
@@ -41,7 +42,7 @@ export const ImagesDropzone = ({ onChange }: ImagesDropzoneProps) => {
 
   const removeImageFromList = (images: ImageFile[], name: string) => {
     const withRemoved = images.filter((image) => image.name !== name)
-    setImages(withRemoved)
+    onChange(withRemoved)
   }
 
   const renderImagePreviewItems = (files: ImageFile[]): ReactNode => {

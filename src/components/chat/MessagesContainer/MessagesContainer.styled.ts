@@ -75,8 +75,7 @@ export const FileContainer = styled.div``
 
 export const MessageImg = styled.div`
   img {
-    max-width: 100%;
-    height: auto;
+    max-height: 200px;
   }
 `
 

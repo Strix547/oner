@@ -1,33 +1,21 @@
 import { useState, useMemo } from 'react'
-import { FileWithPath } from 'react-dropzone'
 import { YMaps, Map, YMapsApi, Placemark } from 'react-yandex-maps'
 import { useFormContext } from 'react-hook-form'
 
-import {
-  TextField,
-  PhoneField,
-  EmailField,
-  ImagesDropzone,
-  Button,
-  Skeleton,
-  AddressSugest
-} from 'ui'
+import { TextField, PhoneField, EmailField, ImagesDropzone, Button, Skeleton } from 'ui'
 
-import { FormFields } from 'pages/SupplierSignUp/SupplierSignUp.types'
+import { FormFields, ImageFile } from 'pages/SupplierSignUp/SupplierSignUp.types'
 
 import * as S from './Shopes.styled'
 
 import markerImg from 'public/img/marker.png'
 
-interface ImageFile extends FileWithPath {
-  preview: string | ArrayBuffer | null
-}
-
 interface ShopesStepProps {
+  shopImages: ImageFile[]
   onShopImagesChange: (files: ImageFile[]) => void
 }
 
-export const ShopesStep = ({ onShopImagesChange }: ShopesStepProps) => {
+export const ShopesStep = ({ shopImages, onShopImagesChange }: ShopesStepProps) => {
   const { setValue, reset, getValues } = useFormContext<FormFields>()
   const defaultCoords: [number, number] = [55.751574, 37.573856]
 
@@ -89,6 +77,7 @@ export const ShopesStep = ({ onShopImagesChange }: ShopesStepProps) => {
     })
     setMarkCoord(defaultCoords)
     setMap({ ...map, center: defaultCoords })
+    onShopImagesChange([])
   }
 
   return (
@@ -149,7 +138,7 @@ export const ShopesStep = ({ onShopImagesChange }: ShopesStepProps) => {
       <EmailField name="shopes.email" />
       <TextField name="shopes.howToFindUs" label='Описание "Как нас найти"' />
 
-      <ImagesDropzone onChange={onShopImagesChange} />
+      <ImagesDropzone images={shopImages} onChange={onShopImagesChange} />
 
       <S.ButtonsRow>
         <Button type="submit">Сохранить</Button>

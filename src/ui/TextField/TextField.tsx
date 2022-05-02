@@ -37,6 +37,10 @@ export const TextField = ({
             <S.TextField
               {...props}
               {...field}
+              InputLabelProps={{
+                ...props.InputLabelProps,
+                shrink: Boolean(field.value)
+              }}
               error={Boolean(error?.type)}
               onChange={(e) => field.onChange(transform.output(e))}
               value={transform.input(field.value)}
@@ -60,6 +64,10 @@ export const TextField = ({
           <S.TextField
             {...props}
             {...field}
+            InputLabelProps={{
+              ...props.InputLabelProps,
+              shrink: Boolean(field.value)
+            }}
             type={type}
             error={Boolean(error?.type)}
             onChange={(e) => {

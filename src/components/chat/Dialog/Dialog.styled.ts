@@ -60,6 +60,7 @@ export const DialogueEnded = styled.div`
   padding-left: 20px;
   border-top: 1px solid #e3e3e8;
   background: #f4f5f7;
+  box-sizing: border-box;
 `
 
 export const SupportLink = styled.a`

@@ -1,44 +1,24 @@
-import { AxiosResponse } from 'axios'
 import { API } from 'core'
 
 import {
-  AddPersonalData,
   AddPersonalDataReq,
   AddPersonalDataRes,
   PersonalData,
-  AddCompanyData,
+  AddCompanyDataReq,
   CompanyEnum,
-  SupplierData,
-  DeliveryData,
+  AddSupplierDataReq,
+  AddDeliveryDataReq,
   DeliveryType,
   DeliveryEnum,
   CompanyType,
   Conclusion,
   PriceList,
-  Store
+  AddStoreReq,
+  AddStoreRes,
+  AddStoreImgReq
 } from './supplier.types'
 
 const root = '/account/supplier'
-
-const transformPersonalData = (data: AddPersonalDataRes): PersonalData => {
-  const {
-    id: userId,
-    first_name: firstName,
-    middle_name: middleName,
-    last_name: lastName,
-    phone,
-    email
-  } = data
-
-  return {
-    userId: userId,
-    firstName,
-    middleName,
-    lastName,
-    phone,
-    email
-  }
-}
 
 export const addPersonalData = async ({
   firstName,
@@ -46,18 +26,34 @@ export const addPersonalData = async ({
   lastName,
   email,
   phone
-}: AddPersonalData) => {
-  const { data: personalData } = await API.post<
-    AddPersonalDataRes,
-    AxiosResponse<AddPersonalDataRes, AddPersonalDataReq>,
-    AddPersonalDataReq
-  >('/account/register-supplier/', {
+}: AddPersonalDataReq) => {
+  const { data: personalData } = await API.post<AddPersonalDataRes>('/account/register-supplier/', {
     first_name: firstName,
     middle_name: middleName,
     last_name: lastName,
     phone,
     email
   })
+
+  const transformPersonalData = (data: AddPersonalDataRes): PersonalData => {
+    const {
+      id: userId,
+      first_name: firstName,
+      middle_name: middleName,
+      last_name: lastName,
+      phone,
+      email
+    } = data
+
+    return {
+      userId: userId,
+      firstName,
+      middleName,
+      lastName,
+      phone,
+      email
+    }
+  }
 
   return transformPersonalData(personalData)
 }
@@ -70,7 +66,7 @@ export const addCompanyData = ({
   bik,
   checkingAccount,
   address
-}: AddCompanyData) => {
+}: AddCompanyDataReq) => {
   const getBackendType = (type: CompanyType) => {
     switch (type) {
       case 'ooo':
@@ -91,7 +87,7 @@ export const addCompanyData = ({
   })
 }
 
-export const addSupplierData = ({ userId, inStore, categories, brands }: SupplierData) => {
+export const addSupplierData = ({ userId, inStore, categories, brands }: AddSupplierDataReq) => {
   return API.post(`${root}-product-information/`, {
     user: userId,
     in_store: inStore,
@@ -100,7 +96,7 @@ export const addSupplierData = ({ userId, inStore, categories, brands }: Supplie
   })
 }
 
-export const addDeliveryData = ({ userId, delivery, pickup }: DeliveryData) => {
+export const addDeliveryData = ({ userId, delivery, pickup }: AddDeliveryDataReq) => {
   const getBackendDelivery = (delivery: DeliveryType) => {
     switch (delivery) {
       case 'oner':
@@ -117,8 +113,29 @@ export const addDeliveryData = ({ userId, delivery, pickup }: DeliveryData) => {
   })
 }
 
-export const addStore = ({ userId, name, address, desc, phone, email, lat, lng }: Store) => {
-  return API.post(`${root}-store/`, {
+export const addStoreImg = ({ storeId, images }: AddStoreImgReq) => {
+  const formData = new FormData()
+
+  formData.append('supplier_store_id', String(storeId))
+  images.forEach((img) => {
+    formData.append('image', img)
+  })
+
+  return API.post('/account/store-image', formData)
+}
+
+export const addStore = async ({
+  userId,
+  name,
+  address,
+  desc,
+  phone,
+  email,
+  lat,
+  lng,
+  images
+}: AddStoreReq) => {
+  const { data } = await API.post<AddStoreRes>(`${root}-store/`, {
     user: userId,
     name,
     address,
@@ -128,6 +145,10 @@ export const addStore = ({ userId, name, address, desc, phone, email, lat, lng }
     lat,
     lng
   })
+
+  if (images?.length) {
+    addStoreImg({ storeId: data.id, images })
+  }
 }
 
 export const addPriceListType = ({ userId, type }: PriceList) => {
@@ -137,5 +158,3 @@ export const addPriceListType = ({ userId, type }: PriceList) => {
 export const addConclusion = ({ userId, text }: Conclusion) => {
   return API.post(`${root}-conclusion/`, { user: userId, text })
 }
-
-export const addStoreImg = () => {}

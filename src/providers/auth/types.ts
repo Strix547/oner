@@ -56,6 +56,7 @@ export interface OnTokenCreate {
 export interface AuthContextType {
   isAuth: boolean
   user?: User
+  isAccountLoading: boolean
   signUpProcessing: boolean
   isTokenCreating: boolean
   signUp: (data: SignUpData) => void

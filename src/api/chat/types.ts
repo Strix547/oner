@@ -11,14 +11,7 @@ export interface CreateChatReq {
   isActive?: boolean
 }
 
-export interface Chat {
-  id: number
-  title: string
-  is_active: boolean
-  order: number
-}
-
-export interface MessageRes {
+export interface Message {
   id: number
   message: string
   timestamp: Date
@@ -29,9 +22,16 @@ export interface MessageRes {
   file: string | null
 }
 
-export type FetchChatsRes = ResponsePagination<Chat[]>
+export interface Chat {
+  id: number
+  title: string
+  is_active: boolean
+  order: number
+  unread_msgs_count: number
+  messages: Message[]
+}
 
-export type FetchChatMessagesRes = ResponsePagination<MessageRes[] | []>
+export type FetchChatMessagesRes = ResponsePagination<Message[] | []>
 
 export interface CreateMessageReq {
   chatId: number

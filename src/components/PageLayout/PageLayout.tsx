@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import Typography from '@mui/material/Typography'
 
 import { Header, Footer } from 'components'
@@ -6,10 +6,11 @@ import { Header, Footer } from 'components'
 import * as S from './PageLayout.styled'
 
 interface PageLayout {
+  children: React.ReactNode
   title?: string
 }
 
-export const PageLayout: FC<PageLayout> = ({ children, title }) => {
+export const PageLayout = ({ children, title }: PageLayout) => {
   return (
     <S.PageLayout>
       <Header />

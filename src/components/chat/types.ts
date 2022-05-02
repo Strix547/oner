@@ -32,5 +32,6 @@ export interface Chat {
   orderId: number
   title: string
   isActive: boolean
-  messages: Message[] | []
+  unreadMessNumber: number
+  messages: Message[]
 }

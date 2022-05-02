@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 import InputAdornment from '@mui/material/InputAdornment'
 
@@ -31,22 +31,30 @@ export const SupplierDataStep = () => {
   const [categoriesPage, setCategoriesPage] = useState(1)
   const [categoriesAll, setCategoriesAll] = useState<Category[]>([])
 
-  const { data: brands, isLoading: areBrandsLoading } = useQuery(
+  const { isLoading: areBrandsLoading } = useQuery(
     ['brands', brandsPage],
     () => brandsAPI.fetchBrands(brandsPage),
     {
-      onSuccess: ({ results }) => {
+      onSuccess: ({ next, results }) => {
         setBrandsAll([...brandsAll, ...results])
+
+        if (next) {
+          setBrandsPage(brandsPage + 1)
+        }
       }
     }
   )
 
-  const { data: categories, isLoading: areCategoriesLoading } = useQuery(
+  const { isLoading: areCategoriesLoading } = useQuery(
     ['categories', categoriesPage],
     () => categoriesAPI.fetchCategories(categoriesPage),
     {
-      onSuccess: ({ results }) => {
+      onSuccess: ({ next, results }) => {
         setCategoriesAll([...categoriesAll, ...results])
+
+        if (next) {
+          setCategoriesPage(categoriesPage + 1)
+        }
       }
     }
   )
@@ -60,29 +68,24 @@ export const SupplierDataStep = () => {
     deleteIcon: <CrossIcon />
   }
 
-  const incrementPageOnScrollEnd = (
-    { currentTarget }: React.SyntheticEvent,
-    hasMore: boolean,
-    onScrollEnd: () => void
-  ) => {
-    const { scrollTop, clientHeight, scrollHeight } = currentTarget
-
-    if (scrollTop + clientHeight === scrollHeight && hasMore) {
-      onScrollEnd()
-    }
-  }
-
   return (
     <>
       <S.MultipleAutocomplete>
         <Autocomplete
           multiple
           filterSelectedOptions
+          disableCloseOnSelect
           name="supplier.categories"
           loading={areCategoriesLoading}
           options={categoriesAll}
           ChipProps={ChipProps}
-          getOptionLabel={({ title }) => title}
+          getOptionLabel={(category) => {
+            if (typeof category !== 'string') {
+              return category.title
+            }
+
+            return ''
+          }}
           renderInput={(props) => (
             <S.TextField
               {...props}
@@ -98,16 +101,6 @@ export const SupplierDataStep = () => {
               }}
             />
           )}
-          PaperComponent={(props) => (
-            <div
-              {...props}
-              onScroll={(e) =>
-                incrementPageOnScrollEnd(e, Boolean(categories?.next), () => {
-                  setCategoriesPage(categoriesPage + 1)
-                })
-              }
-            />
-          )}
         />
       </S.MultipleAutocomplete>
 
@@ -115,10 +108,17 @@ export const SupplierDataStep = () => {
         <Autocomplete
           multiple
           filterSelectedOptions
+          disableCloseOnSelect
           name="supplier.brands"
           loading={areBrandsLoading}
           options={brandsAll}
-          getOptionLabel={({ name }) => name}
+          getOptionLabel={(brand) => {
+            if (typeof brand !== 'string') {
+              return brand.name
+            }
+
+            return ''
+          }}
           ChipProps={ChipProps}
           renderInput={(props) => (
             <S.TextField
@@ -133,16 +133,6 @@ export const SupplierDataStep = () => {
                   </InputAdornment>
                 )
               }}
-            />
-          )}
-          PaperComponent={(props) => (
-            <div
-              {...props}
-              onScroll={(e) =>
-                incrementPageOnScrollEnd(e, Boolean(brands?.next), () => {
-                  setBrandsPage(brandsPage + 1)
-                })
-              }
             />
           )}
         />

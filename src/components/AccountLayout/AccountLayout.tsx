@@ -1,28 +1,53 @@
-import { FC } from 'react'
+import { useState } from 'react'
 import Typography from '@mui/material/Typography'
+import Skeleton from 'react-loading-skeleton'
 
 import { AccountSidebar } from 'components'
 
+import { useAuth } from 'hooks'
+
 import * as S from './AccountLayout.styled'
+
+import ArrowRightIcon from 'public/icons/arrows/sign-right.svg'
 
 interface AccountLayoutProps {
   title: string
   endAdornment?: React.ReactNode
+  children: React.ReactNode
 }
 
-export const AccountLayout: FC<AccountLayoutProps> = ({ title, endAdornment, children }) => {
+export const AccountLayout = ({ title, endAdornment, children }: AccountLayoutProps) => {
+  const { isAccountLoading } = useAuth()
+  const [isMenuOpen, setMenuOpen] = useState(false)
+
   return (
     <S.AccountLayout>
-      <AccountSidebar />
+      <S.BackToMenuButton
+        variant="text"
+        onClick={() => {
+          setMenuOpen(true)
+        }}
+      >
+        <ArrowRightIcon />
+        Назад в меню
+      </S.BackToMenuButton>
 
-      <S.Content>
-        <S.Top>
-          <Typography variant="h2">{title}</Typography>
+      <S.Content isMenuOpen={isMenuOpen}>
+        <AccountSidebar
+          onNavSelect={() => {
+            setMenuOpen(false)
+          }}
+        />
 
-          {endAdornment && <S.TopRight>{endAdornment}</S.TopRight>}
-        </S.Top>
+        <S.Right>
+          <S.Top>
+            <Typography variant="h2">{title}</Typography>
 
-        {children}
+            {endAdornment && <S.TopRight>{endAdornment}</S.TopRight>}
+          </S.Top>
+
+          {!isAccountLoading ? children : <Skeleton height={336} />}
+        </S.Right>
       </S.Content>
     </S.AccountLayout>
   )

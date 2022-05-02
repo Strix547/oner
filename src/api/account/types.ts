@@ -6,3 +6,10 @@ export interface Me {
   phone: string
   email: string
 }
+
+export interface ChangeMeReq {
+  firstName: string
+  middleName: string
+  lastName: string
+  phone: string
+}

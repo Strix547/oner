@@ -43,6 +43,10 @@ export const PhoneField = ({
                 label="Телефон"
                 {...props}
                 {...inputProps}
+                InputLabelProps={{
+                  ...props.InputLabelProps,
+                  shrink: Boolean(value)
+                }}
                 type="tel"
                 name={name}
                 error={Boolean(error?.type)}

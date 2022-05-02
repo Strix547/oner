@@ -37,6 +37,10 @@ export const SendButton = styled(Button)`
   height: 40px;
   bottom: 3px;
   right: 3px;
+
+  .circular-progress {
+    color: #fff;
+  }
 `
 
 export const Attachments = styled.div`

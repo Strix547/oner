@@ -71,6 +71,7 @@ export const ButtonsRow = styled.div`
 
 export const Map = styled.div`
   margin-bottom: 20px;
+  overflow: hidden;
 
   ${Skeleton} {
     height: 240px;

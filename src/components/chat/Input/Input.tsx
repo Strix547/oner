@@ -1,5 +1,6 @@
-import { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent, useRef } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
+import CircularProgress from '@mui/material/CircularProgress'
 
 import { TextField } from 'ui'
 
@@ -18,29 +19,17 @@ interface Fields {
 }
 
 interface ChatInputProps {
-  onMessageSubmit: ({ message, file }: NewMessage) => void
+  isMessageSending: boolean
+  onMessageSubmit: (message: string, file: File | null) => void
 }
 
-export const ChatInput = ({ onMessageSubmit }: ChatInputProps) => {
+export const ChatInput = ({ isMessageSending, onMessageSubmit }: ChatInputProps) => {
   const useFormProps = useForm<Fields>()
   const { handleSubmit, reset, getValues } = useFormProps
   const [fileCliped, setFileCliped] = useState<File | null>(null)
 
-  const onSendMessage = ({ message }: NewMessage) => {
-    if (!message?.length) return
-
-    onMessageSubmit({ message, file: fileCliped })
-
-    reset({
-      message: '',
-      file: undefined
-    })
-    setFileCliped(null)
-  }
-
-  const onFormSubmit = ({ message }: Fields) => {
-    onSendMessage({ message, file: fileCliped })
-  }
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const imgInputRef = useRef<HTMLInputElement>(null)
 
   const onFileUpload = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const { files } = target
@@ -48,6 +37,32 @@ export const ChatInput = ({ onMessageSubmit }: ChatInputProps) => {
     if (files?.length) {
       setFileCliped(files[0])
     }
+  }
+
+  const onSendMessage = ({ message }: NewMessage) => {
+    if (!message?.length) return
+
+    onMessageSubmit(message, fileCliped)
+
+    reset({
+      message: '',
+      img: undefined,
+      file: undefined
+    })
+
+    setFileCliped(null)
+
+    if (imgInputRef?.current) {
+      imgInputRef.current.files = new DataTransfer().files
+    }
+
+    if (fileInputRef?.current) {
+      fileInputRef.current.files = new DataTransfer().files
+    }
+  }
+
+  const onFormSubmit = ({ message }: Fields) => {
+    onSendMessage({ message, file: fileCliped })
   }
 
   return (
@@ -66,6 +81,10 @@ export const ChatInput = ({ onMessageSubmit }: ChatInputProps) => {
             id="file"
             name="file"
             type="file"
+            inputProps={{
+              accept: '.pdf',
+              ref: fileInputRef
+            }}
             style={{ display: 'none' }}
             onChange={onFileUpload}
           />
@@ -75,7 +94,8 @@ export const ChatInput = ({ onMessageSubmit }: ChatInputProps) => {
             name="img"
             type="file"
             inputProps={{
-              accept: 'image/*'
+              accept: '.png,.jpg',
+              ref: imgInputRef
             }}
             style={{ display: 'none' }}
             onChange={onFileUpload}
@@ -89,7 +109,7 @@ export const ChatInput = ({ onMessageSubmit }: ChatInputProps) => {
             onSendMessage(getValues())
           }}
         >
-          <TelegramIcon />
+          {!isMessageSending ? <TelegramIcon /> : <CircularProgress size={20} thickness={4.5} />}
         </S.SendButton>
       </S.ChatInput>
     </FormProvider>
