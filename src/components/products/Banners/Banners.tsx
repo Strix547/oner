@@ -20,7 +20,7 @@ export const ProductsBanners = () => {
     },
     {
       title: ['Шины зимние', 'дешевле'],
-      buttonText: 'Смотреть',
+      buttonText: 'Выбрать',
       link: '/',
       bg: wheelImg
     },
@@ -49,7 +49,9 @@ export const ProductsBanners = () => {
           </Typography>
 
           <Link href={link} passHref>
-            <ButtonWithArrow LinkComponent="a">{buttonText}</ButtonWithArrow>
+            <ButtonWithArrow LinkComponent="a">
+              <span>{buttonText}</span>
+            </ButtonWithArrow>
           </Link>
         </S.Banner>
       </SwiperSlide>

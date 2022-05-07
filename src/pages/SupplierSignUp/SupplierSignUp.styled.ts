@@ -1,14 +1,13 @@
 import styled from 'styled-components'
 
 import { Box } from 'styled/components'
-import { createMedia } from 'styled'
+import { media } from 'styled/media'
 
 import { RadioGroup, RadioGroupFormControlLabel } from 'ui/RadioGroup/RadioGroup.styled'
 import { Content } from 'components/PageLayout/PageLayout.styled'
 
-const media1200 = createMedia(1200)
-const media900 = createMedia(900)
-const media500 = createMedia(500)
+const media900 = media.createMedia(900)
+const media500 = media.createMedia(500)
 
 export const SupplierSignUpPage = styled.div`
   ${Content} {
@@ -18,7 +17,7 @@ export const SupplierSignUpPage = styled.div`
     align-items: flex-start;
   }
 
-  ${media1200} {
+  ${media.laptop} {
     ${Content} {
       grid-template-columns: auto 1fr;
     }
@@ -34,7 +33,7 @@ export const SupplierSignUpPage = styled.div`
 export const StepperBox = styled(Box)`
   padding: 40px 40px 39px 70px;
 
-  ${media1200} {
+  ${media.laptop} {
     padding: 20px 20px 20px 30px;
   }
 
@@ -54,7 +53,7 @@ export const StepBoxForm = styled(Box)`
     white-space: normal;
   }
 
-  ${media1200} {
+  ${media.laptop} {
     min-height: 500px;
   }
 
@@ -89,7 +88,7 @@ export const StepTop = styled.div`
     color: #7a7680;
   }
 
-  ${media1200} {
+  ${media.laptop} {
     padding: 20px 30px;
   }
 

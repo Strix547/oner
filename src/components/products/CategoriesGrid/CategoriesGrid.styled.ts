@@ -1,9 +1,6 @@
 import styled from 'styled-components'
 
-import { createMedia } from 'styled'
-
-const media1200 = createMedia(1200)
-const media750 = createMedia(750)
+import { media } from 'styled/media'
 
 export const ProductsCategoriesGrid = styled.ul`
   display: grid;
@@ -14,12 +11,12 @@ export const ProductsCategoriesGrid = styled.ul`
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 
-  ${media1200} {
+  ${media.laptop} {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(6, 100px);
   }
 
-  ${media750} {
+  ${media.tablet} {
     grid-template-rows: repeat(6, auto);
     grid-gap: 10px;
     box-shadow: none;
@@ -98,7 +95,7 @@ export const SectionItem = styled.li`
     box-sizing: border-box;
   }
 
-  ${media750} {
+  ${media.tablet} {
     background: #fff;
     box-shadow: 0px 4px 10px rgba(46, 16, 102, 0.05);
     border-radius: 10px;
@@ -120,7 +117,7 @@ export const Icon = styled.div`
   width: 48px;
   height: 48px;
 
-  ${media750} {
+  ${media.tablet} {
     width: 40px;
     height: 40px;
   }
@@ -133,7 +130,7 @@ export const Right = styled.div`
     transition: 0.3s;
   }
 
-  ${media750} {
+  ${media.tablet} {
     margin-left: 0;
     margin-top: 15px;
 
@@ -150,7 +147,7 @@ export const Amount = styled.p`
   line-height: 18px;
   color: #505255;
 
-  ${media750} {
+  ${media.tablet} {
     margin-top: 5px;
   }
 `
@@ -177,7 +174,7 @@ export const ForSuppliersItem = styled(SectionItem)`
     }
   }
 
-  ${media750} {
+  ${media.tablet} {
     ${Right} {
       h4 {
         font-size: 18px;
@@ -195,7 +192,7 @@ export const ForSuppliersItemArrow = styled.div`
   right: 20px;
   bottom: 20px;
 
-  ${media750} {
+  ${media.tablet} {
     right: 10px;
     bottom: 10px;
   }

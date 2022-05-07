@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
-import { createMedia } from 'styled'
+import { media } from 'styled/media'
 import { Box } from 'styled/components'
 
-const media500 = createMedia(500)
+const media500 = media.createMedia(500)
 
 export { Box }
 

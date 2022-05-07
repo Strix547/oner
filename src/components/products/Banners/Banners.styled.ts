@@ -1,11 +1,8 @@
 import styled from 'styled-components'
 
-import { createMedia } from 'styled'
+import { media } from 'styled/media'
 
 import { ButtonWithArrow } from 'common/buttons/WithArrow/WithArrow.styled'
-
-const media760 = createMedia(760)
-const media470 = createMedia(470)
 
 export const ProductsBanners = styled.section`
   position: relative;
@@ -21,13 +18,13 @@ export const ProductsBanners = styled.section`
     }
   }
 
-  ${media760} {
+  ${media.tablet} {
     .swiper-slide {
       height: 180px;
     }
   }
 
-  ${media470} {
+  ${media.mobile} {
     .swiper-slide {
       width: 203px;
     }
@@ -48,9 +45,13 @@ export const Banner = styled.div`
 
   ${ButtonWithArrow} {
     margin-top: 20px;
+
+    span:first-child {
+      padding-top: 2px;
+    }
   }
 
-  ${media760} {
+  ${media.tablet} {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -65,7 +66,7 @@ export const Banner = styled.div`
     }
   }
 
-  ${media470} {
+  ${media.mobile} {
     padding: 20px;
   }
 `

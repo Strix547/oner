@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components'
 
-import { createMedia } from 'styled/media'
+import { media } from 'styled/media'
 
 import { Button } from 'ui'
 import { ChatDialog } from '../Dialog/Dialog.styled'
 import { ChatList } from '../List/List.styled'
 
-const media900 = createMedia(900)
+const media900 = media.createMedia(900)
 
 interface ContainerProps {
   isChatOpen: boolean

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { createMedia } from 'styled'
+import { media } from 'styled/media'
 
 export const Wrapper = styled.div`
   display: flex;
@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   margin: 0 auto;
   box-sizing: border-box;
 
-  ${createMedia(666)} {
+  ${media.createMedia(666)} {
     padding: 0 15px;
   }
 `

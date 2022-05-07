@@ -3,9 +3,7 @@ import styled, { css } from 'styled-components'
 import { Button } from 'ui'
 import { AccountSidebar } from 'components/AccountSidebar/AccountSidebar.styled'
 
-import { createMedia } from 'styled/media'
-
-const media1200 = createMedia(1200)
+import { media } from 'styled/media'
 
 interface ContentProps {
   isMenuOpen: boolean
@@ -21,7 +19,7 @@ export const Content = styled.div<ContentProps>`
   grid-template-columns: 290px 1fr;
   grid-gap: 30px;
 
-  ${media1200} {
+  ${media.laptop} {
     grid-template-columns: 1fr;
 
     ${AccountSidebar} {
@@ -68,7 +66,7 @@ export const BackToMenuButton = styled(Button)`
     transform: rotate(180deg);
   }
 
-  ${media1200} {
+  ${media.laptop} {
     display: flex;
   }
 `

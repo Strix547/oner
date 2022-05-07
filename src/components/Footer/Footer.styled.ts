@@ -3,12 +3,10 @@ import MuiAccordion from '@mui/material/Accordion'
 import MuiAccordionSummary from '@mui/material/AccordionSummary'
 import MuiAccordionDetails from '@mui/material/AccordionDetails'
 
-import { createMedia } from 'styled'
+import { media } from 'styled/media'
 import { Wrapper } from 'styled/components'
 
-const media1200 = createMedia(1200)
-const media760 = createMedia(760)
-const media400 = createMedia(400)
+const media400 = media.createMedia(400)
 
 export { Wrapper }
 
@@ -22,11 +20,11 @@ export const Top = styled.div`
   justify-content: space-between;
   padding: 40px 0;
 
-  ${media1200} {
+  ${media.laptop} {
     flex-wrap: wrap;
   }
 
-  ${media760} {
+  ${media.tablet} {
     padding-top: 30px;
     padding-bottom: 20px;
   }
@@ -45,7 +43,7 @@ export const Documents = styled.div`
     }
   }
 
-  ${media1200} {
+  ${media.laptop} {
     display: none;
   }
 `
@@ -57,7 +55,7 @@ export const TopRight = styled.div`
     display: none;
   }
 
-  ${media1200} {
+  ${media.laptop} {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -69,7 +67,7 @@ export const TopRight = styled.div`
     }
   }
 
-  ${media760} {
+  ${media.tablet} {
     flex-direction: column;
     margin-top: 0;
 
@@ -80,7 +78,7 @@ export const TopRight = styled.div`
 `
 
 export const NavColumn = styled.div`
-  ${media760} {
+  ${media.tablet} {
     display: none;
   }
 `
@@ -107,12 +105,12 @@ export const NavItem = styled.li`
 `
 
 export const Consultation = styled.div`
-  ${media1200} {
+  ${media.laptop} {
     display: flex;
     align-items: center;
   }
 
-  ${media760} {
+  ${media.tablet} {
     width: 100%;
     flex-direction: column;
     justify-content: flex-start;
@@ -147,7 +145,7 @@ export const ConsultationLink = styled.a`
     }
   }
 
-  ${media760} {
+  ${media.tablet} {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -164,13 +162,13 @@ export const ConsultationStatus = styled.div`
     white-space: unset;
   }
 
-  ${media1200} {
+  ${media.laptop} {
     max-width: 182px;
     margin-top: 0;
     margin-left: 40px;
   }
 
-  ${media760} {
+  ${media.tablet} {
     max-width: 100%;
     margin-bottom: 20px;
     margin-left: -24px;
@@ -210,11 +208,11 @@ export const Bottom = styled.div`
     flex-shrink: 0;
   }
 
-  ${media1200} {
+  ${media.laptop} {
     justify-content: space-between;
   }
 
-  ${media760} {
+  ${media.tablet} {
     justify-content: center;
     flex-direction: column-reverse;
   }
@@ -229,11 +227,11 @@ export const PaymentAccept = styled.div`
   align-items: center;
   margin-left: 118px;
 
-  ${media1200} {
+  ${media.laptop} {
     margin-left: auto;
   }
 
-  ${media760} {
+  ${media.tablet} {
     margin-left: 0;
     margin-bottom: 20px;
   }
@@ -268,7 +266,7 @@ export const NavAccordionContainer = styled.div`
   width: 100%;
   margin-bottom: 20px;
 
-  ${media760} {
+  ${media.tablet} {
     display: block;
   }
 `

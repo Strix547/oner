@@ -1,15 +1,12 @@
 import styled from 'styled-components'
 
-import { createMedia } from 'styled'
+import { media } from 'styled/media'
 
 import { Button as SlideButton } from 'common/SlideNav/SlideNav.styled'
 
-const media1200 = createMedia(1200)
-const media780 = createMedia(780)
-const media760 = createMedia(760)
-const media666 = createMedia(666)
-const media560 = createMedia(560)
-const media470 = createMedia(470)
+const media780 = media.createMedia(780)
+const media666 = media.createMedia(666)
+const media560 = media.createMedia(560)
 
 export const MainSlider = styled.div`
   .swiper {
@@ -47,7 +44,7 @@ export const MainSlider = styled.div`
     }
   }
 
-  ${media1200} {
+  ${media.laptop} {
     ${SlideButton} {
       display: flex;
     }
@@ -68,7 +65,7 @@ export const MainSlider = styled.div`
     }
   }
 
-  ${media470} {
+  ${media.mobile} {
     .swiper {
       &-pagination {
         bottom: 20px;
@@ -110,7 +107,7 @@ export const Slide = styled.div`
     font-weight: 400;
   }
 
-  ${media1200} {
+  ${media.laptop} {
     height: 230px;
     padding: 40px 32px 0 40px;
     align-items: flex-start;
@@ -133,7 +130,7 @@ export const Slide = styled.div`
     }
   }
 
-  ${media760} {
+  ${media.tablet} {
     height: 200px;
     padding: 30px 30px 23px;
     align-items: center;
@@ -159,7 +156,7 @@ export const Slide = styled.div`
     }
   }
 
-  ${media470} {
+  ${media.mobile} {
     h4 {
       max-width: 126px;
       white-space: normal;
@@ -175,7 +172,7 @@ export const Discount = styled.span`
   box-shadow: 0px 10px 30px rgba(255, 120, 62, 0.2);
   border-radius: 10px;
 
-  ${media760} {
+  ${media.tablet} {
     height: 28px;
     border-radius: 6px;
     padding-left: 5px;
@@ -188,18 +185,18 @@ export const SlideImg = styled.div`
   position: relative;
   z-index: 10;
 
-  ${media1200} {
+  ${media.laptop} {
     max-width: 214px;
   }
 
-  ${media760} {
+  ${media.tablet} {
     display: flex;
     align-items: center;
     height: 100%;
     max-width: 123px;
   }
 
-  ${media470} {
+  ${media.mobile} {
     position: absolute;
     top: 66px;
     right: 27px;
@@ -228,7 +225,7 @@ export const Background = styled.div`
     overflow: hidden;
   }
 
-  ${media1200} {
+  ${media.laptop} {
     width: 100%;
     height: 230px;
 
@@ -236,13 +233,13 @@ export const Background = styled.div`
     }
   }
 
-  ${media760} {
+  ${media.tablet} {
     height: 200px;
   }
 `
 
 export const BackgroundDesk = styled(Background)`
-  ${media1200} {
+  ${media.laptop} {
     display: none;
   }
 `
@@ -250,11 +247,11 @@ export const BackgroundDesk = styled(Background)`
 export const BackgroundTablet = styled(Background)`
   display: none;
 
-  ${media1200} {
+  ${media.laptop} {
     display: block;
   }
 
-  ${media760} {
+  ${media.tablet} {
     display: none;
   }
 `
@@ -262,11 +259,11 @@ export const BackgroundTablet = styled(Background)`
 export const BackgroundMobile = styled(Background)`
   display: none;
 
-  ${media760} {
+  ${media.tablet} {
     display: block;
   }
 
-  ${media470} {
+  ${media.mobile} {
     width: 100%;
   }
 `

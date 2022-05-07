@@ -1,13 +1,12 @@
 import styled from 'styled-components'
 
-import { createMedia } from 'styled'
+import { media } from 'styled/media'
 
 import { TextField } from 'ui/TextField/TextField.styled'
 import { RadioGroup } from 'ui/RadioGroup/RadioGroup.styled'
 import { SelectFormControl } from 'ui/Select/Select.styled'
 
-const media1200 = createMedia(1200)
-const media500 = createMedia(500)
+const media500 = media.createMedia(500)
 
 export const StepFields = styled.div`
   margin-top: 20px;
@@ -18,7 +17,7 @@ export const StepFields = styled.div`
     margin-bottom: 20px;
   }
 
-  ${media1200} {
+  ${media.laptop} {
     margin-top: 0;
     padding: 0 30px 20px;
   }

@@ -1,12 +1,11 @@
 import styled, { css } from 'styled-components'
 
-import { createMedia } from 'styled'
+import { media } from 'styled/media'
 
 import { Button } from 'ui'
 import { Button as ButtonStyled } from 'ui/Button/Button.styled'
 
-const media1200 = createMedia(1200)
-const media500 = createMedia(500)
+const media500 = media.createMedia(500)
 
 export const StepNav = styled.div`
   margin-top: auto;
@@ -19,7 +18,7 @@ export const StepNav = styled.div`
     }
   }
 
-  ${media1200} {
+  ${media.laptop} {
     padding: 20px 30px;
   }
 

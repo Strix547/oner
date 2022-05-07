@@ -3,7 +3,7 @@ import CircularProgress from '@mui/material/CircularProgress'
 
 import * as S from './Button.styled'
 
-interface ButtonProps extends MuiButtonProps {
+export interface ButtonProps extends MuiButtonProps {
   loading?: boolean
 }
 

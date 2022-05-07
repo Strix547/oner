@@ -1,11 +1,9 @@
 import styled from 'styled-components'
 
 import { Box } from 'styled/components'
-import { createMedia } from 'styled/media'
+import { media } from 'styled/media'
 
 import { Button } from 'ui/Button/Button.styled'
-
-const media470 = createMedia(470)
 
 export { Box }
 
@@ -24,7 +22,7 @@ export const Form = styled.form`
     font-size: 16px;
   }
 
-  ${media470} {
+  ${media.mobile} {
     padding: 30px 20px;
   }
 `

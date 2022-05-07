@@ -6,6 +6,7 @@ import { WeSentCode } from './WeSentCode'
 import { AccountSidebar } from './AccountSidebar'
 import { AccountLayout } from './AccountLayout'
 import { MainSlider } from './MainSlider'
+import { LocationChoose } from './LocationChoose'
 
 export {
   Header,
@@ -15,5 +16,6 @@ export {
   WeSentCode,
   AccountSidebar,
   AccountLayout,
-  MainSlider
+  MainSlider,
+  LocationChoose
 }

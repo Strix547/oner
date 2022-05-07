@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 
-import { createMedia } from 'styled'
-
-const media1200 = createMedia(1200)
+import { media } from 'styled/media'
 
 export const Button = styled.button`
   position: absolute;
@@ -25,7 +23,7 @@ export const Button = styled.button`
     display: none;
   }
 
-  ${media1200} {
+  ${media.laptop} {
     display: none;
   }
 `

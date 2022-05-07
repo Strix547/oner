@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 
-import { createMedia } from 'styled'
+import { media } from 'styled/media'
 
 import { Skeleton } from 'ui'
 import { Button } from 'ui/Button/Button.styled'
 
-const media500 = createMedia(500)
+const media500 = media.createMedia(500)
 
 export const ShopesStep = styled.div`
   .text-field-input-root {

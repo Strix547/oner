@@ -16,6 +16,7 @@ import { Modal } from './Modal'
 import { EmailField } from './EmailField'
 import { AddressSugest } from './AddressSugest'
 import { Skeleton } from './Skeleton'
+import { Backdrop } from './Backdrop'
 
 export {
   Button,
@@ -39,5 +40,6 @@ export {
   Modal,
   EmailField,
   AddressSugest,
-  Skeleton
+  Skeleton,
+  Backdrop
 }

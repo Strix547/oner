@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
-import { createMedia } from 'styled'
+import { media } from 'styled/media'
 import { Box } from 'styled/components'
 import { Tabs, Tab } from 'ui'
 
 import { Button } from 'ui/Button/Button.styled'
 import { TextField } from 'ui/TextField/TextField.styled'
 
-const media500 = createMedia(500)
+const media500 = media.createMedia(500)
 
 export { Box }
 

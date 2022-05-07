@@ -25,7 +25,7 @@ export const SupplierSignUpPage: NextPage = () => {
 
   const [shopImages, setShopImages] = useState<ImageFile[]>([])
   const [isShopAdded, setShopAdded] = useState(false)
-  const [step, setStep] = useState(4)
+  const [step, setStep] = useState(0)
   const [isVerifySMSModalOpen, setVerifySMSModalOpen] = useState(false)
 
   const signUpMethods = useSupplierSignUp()
