@@ -1,15 +1,10 @@
 import styled from 'styled-components'
-import MuiRadioGroup, { RadioGroupProps as MuiRadioGroupProps } from '@mui/material/RadioGroup'
+import MuiRadioGroup from '@mui/material/RadioGroup'
 import MuiFormControlLabel from '@mui/material/FormControlLabel'
 import MuiRadio from '@mui/material/Radio'
 
-interface RadioGroupProps extends MuiRadioGroupProps {
-  direction: 'row' | 'column'
-}
-
 export const RadioGroup = styled(MuiRadioGroup)`
   flex-direction: row;
-  /* flex-wrap: nowrap; */
   grid-gap: 10px 30px;
 `
 

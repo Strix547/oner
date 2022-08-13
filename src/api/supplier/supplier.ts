@@ -1,5 +1,7 @@
 import { API } from 'core'
 
+import { transformPriceList, transformStore } from './supplier.transformers'
+
 import {
   AddPersonalDataReq,
   AddPersonalDataRes,
@@ -12,11 +14,16 @@ import {
   DeliveryEnum,
   CompanyType,
   Conclusion,
-  PriceList,
-  AddStoreReq,
+  AddPriceListTypeProps,
+  AddStore,
   AddStoreRes,
-  AddStoreImgReq
+  AddStoreImagesReq,
+  PriceList,
+  Store,
+  EditStore,
+  ChangeSupplierEntityData
 } from './supplier.types'
+import { ResponsePagination } from 'types/axios'
 
 const root = '/account/supplier'
 
@@ -60,6 +67,7 @@ export const addPersonalData = async ({
 
 export const addCompanyData = ({
   userId,
+  name,
   type,
   inn,
   ogrn,
@@ -79,6 +87,7 @@ export const addCompanyData = ({
   return API.post(`${root}-information/`, {
     user: userId,
     type: getBackendType(type),
+    entity_name: name,
     inn,
     rsch: checkingAccount,
     bik,
@@ -113,7 +122,24 @@ export const addDeliveryData = ({ userId, delivery, pickup }: AddDeliveryDataReq
   })
 }
 
-export const addStoreImg = ({ storeId, images }: AddStoreImgReq) => {
+export const getStores = async (page: number) => {
+  const { data } = await API.get<ResponsePagination<Store[]>>('/account/supplier-store/', {
+    params: { page }
+  })
+
+  return {
+    ...data,
+    results: data.results.map(transformStore)
+  }
+}
+
+export const getStore = async (id: number) => {
+  const { data: store } = await API.get<Store>(`/account/supplier-store/${id}`)
+
+  return transformStore(store)
+}
+
+export const addStoreImages = ({ storeId, images }: AddStoreImagesReq) => {
   const formData = new FormData()
 
   formData.append('supplier_store_id', String(storeId))
@@ -127,6 +153,7 @@ export const addStoreImg = ({ storeId, images }: AddStoreImgReq) => {
 export const addStore = async ({
   userId,
   name,
+  city,
   address,
   desc,
   phone,
@@ -134,10 +161,11 @@ export const addStore = async ({
   lat,
   lng,
   images
-}: AddStoreReq) => {
+}: AddStore) => {
   const { data } = await API.post<AddStoreRes>(`${root}-store/`, {
     user: userId,
     name,
+    city,
     address,
     description: desc,
     phone,
@@ -147,14 +175,101 @@ export const addStore = async ({
   })
 
   if (images?.length) {
-    addStoreImg({ storeId: data.id, images })
+    await addStoreImages({ storeId: data.id, images })
   }
 }
 
-export const addPriceListType = ({ userId, type }: PriceList) => {
+export const editStore = ({
+  storeId,
+  userId,
+  name,
+  address,
+  lat,
+  lng,
+  city,
+  phone,
+  desc,
+  email
+}: EditStore) => {
+  return API.patch(`${root}-store/${storeId}/`, {
+    name,
+    address,
+    lat,
+    lng,
+    city,
+    phone,
+    email,
+    description: desc,
+    user: userId
+  })
+}
+
+export const deleteStore = (id: number) => {
+  return API.delete(`${root}-store/${id}/`)
+}
+
+export const addPriceListType = ({ userId, type }: AddPriceListTypeProps) => {
   return API.post(`${root}-price-list-information/`, { user: userId, type })
 }
 
 export const addConclusion = ({ userId, text }: Conclusion) => {
   return API.post(`${root}-conclusion/`, { user: userId, text })
+}
+
+export const getPriceLists = async (page: number, active?: boolean) => {
+  const { data } = await API.get<ResponsePagination<PriceList[]>>(
+    '/account/supplier-price-list-information/',
+    {
+      params: {
+        page,
+        active
+      }
+    }
+  )
+
+  return {
+    ...data,
+    results: data.results.map(transformPriceList)
+  }
+}
+
+export const cancelPriceList = (id: number) => {
+  return API.post(`${root}-price-list-information/cancel/`, { id })
+}
+
+export const enableStore = (id: number) => {
+  return API.post(`${root}-store/${id}/enable/`)
+}
+
+export const disableStore = (id: number) => {
+  return API.post(`${root}-store/${id}/disable/`)
+}
+
+export const changeSupplierEntityData = ({
+  id,
+  type,
+  supplierId,
+  ownershipForm,
+  name,
+  inn,
+  kpp,
+  ogrn,
+  address,
+  phone,
+  website,
+  email
+}: ChangeSupplierEntityData) => {
+  return API.patch(`${root}-information/${id}/`, {
+    ownership_form: ownershipForm,
+    entity_name: name,
+    inn,
+    kpp,
+    ogrn,
+    address,
+    entity_phone: phone,
+    entity_website: website,
+    entity_email: email,
+    type,
+    user: supplierId
+  })
 }

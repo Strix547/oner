@@ -1,0 +1,54 @@
+import Link from 'next/link'
+
+import { Skeleton } from 'ui'
+
+import { useAuth } from 'hooks'
+import { ROUTE_NAMES } from 'core'
+import { getRoleHomeRoutePath } from 'utils'
+
+import * as S from './UserEntry.styled'
+
+import UserIcon from 'public/icons/user.svg'
+
+export const UserEntry = () => {
+  const { isAuth, isAccountLoading, user } = useAuth()
+  const role = user?.role.title
+
+  if (isAccountLoading) {
+    return (
+      <S.UserEntry>
+        <Skeleton width={153} height={24} />
+      </S.UserEntry>
+    )
+  }
+
+  return (
+    <S.UserEntry>
+      <UserIcon />
+
+      {isAuth ? (
+        <Link href={getRoleHomeRoutePath(role)} passHref>
+          <a>
+            <span>Личный кабинет</span>
+          </a>
+        </Link>
+      ) : (
+        <>
+          <Link href={ROUTE_NAMES.SIGN_IN} passHref>
+            <a>
+              <span>Вход</span>
+            </a>
+          </Link>
+
+          <span>/</span>
+
+          <Link href={ROUTE_NAMES.SIGN_UP} passHref>
+            <a>
+              <span>Регистрация</span>
+            </a>
+          </Link>
+        </>
+      )}
+    </S.UserEntry>
+  )
+}

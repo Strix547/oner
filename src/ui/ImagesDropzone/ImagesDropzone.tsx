@@ -1,25 +1,24 @@
 import { ReactNode } from 'react'
-import { FileWithPath, useDropzone } from 'react-dropzone'
+import { useDropzone } from 'react-dropzone'
+
+import { ImageFile } from 'types/common'
 
 import * as S from './ImagesDropzone.styled'
 
 import CrossIcon from 'public/icons/cross.svg'
 import PlusIcon from 'public/icons/plus.svg'
 
-interface ImageFile extends FileWithPath {
-  preview: string | ArrayBuffer | null
-  webkitRelativePath: string
-}
-
 interface ImagesDropzoneProps {
   images: ImageFile[]
+  maxFiles?: number
   onChange: (images: ImageFile[]) => void
 }
 
-export const ImagesDropzone = ({ images = [], onChange }: ImagesDropzoneProps) => {
+export const ImagesDropzone = ({ images = [], maxFiles, onChange }: ImagesDropzoneProps) => {
   const { getRootProps, getInputProps } = useDropzone({
     accept: '.jpg,.png',
     multiple: false,
+    maxFiles: maxFiles,
     onDrop: (files: File[]) => {
       files.forEach((file) => {
         const isDuplicate = images.some((img) => img.name === file.name)
@@ -73,11 +72,13 @@ export const ImagesDropzone = ({ images = [], onChange }: ImagesDropzoneProps) =
         <S.ImagePreviewList>{renderImagePreviewItems(images)}</S.ImagePreviewList>
       ) : null}
 
-      <S.UploadZone {...getRootProps()}>
-        <input {...getInputProps()} />
+      {maxFiles !== images.length ? (
+        <S.UploadZone {...getRootProps()}>
+          <input {...getInputProps()} />
 
-        <PlusIcon />
-      </S.UploadZone>
+          <PlusIcon />
+        </S.UploadZone>
+      ) : null}
     </S.ImagesDropzone>
   )
 }

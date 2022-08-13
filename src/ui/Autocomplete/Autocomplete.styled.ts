@@ -1,10 +1,14 @@
 import styled, { css } from 'styled-components'
 
+import { TextField } from 'ui/TextField/TextField.styled'
+
 import { scrollStyles } from 'styled/scroll'
 
 interface Autocomplete {
   open?: boolean
 }
+
+export { TextField }
 
 export const Autocomplete = styled.div<Autocomplete>`
   .autocomplete-input-root {
@@ -30,13 +34,6 @@ export const Autocomplete = styled.div<Autocomplete>`
     legend {
       margin-left: 6px;
       font-size: 14px;
-    }
-  }
-
-  .input-adornment {
-    svg {
-      transform: rotate(90deg);
-      transition: 0.3s;
     }
   }
 
@@ -92,20 +89,12 @@ export const Autocomplete = styled.div<Autocomplete>`
     }
   }
 
-  ${({ open }) =>
-    open &&
-    css`
-      .autocomplete-input-root {
-        fieldset {
-          border-bottom-left-radius: 0;
-          border-bottom-right-radius: 0;
-        }
+  .autocomplete-focused {
+    .text-field-root {
+      fieldset {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
       }
-
-      .input-adornment {
-        svg {
-          transform: rotate(-90deg);
-        }
-      }
-    `}
+    }
+  }
 `

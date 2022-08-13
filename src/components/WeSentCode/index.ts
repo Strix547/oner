@@ -1,1 +1,0 @@
-export { WeSentCode } from './WeSentCode'

@@ -1,3 +1,5 @@
+import { StoreStatus, PriceListStatus, PriceListType } from 'types/supplier'
+
 export interface AddPersonalDataReq {
   firstName: string
   middleName: string
@@ -33,6 +35,7 @@ export type CompanyType = 'ooo' | 'entrepreneur'
 
 export interface AddCompanyDataReq {
   userId: number
+  name: string
   type: CompanyType
   inn: number
   ogrn: number
@@ -61,15 +64,16 @@ export interface AddDeliveryDataReq {
   pickup: boolean
 }
 
-export interface AddStoreReq {
+export interface AddStore {
   userId: number
   name: string
+  city: string
   phone: string
   email: string
   lat: number
   lng: number
   address: string
-  desc: string
+  desc?: string
   images?: File[]
 }
 
@@ -85,9 +89,7 @@ export interface AddStoreRes {
   user: number
 }
 
-export type PriceListType = 'API' | 'XLS'
-
-export interface PriceList {
+export interface AddPriceListTypeProps {
   userId: number
   type: PriceListType
 }
@@ -97,7 +99,67 @@ export interface Conclusion {
   text: string
 }
 
-export interface AddStoreImgReq {
+export interface AddStoreImagesReq {
   storeId: number
   images: File[]
+}
+
+export interface PriceList {
+  id: number
+  upload_date?: string
+  created: string
+  status: PriceListStatus
+  active: boolean
+  moderator_comment?: string
+  error_message?: string
+  file?: string
+  type: PriceListType
+  user: number
+}
+
+export interface Store {
+  id: number
+  name: string
+  city: string
+  address: string
+  lat: number
+  lng: number
+  phone: string
+  status: StoreStatus
+  enabled: boolean
+  email: string
+  description: string
+  store_images?: {
+    id: number
+    image: string
+  }[]
+  user: number
+}
+
+export interface EditStore {
+  storeId: number
+  userId: number
+  name: string
+  address: string
+  lat: number
+  lng: number
+  city: string
+  phone: string
+  email: string
+  desc?: string
+}
+
+export interface ChangeSupplierEntityData {
+  id: number
+  type: 'Entity' | 'PersonEntity'
+  ownershipForm: 'private' | 'public' | null
+  name: string
+  inn: number
+  kpp: number | null
+  ogrn: number
+  address: string
+  phone: string | null
+  website: string | null
+  email: string | null
+  supplierId: number
 }

@@ -1,1 +1,0 @@
-export { ShoppingCartLink } from './ShoppingCartLink'

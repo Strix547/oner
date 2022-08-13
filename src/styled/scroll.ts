@@ -5,7 +5,7 @@ type Color = 'gray' | 'primary'
 const getColor = (color: Color) => {
   switch (color) {
     case 'gray':
-      return '#92979E'
+      return 'var(--color-gray)'
     case 'primary':
       return 'var(--color-primary)'
   }

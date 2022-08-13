@@ -15,13 +15,29 @@ export const ROUTE_NAMES = {
   WHEELS: '/wheels',
   SHOPPING_CART: '/basket',
   FORGOT_PASSWORD: '/forgot-password',
-  SUPPLIER_SIGN_UP: '/supplier-sign-up',
+  SUPPLIER_SIGN_UP: '/sign-up-supplier',
   SUPPORT: '/support',
 
-  ACCOUNT: '/account',
-  ACCOUNT_PERSONAL_INFO: '/account/personal-info',
-  ACCOUNT_ORDER_HISTORY: '/account/order-history',
-  ACCOUNT_ADDRESSES: '/account/addresses',
-  ACCOUNT_REQUISITES: '/account/requisites',
-  ACCOUNT_CHATS: '/account/chats'
+  CUSTOMER: '/customer',
+  CUSTOMER_PERSONAL_INFO: '/customer/personal-info',
+  CUSTOMER_ORDERS: '/customer/orders',
+  CUSTOMER_ADDRESSES: '/customer/addresses',
+  CUSSTOMER_REQUISITES: '/customer/requisites',
+  CUSTOMER_CHATS: '/customer/chats',
+
+  SUPPLIER: '/supplier',
+  SUPPLIER_CATALOG: '/supplier/catalog',
+  SUPPLIER_PRICE_LISTS: '/supplier/price-lists',
+  SUPPLIER_ORDERS: '/supplier/orders',
+  SUPPLIER_STORES: '/supplier/stores',
+  SUPPLIER_REQUISITES: '/supplier/requisites',
+  SUPPLIER_RECEIPTS: '/supplier/receipts',
+  SUPPLIER_CHATS: '/supplier/chats',
+  SUPPLIER_ACCOUNTING: '/supplier/accounting',
+
+  MANAGER: '/manager',
+  MANAGER_SUPPLIERS: '/manager/suppliers',
+  MANAGER_CUSTOMERS: '/manager/customers',
+  MANAGER_ORDERS: '/manager/orders',
+  MANAGER_STORES: '/manager/stores'
 } as const

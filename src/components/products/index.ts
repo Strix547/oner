@@ -1,8 +1,8 @@
-import { ProductCard } from './Card'
-import { ProductsCategoriesGrid } from './CategoriesGrid'
-import { ProductsOilsSection } from './OilsSection'
-import { ProductsBanners } from './Banners'
-import { ProductsCarousel } from './Carousel'
+import { ProductCard } from './Card/Card'
+import { ProductsCategoriesGrid } from './CategoriesGrid/CategoriesGrid'
+import { ProductsOilsSection } from './OilsSection/OilsSection'
+import { ProductsBanners } from './Banners/Banners'
+import { ProductsCarousel } from './Carousel/Carousel'
 
 export {
   ProductCard,

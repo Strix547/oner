@@ -1,1 +1,0 @@
-export { ChatDialog } from './Dialog'

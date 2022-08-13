@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Controller, useFormContext, UseControllerProps } from 'react-hook-form'
 import MuiAutocomplete, { AutocompleteProps } from '@mui/material/Autocomplete'
 
@@ -17,8 +16,6 @@ export const Autocomplete = <
   noOptionsText = 'Не найдено',
   ...props
 }: AutocompleteProps<T, Multiple, DisableClearable, FreeSolo> & UseControllerProps) => {
-  const [open, setOpen] = useState(false)
-
   const useForm = useFormContext()
 
   return (
@@ -29,19 +26,12 @@ export const Autocomplete = <
       defaultValue={defaultValue}
       render={({ field }) => {
         return (
-          <S.Autocomplete open={open}>
+          <S.Autocomplete>
             <MuiAutocomplete<T, Multiple, DisableClearable, FreeSolo>
-              open={open}
-              onOpen={() => {
-                setOpen(true)
-              }}
-              onClose={() => {
-                setOpen(false)
-              }}
-              loadingText={loadingText}
-              noOptionsText={noOptionsText}
               {...props}
               {...field}
+              loadingText={loadingText}
+              noOptionsText={noOptionsText}
               onChange={(_, value) => {
                 return field.onChange(value)
               }}

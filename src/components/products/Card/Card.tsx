@@ -38,7 +38,7 @@ export const ProductCard = ({
     <Link href={link} passHref>
       <S.ProductCard>
         <S.Img>
-          <Image src={productPlaceholderImg} alt={name} />
+          <Image src={productPlaceholderImg} alt={name} quality={100} />
         </S.Img>
 
         <S.Info>

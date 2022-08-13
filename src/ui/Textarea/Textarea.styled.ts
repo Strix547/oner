@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import MuiTextarea from '@mui/material/TextareaAutosize'
 
+import { scrollStyles } from 'styled/scroll'
+
 export const Textarea = styled(MuiTextarea)`
   width: 100%;
   min-height: 200px;
@@ -13,6 +15,9 @@ export const Textarea = styled(MuiTextarea)`
   color: var(--color-black);
   box-sizing: border-box;
   resize: none;
+  overflow-y: auto !important;
+
+  ${scrollStyles()}
 
   &::placeholder {
     color: #55556d;

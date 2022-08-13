@@ -33,7 +33,7 @@ export const PhoneField = ({
         return (
           <InputMask
             mask="+7 (999) 999 - 99 - 99"
-            value={value}
+            value={value ?? ''}
             onChange={({ target: { value } }) => {
               return onChange(getPhoneWithoutMask(value))
             }}
@@ -43,6 +43,14 @@ export const PhoneField = ({
                 label="Телефон"
                 {...props}
                 {...inputProps}
+                InputProps={{
+                  ...props.InputProps,
+                  classes: {
+                    root: 'text-field-input-root',
+                    input: 'text-field-input',
+                    error: 'text-field-input-error'
+                  }
+                }}
                 InputLabelProps={{
                   ...props.InputLabelProps,
                   shrink: Boolean(value)

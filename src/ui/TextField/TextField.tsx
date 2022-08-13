@@ -10,7 +10,6 @@ export const TextField = ({
   type,
   name,
   rules = { required: true },
-  defaultValue,
   onChange,
   ...props
 }: TextFieldProps) => {
@@ -19,9 +18,9 @@ export const TextField = ({
   if (type === 'number') {
     const transform = {
       input: (value: number): string => (isNaN(value) || value === 0 ? '' : value.toString()),
-      output: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): number => {
+      output: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): number | '' => {
         const output = parseInt(e.target.value, 10)
-        return isNaN(output) ? 0 : output
+        return isNaN(output) ? '' : output
       }
     }
 
@@ -30,6 +29,7 @@ export const TextField = ({
         control={control}
         name={name}
         rules={rules}
+        defaultValue=""
         render={({ field, fieldState }) => {
           const { error } = fieldState
 
@@ -37,13 +37,21 @@ export const TextField = ({
             <S.TextField
               {...props}
               {...field}
+              InputProps={{
+                ...props.InputProps,
+                classes: {
+                  root: 'text-field-input-root',
+                  input: 'text-field-input',
+                  error: 'text-field-input-error'
+                }
+              }}
               InputLabelProps={{
                 ...props.InputLabelProps,
                 shrink: Boolean(field.value)
               }}
               error={Boolean(error?.type)}
+              value={field.value ? transform.input(field.value) : ''}
               onChange={(e) => field.onChange(transform.output(e))}
-              value={transform.input(field.value)}
             />
           )
         }}
@@ -56,20 +64,28 @@ export const TextField = ({
       control={control}
       name={name}
       rules={rules}
-      defaultValue={defaultValue}
+      defaultValue=""
       render={({ field, fieldState }) => {
         const { error } = fieldState
 
         return (
           <S.TextField
             {...props}
-            {...field}
+            value={field.value ?? ''}
+            type={type}
+            error={Boolean(error?.type)}
+            InputProps={{
+              ...props.InputProps,
+              classes: {
+                root: 'text-field-input-root',
+                input: 'text-field-input',
+                error: 'text-field-input-error'
+              }
+            }}
             InputLabelProps={{
               ...props.InputLabelProps,
               shrink: Boolean(field.value)
             }}
-            type={type}
-            error={Boolean(error?.type)}
             onChange={(e) => {
               if (onChange) {
                 onChange(e)

@@ -4,6 +4,8 @@ import MuiMenuItem from '@mui/material/MenuItem'
 import MuiFormControl from '@mui/material/FormControl'
 import MuiInputLabel from '@mui/material/InputLabel'
 
+import { scrollStyles } from 'styled/scroll'
+
 export const Select = styled(MuiSelect)`
   width: 100%;
   border-radius: 6px;
@@ -14,7 +16,6 @@ export const Select = styled(MuiSelect)`
     padding: 11px 32px 12px 20px;
     font-size: 18px;
     color: var(--color-black);
-    line-height: auto;
     box-sizing: border-box;
 
     &[aria-expanded='true'] {
@@ -31,9 +32,8 @@ export const Select = styled(MuiSelect)`
       border-top: none;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
-    }
 
-    &-menu-list {
+      ${scrollStyles('gray')}
     }
 
     &-icon {
@@ -76,16 +76,16 @@ export const SelectFormControl = styled(MuiFormControl)`
 `
 
 export const SelectInputLabel = styled(MuiInputLabel)`
+  padding: 0 5px;
   font-size: 18px;
   line-height: 18px;
   color: #55556d;
-  transform: translate(20px, 16px) scale(1);
+  transform: translate(15px, 16px) scale(1);
 
   &.input-label-shrink {
     font-size: 14px;
     line-height: 18px;
     transform: translate(15px, -7px) scale(1);
-    padding: 0 5px;
     background: #fff;
   }
 
@@ -96,4 +96,13 @@ export const SelectInputLabel = styled(MuiInputLabel)`
   &.input-label-focused {
     color: #55556d;
   }
+`
+
+export const RemoveButton = styled.div`
+  position: absolute;
+  top: 50%;
+  right: 33px;
+  width: 36px;
+  height: 36px;
+  transform: translateY(-50%);
 `

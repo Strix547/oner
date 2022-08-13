@@ -31,7 +31,7 @@ export const MainSlider = () => {
         </S.SlideLeft>
 
         <S.SlideImg>
-          <Image src={productImg} />
+          <Image src={productImg} priority quality={100} alt="product" />
         </S.SlideImg>
 
         <S.BackgroundDesk>

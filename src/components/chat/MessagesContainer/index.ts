@@ -1,1 +1,0 @@
-export { ChatMessagesContainer } from './MessagesContainer'

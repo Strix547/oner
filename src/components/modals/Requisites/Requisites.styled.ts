@@ -1,0 +1,11 @@
+import styled from 'styled-components'
+
+import { Modal } from 'ui'
+
+export const RequisitesModal = styled(Modal)``
+
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`

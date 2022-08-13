@@ -21,6 +21,13 @@
       "public/*": ["../public/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "additional.d.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "additional.d.ts",
+    "pages/account/manager/customers.tsч",
+    "next.config.js"
+  ],
   "exclude": ["node_modules"]
 }

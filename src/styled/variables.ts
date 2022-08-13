@@ -7,5 +7,8 @@ export const variablesStyles = css`
     --color-green-100: #49c171;
     --color-green-200: #38a865;
     --color-red: #f11a22;
+    --color-blue: #4277ff;
+    --color-orange: #fb6019;
+    --color-gray: #92979e;
   }
 `

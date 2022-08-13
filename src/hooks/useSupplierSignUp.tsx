@@ -34,7 +34,12 @@ export const useSupplierSignUp = () => {
     handleError
   )
 
-  const addStore = useMutation('supplier-add-store', supplierAPI.addStore, handleError)
+  const addStore = useMutation('supplier-add-store', supplierAPI.addStore, {
+    ...handleError,
+    onSuccess: () => {
+      toast.success('Магазин успешно добавлен')
+    }
+  })
 
   const addPriceListType = useMutation(
     'supplier-add-price-list',

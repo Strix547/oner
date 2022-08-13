@@ -1,1 +1,0 @@
-export { AccountChatsPage } from './Chats'

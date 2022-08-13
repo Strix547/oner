@@ -1,1 +1,0 @@
-export { HeaderBottom } from './Bottom'
