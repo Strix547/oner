@@ -113,7 +113,8 @@ export const ProductsCategoriesGrid = () => {
 
       <S.ForSuppliersItem>
         <Link href="/" passHref>
-          <a style={{ background: `url(${forSuppliersBg?.src}) no-repeat center/cover` }}>
+          {/* @ts-ignore */}
+          {/* <a style={{ background: `url(${forSuppliersBg.src}) no-repeat center/cover` }}>
             <S.Icon>
               <UserWithChartIcon />
             </S.Icon>
@@ -125,7 +126,7 @@ export const ProductsCategoriesGrid = () => {
                 <ArrowRightIcon />
               </S.ForSuppliersItemArrow>
             </S.Right>
-          </a>
+          </a> */}
         </Link>
       </S.ForSuppliersItem>
     </S.ProductsCategoriesGrid>

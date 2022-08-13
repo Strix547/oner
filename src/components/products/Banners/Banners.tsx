@@ -41,6 +41,7 @@ export const ProductsBanners = () => {
   const bannersItems = banners.map(({ title, buttonText, link, bg }) => {
     return (
       <SwiperSlide key={title.join('')}>
+        {/* @ts-ignore */}
         <S.Banner style={{ backgroundImage: `url(${bg.src})` }}>
           <Typography variant="h2" component="h4">
             {title.map((text) => (
