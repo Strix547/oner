@@ -5,7 +5,7 @@ import { ROUTE_NAMES } from 'core'
 
 import * as S from './CategoriesGrid.styled'
 
-import forSuppliersBg from 'public/img/for-suppliers-bg.jpg'
+import forSuppliersBg from 'public/img/for-suppliers-bg.png'
 import UserWithChartIcon from 'public/icons/user-with-chart.svg'
 import ArrowRightIcon from 'public/icons/arrows/long-right.svg'
 
@@ -113,8 +113,7 @@ export const ProductsCategoriesGrid = () => {
 
       <S.ForSuppliersItem>
         <Link href="/" passHref>
-          {/* @ts-ignore */}
-          {/* <a style={{ background: `url(${forSuppliersBg.src}) no-repeat center/cover` }}>
+          <a style={{ background: `url(${forSuppliersBg.src}) no-repeat center/cover` }}>
             <S.Icon>
               <UserWithChartIcon />
             </S.Icon>
@@ -126,7 +125,7 @@ export const ProductsCategoriesGrid = () => {
                 <ArrowRightIcon />
               </S.ForSuppliersItemArrow>
             </S.Right>
-          </a> */}
+          </a>
         </Link>
       </S.ForSuppliersItem>
     </S.ProductsCategoriesGrid>
