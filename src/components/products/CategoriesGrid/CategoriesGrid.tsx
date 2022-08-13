@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import Typography from '@mui/material/Typography'
 
 import { ROUTE_NAMES } from 'core'
@@ -114,7 +113,7 @@ export const ProductsCategoriesGrid = () => {
 
       <S.ForSuppliersItem>
         <Link href="/" passHref>
-          <a style={{ background: `url(${forSuppliersBg.src}) no-repeat center/cover` }}>
+          <a style={{ background: `url(${forSuppliersBg?.src}) no-repeat center/cover` }}>
             <S.Icon>
               <UserWithChartIcon />
             </S.Icon>
