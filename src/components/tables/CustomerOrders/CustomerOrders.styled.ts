@@ -3,31 +3,21 @@ import styled from 'styled-components'
 import {
   Box,
   Link,
-  TableCardsList,
   TableCard,
   TableCardTop,
   TableCardContent,
   TableCardRows,
-  TableCardActions,
-  NoDataText
+  TableCardActions
 } from 'styled/components'
 import { media } from 'styled/media'
 
 import { Table, TableRow } from 'ui/Table/Table.styled'
+import { TableCardsList } from 'components/TableCardsList/TableCardsList.styled'
 
 const media1300 = media.createMedia(1300)
 const media860 = media.createMedia(860)
 
-export {
-  Link,
-  TableCardsList,
-  TableCard,
-  TableCardTop,
-  TableCardContent,
-  TableCardRows,
-  TableCardActions,
-  NoDataText
-}
+export { Link, TableCard, TableCardTop, TableCardContent, TableCardRows, TableCardActions }
 
 export const CustomerOrdersTable = styled(Box)`
   ${TableRow} {

@@ -3,25 +3,18 @@ import Link from 'next/link'
 import { Column } from 'react-table'
 import Typography from '@mui/material/Typography'
 
-import { Table, Skeleton, Button } from 'ui'
+import { Table, Button } from 'ui'
 import { OrderStatusBadge } from 'components/common'
+import { TableCardsList } from 'components'
 import { CancelButton } from 'common/buttons'
 import { Box } from 'common'
 
-import { Product, ProductStatus } from 'types/orders'
+import { Product } from 'types/orders'
 import { numberToPrice } from 'utils'
 
 import * as S from './CustomerOrderProducts.styled'
 
 import CrossIcon from 'public/icons/cross-2.svg'
-
-interface ProductColumn {
-  id: number
-  name: string
-  price: number
-  priceTotal: number
-  status: ProductStatus
-}
 
 interface CustomerOrderProductsTableProps {
   isLoading: boolean
@@ -34,7 +27,7 @@ export const CustomerOrderProductsTable = ({
   isLoading = false,
   onProductRemove
 }: CustomerOrderProductsTableProps) => {
-  const columns: Column<ProductColumn>[] = useMemo(
+  const columns: Column<Product>[] = useMemo(
     () => [
       {
         Header: 'Наименование',
@@ -49,14 +42,14 @@ export const CustomerOrderProductsTable = ({
       },
       {
         Header: 'Цена',
-        accessor: 'price',
-        Cell: ({ value: price }) => numberToPrice(price)
+        accessor: 'productPrice',
+        Cell: ({ value: productPrice }) => numberToPrice(productPrice)
       },
       {
         Header: 'Общая сумма',
-        accessor: 'priceTotal',
-        Cell: ({ value: priceTotal }) => {
-          return <Typography fontWeight={500}>{numberToPrice(priceTotal)}</Typography>
+        accessor: 'totalPrice',
+        Cell: ({ value: totalPrice }) => {
+          return <Typography fontWeight={500}>{numberToPrice(totalPrice)}</Typography>
         }
       },
       {
@@ -78,75 +71,65 @@ export const CustomerOrderProductsTable = ({
         }
       }
     ],
-    [onProductRemove]
+    []
   )
 
-  const selectProductProps = (products: Product[]): ProductColumn[] => {
-    return products.map((product) => {
-      const { id, productPrice, totalPrice, status, name } = product
+  const tableCards = products.map((product) => {
+    const { id, name, productPrice, totalPrice, status } = product
 
-      return {
-        id,
-        name,
-        price: productPrice,
-        priceTotal: totalPrice,
-        status
-      }
-    })
-  }
+    return (
+      <S.TableCard key={id}>
+        <S.TableCardTop>
+          <Link href="/" passHref>
+            <S.Link>{name}</S.Link>
+          </Link>
+        </S.TableCardTop>
 
-  const tableCardsList = products.length ? (
-    selectProductProps(products).map((product) => {
-      const { id, name, price, priceTotal, status } = product
+        <S.TableCardContent>
+          <S.TableCardRows>
+            <Typography>Цена</Typography>
+            <Typography>{numberToPrice(productPrice)}</Typography>
 
-      return (
-        <S.TableCard key={id}>
-          <S.TableCardTop>
-            <Link href="/" passHref>
-              <S.Link>{name}</S.Link>
-            </Link>
-          </S.TableCardTop>
+            <Typography>Общая сумма</Typography>
+            <Typography fontWeight={500}>{numberToPrice(totalPrice)}</Typography>
 
-          <S.TableCardContent>
-            <S.TableCardRows>
-              <Typography>Цена</Typography>
-              <Typography>{numberToPrice(price)}</Typography>
+            <Typography>Текущий статус</Typography>
+            <OrderStatusBadge status={status} />
+          </S.TableCardRows>
 
-              <Typography>Общая сумма</Typography>
-              <Typography fontWeight={500}>{numberToPrice(priceTotal)}</Typography>
-
-              <Typography>Текущий статус</Typography>
-              <OrderStatusBadge status={status} />
-            </S.TableCardRows>
-
-            <S.TableCardActions>
-              <Button
-                color="gray"
-                variant="outlined"
-                startIcon={<CrossIcon />}
-                onClick={() => {
-                  onProductRemove(id)
-                }}
-              >
-                Отменить
-              </Button>
-            </S.TableCardActions>
-          </S.TableCardContent>
-        </S.TableCard>
-      )
-    })
-  ) : (
-    <S.NoDataText>Данные отсутствуют</S.NoDataText>
-  )
+          <S.TableCardActions>
+            <Button
+              color="gray"
+              variant="outlined"
+              startIcon={<CrossIcon />}
+              onClick={() => {
+                onProductRemove(id)
+              }}
+            >
+              Отменить
+            </Button>
+          </S.TableCardActions>
+        </S.TableCardContent>
+      </S.TableCard>
+    )
+  })
 
   return (
     <S.CustomerOrderProductsTable>
       <Box title="Состав заказа" noPaddings>
-        <Table columns={columns} data={selectProductProps(products)} isLoading={isLoading} />
+        <Table
+          columns={columns}
+          data={products}
+          isLoading={isLoading}
+          noDataText="Продукты отсутствуют"
+        />
 
-        <S.TableCardsList>
-          {!isLoading ? tableCardsList : <Skeleton count={3} height={282} />}
-        </S.TableCardsList>
+        <TableCardsList
+          cards={tableCards}
+          isLoading={isLoading}
+          noDataText="Продукты отсутствуют"
+          skeletonHeight={247}
+        />
       </Box>
     </S.CustomerOrderProductsTable>
   )

@@ -56,23 +56,23 @@ export interface RequisiteItem {
   id: number
   user: RequisitesUser
   title: string
-  account_number: number
-  bik: number
+  account_number: string
+  bik: string
 }
 
 export interface CreateRequisite {
   userId: number
   name: string
-  accountNumber: number
-  bik: number
+  accountNumber: string
+  bik: string
 }
 
 export interface ChangeRequisite {
   id: number
   userId: number
   name: string
-  accountNumber: number
-  bik: number
+  accountNumber: string
+  bik: string
 }
 
 export interface Address {
@@ -90,24 +90,24 @@ export interface Address {
 export interface CreateAddress {
   userId: number
   name: string
-  postalCode: number
+  postalCode: string
   city: string
   street: string
   house: string
-  building?: number
-  apartment: number
+  building?: string
+  apartment: string
 }
 
 export interface ChangeAddress {
   id: number
   userId: number
   name: string
-  postalCode: number
+  postalCode: string
   city: string
   street: string
   house: string
-  building?: number
-  apartment: number
+  building?: string
+  apartment: string
 }
 
 export interface VerifyChangeUser {

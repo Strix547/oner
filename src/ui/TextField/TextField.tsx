@@ -16,14 +16,6 @@ export const TextField = ({
   const { control } = useFormContext()
 
   if (type === 'number') {
-    const transform = {
-      input: (value: number): string => (isNaN(value) || value === 0 ? '' : value.toString()),
-      output: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): number | '' => {
-        const output = parseInt(e.target.value, 10)
-        return isNaN(output) ? '' : output
-      }
-    }
-
     return (
       <Controller
         control={control}
@@ -50,8 +42,14 @@ export const TextField = ({
                 shrink: Boolean(field.value)
               }}
               error={Boolean(error?.type)}
-              value={field.value ? transform.input(field.value) : ''}
-              onChange={(e) => field.onChange(transform.output(e))}
+              value={field.value}
+              onChange={(e) => {
+                const value = e.target.value
+                if (isNaN(Number(value)) || String(value).charCodeAt(value.length - 1) === 46)
+                  return
+
+                return field.onChange(e)
+              }}
             />
           )
         }}

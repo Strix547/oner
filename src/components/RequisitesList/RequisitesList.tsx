@@ -18,8 +18,8 @@ interface ControllerRadioGroup {
 interface OnEdit {
   id: number
   name: string
-  accountNumber: number
-  bik: number
+  accountNumber: string
+  bik: string
 }
 
 interface RequisitesListProps {

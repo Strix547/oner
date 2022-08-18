@@ -8,7 +8,7 @@ import { DateRangePicker } from 'ui/DateRangePicker/DateRangePicker.styled'
 import { Select } from 'ui/Select/Select.styled'
 
 const media860 = media.createMedia(860)
-const media680 = media.createMedia(680)
+const media695 = media.createMedia(695)
 
 export const CustomerOrdersPage = styled.div`
   ${media860} {
@@ -26,7 +26,7 @@ export const Filters = styled.div`
     margin-top: 15px;
   }
 
-  ${media680} {
+  ${media695} {
     flex-direction: column;
     gap: 15px;
 
@@ -45,7 +45,7 @@ export const Filter = styled.div`
     color: #55556d;
   }
 
-  ${media680} {
+  ${media695} {
     & > span {
       min-width: 45px;
     }

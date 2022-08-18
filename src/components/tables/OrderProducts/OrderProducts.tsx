@@ -4,7 +4,8 @@ import { Column } from 'react-table'
 import Typography from '@mui/material/Typography'
 import { useForm, FormProvider } from 'react-hook-form'
 
-import { Table, Counter, Skeleton } from 'ui'
+import { TableCardsList } from 'components'
+import { Table, Counter } from 'ui'
 
 import { numberToPrice } from 'utils'
 import { Product } from 'types/orders'
@@ -124,47 +125,53 @@ export const OrderProductsTable = ({
     })
   }
 
-  const tableCards = products.length ? (
-    selectProductsProps(products).map((product) => {
-      const { id, productId, name, article, productPrice, totalPrice, currency, count, orderId } =
-        product
+  const tableCards = selectProductsProps(products).map((product) => {
+    const { id, productId, name, article, productPrice, totalPrice, currency, count, orderId } =
+      product
 
-      return (
-        <S.TableCard key={id}>
-          <S.TableCardTop>
-            <Link href="/" passHref>
-              <S.Link>{name}</S.Link>
-            </Link>
-          </S.TableCardTop>
+    return (
+      <S.TableCard key={id}>
+        <S.TableCardTop>
+          <Link href="/" passHref>
+            <S.Link>{name}</S.Link>
+          </Link>
+        </S.TableCardTop>
 
-          <S.TableCardContent>
-            <S.TableCardRows>
-              <Typography>Артикул</Typography>
-              <Typography>{article}</Typography>
+        <S.TableCardContent>
+          <S.TableCardRows>
+            <Typography>Артикул</Typography>
+            <Typography>{article}</Typography>
 
-              <Typography>Цена</Typography>
-              <Typography>{numberToPrice(productPrice, currency)}</Typography>
+            <Typography>Цена</Typography>
+            <Typography>{numberToPrice(productPrice, currency)}</Typography>
 
-              <Typography>Количество</Typography>
-              <Typography>{renderProductCounter(id, productId, orderId, count)}</Typography>
+            <Typography>Количество</Typography>
+            <Typography>{renderProductCounter(id, productId, orderId, count)}</Typography>
 
-              <Typography>Общая сумма</Typography>
-              <Typography fontWeight={500}>{numberToPrice(totalPrice, currency)}</Typography>
-            </S.TableCardRows>
-          </S.TableCardContent>
-        </S.TableCard>
-      )
-    })
-  ) : (
-    <S.NoDataText>Данные отсутствуют</S.NoDataText>
-  )
+            <Typography>Общая сумма</Typography>
+            <Typography fontWeight={500}>{numberToPrice(totalPrice, currency)}</Typography>
+          </S.TableCardRows>
+        </S.TableCardContent>
+      </S.TableCard>
+    )
+  })
 
   return (
     <S.OrderProductsTable>
       <FormProvider {...useFormProps}>
-        <Table columns={columns} data={selectProductsProps(products)} isLoading={isLoading} />
+        <Table
+          columns={columns}
+          data={selectProductsProps(products)}
+          isLoading={isLoading}
+          noDataText="Продукты отсутствуют"
+        />
 
-        <S.TableCardsList>{!isLoading ? tableCards : <Skeleton count={3} />}</S.TableCardsList>
+        <TableCardsList
+          cards={tableCards}
+          isLoading={isLoading}
+          skeletonHeight={230}
+          noDataText="Продукты отсутствуют"
+        />
       </FormProvider>
     </S.OrderProductsTable>
   )

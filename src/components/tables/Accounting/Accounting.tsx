@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Column } from 'react-table'
 import Typography from '@mui/material/Typography'
 
+import { TableCardsList } from 'components'
 import { Table } from 'ui'
 import { DownloadButton } from 'common/buttons'
 
@@ -14,7 +15,7 @@ interface AccountingItem {
   id: number
   name: string
   size: string
-  file: File
+  file: string
 }
 
 interface AccountingTableProps {
@@ -56,42 +57,38 @@ export const AccountingTable = ({ accounting = [] }: AccountingTableProps) => {
     []
   )
 
-  const tableCards = accounting.length ? (
-    accounting.map((item) => {
-      const { id, name, file, size } = item
+  const tableCards = accounting.map((item) => {
+    const { id, name, file, size } = item
 
-      return (
-        <S.TableCard key={id}>
-          <S.TableCardTop>
-            <Link href={`${id}`} passHref>
-              <S.Link>
-                <DocumentIcon /> <span>{name}</span>
-              </S.Link>
-            </Link>
-          </S.TableCardTop>
+    return (
+      <S.TableCard key={id}>
+        <S.TableCardTop>
+          <Link href={`${id}`} passHref>
+            <S.Link>
+              <DocumentIcon /> <span>{name}</span>
+            </S.Link>
+          </Link>
+        </S.TableCardTop>
 
-          <S.TableCardContent>
-            <S.TableCardRows>
-              <Typography>Размер файла</Typography>
-              <Typography>{size}</Typography>
-            </S.TableCardRows>
+        <S.TableCardContent>
+          <S.TableCardRows>
+            <Typography>Размер файла</Typography>
+            <Typography>{size}</Typography>
+          </S.TableCardRows>
 
-            <S.TableCardActions>
-              <DownloadButton onClick={() => {}} />
-            </S.TableCardActions>
-          </S.TableCardContent>
-        </S.TableCard>
-      )
-    })
-  ) : (
-    <S.NoDataText>Данные отсутствуют</S.NoDataText>
-  )
+          <S.TableCardActions>
+            <DownloadButton onClick={() => {}} />
+          </S.TableCardActions>
+        </S.TableCardContent>
+      </S.TableCard>
+    )
+  })
 
   return (
     <S.AccountingTable>
-      <Table columns={columns} data={accounting} />
+      <Table columns={columns} data={accounting} noDataText="Документы отсутствуют" />
 
-      <S.TableCardsList>{tableCards}</S.TableCardsList>
+      <TableCardsList cards={tableCards} noDataText="Документы отсутствуют" />
     </S.AccountingTable>
   )
 }

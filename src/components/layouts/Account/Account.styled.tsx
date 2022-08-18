@@ -6,13 +6,17 @@ import { Wrapper } from 'styled/components'
 import { AccountSidebar } from 'components/layouts/AccountSidebar/AccountSidebar.styled'
 import { media } from 'styled/media'
 
+interface ContentProps {
+  isSidebarVisible: boolean
+}
+
 export { Wrapper }
 
 export const Right = styled.div`
   height: 100%;
 `
 
-export const Content = styled.div`
+export const Content = styled.div<ContentProps>`
   display: grid;
   align-items: flex-start;
   grid-template-columns: 290px minmax(auto, 940px);
@@ -26,6 +30,16 @@ export const Content = styled.div`
       display: none;
     }
   }
+
+  ${({ isSidebarVisible }) =>
+    isSidebarVisible &&
+    css`
+      ${media.laptop} {
+        ${AccountSidebar} {
+          display: block;
+        }
+      }
+    `}
 `
 
 export const BackToMenuButton = styled(Button)`

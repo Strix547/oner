@@ -44,7 +44,9 @@ const CustomerOrderPage = () => {
       <CustomerOrderProductsTable
         products={order?.products}
         isLoading={isOrderLoading}
-        onProductRemove={(productId) => cancelOrderProduct.mutate({ orderId, productId })}
+        onProductRemove={(productId) => {
+          cancelOrderProduct.mutate({ orderId, productId })
+        }}
       />
     </>
   )

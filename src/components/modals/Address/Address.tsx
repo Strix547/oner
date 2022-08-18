@@ -9,12 +9,12 @@ import * as S from './Address.styled'
 
 interface FormFields {
   name: string
-  postalCode: number
+  postalCode: string
   city: string
   street: string
   house: string
-  building?: number
-  apartment: number
+  building?: string
+  apartment: string
 }
 
 interface OnSubmitProps {
@@ -45,14 +45,15 @@ export const AddressModal = ({
   useEffect(() => {
     if (address) {
       const { name, postalCode, city, street, house, building, apartment } = address
+
       reset({
         name,
-        postalCode: Number(postalCode),
+        postalCode,
         city,
         street,
         house,
-        building: building ? Number(building) : undefined,
-        apartment: apartment ? Number(apartment) : undefined
+        building: building ?? undefined,
+        apartment
       })
     } else {
       reset({})

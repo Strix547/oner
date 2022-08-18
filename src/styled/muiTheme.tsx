@@ -266,6 +266,13 @@ export const muiTheme = createTheme({
           root: 'form-group'
         }
       }
+    },
+    MuiDrawer: {
+      defaultProps: {
+        classes: {
+          root: 'drawer'
+        }
+      }
     }
   },
   typography

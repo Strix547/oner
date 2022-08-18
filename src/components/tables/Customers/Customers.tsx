@@ -4,7 +4,8 @@ import Link from 'next/link'
 import { FormProvider, useForm } from 'react-hook-form'
 import Typography from '@mui/material/Typography'
 
-import { Table, Switch, Button, Skeleton } from 'ui'
+import { TableCardsList } from 'components'
+import { Table, Switch, Button } from 'ui'
 import { EditButton } from 'common/buttons'
 
 import { ROUTE_NAMES } from 'core'
@@ -50,16 +51,20 @@ export const CustomersTable = ({
 
   useEffect(() => {
     if (customers.length) {
-      customers.forEach(({ id, active }) => {
-        reset({
-          ...getValues(),
+      const defaultValues = customers.reduce((prev, { id, active }) => {
+        return {
+          ...prev,
           [`customer-active-${id}`]: active
-        })
-      })
+        }
+      }, {})
+
+      reset(defaultValues)
     }
-  }, [customers, reset, getValues])
+  }, [customers])
 
   const renderActions = (customerId: number, email: string) => {
+    const switchName = `customer-active-${customerId}`
+
     return (
       <S.ActionsRow>
         <Button
@@ -78,9 +83,9 @@ export const CustomersTable = ({
         />
 
         <Switch
-          name={`customer-active-${customerId}`}
+          name={switchName}
           onClick={() => {
-            const isActive = getValues(`customer-active-${customerId}`)
+            const isActive = getValues(switchName)
 
             onCustomerStatusToggle({
               customerId,
@@ -145,53 +150,57 @@ export const CustomersTable = ({
     []
   )
 
-  const tableCards = customers.length ? (
-    customers.map((customer) => {
-      const { id, lastName, firstName, middleName, phone, email } = customer
+  const tableCards = customers.map((customer) => {
+    const { id, lastName, firstName, middleName, phone, email } = customer
 
-      return (
-        <S.TableCard key={id}>
-          <S.TableCardTop>
-            <Link href={`${ROUTE_NAMES.MANAGER_CUSTOMERS}/${id}`} passHref>
-              <S.Link>{id}</S.Link>
-            </Link>
+    return (
+      <S.TableCard key={id}>
+        <S.TableCardTop>
+          <Link href={`${ROUTE_NAMES.MANAGER_CUSTOMERS}/${id}`} passHref>
+            <S.Link>{id}</S.Link>
+          </Link>
 
-            {renderActions(id, email)}
-          </S.TableCardTop>
+          {renderActions(id, email)}
+        </S.TableCardTop>
 
-          <S.TableCardContent>
-            <S.TableCardRows>
-              <Typography>Фамилия</Typography>
-              <Typography>{lastName}</Typography>
+        <S.TableCardContent>
+          <S.TableCardRows>
+            <Typography>Фамилия</Typography>
+            <Typography>{lastName}</Typography>
 
-              <Typography>Имя</Typography>
-              <Typography>{firstName}</Typography>
+            <Typography>Имя</Typography>
+            <Typography>{firstName}</Typography>
 
-              <Typography>Отчество</Typography>
-              <Typography>{middleName}</Typography>
+            <Typography>Отчество</Typography>
+            <Typography>{middleName}</Typography>
 
-              <Typography>Телефон</Typography>
-              <Typography>{formatPhone(phone)}</Typography>
+            <Typography>Телефон</Typography>
+            <Typography>{formatPhone(phone)}</Typography>
 
-              <Typography>E-mail</Typography>
-              <Typography>{email}</Typography>
-            </S.TableCardRows>
-          </S.TableCardContent>
-        </S.TableCard>
-      )
-    })
-  ) : (
-    <S.NoDataText>Данные отсутствуют</S.NoDataText>
-  )
+            <Typography>E-mail</Typography>
+            <Typography>{email}</Typography>
+          </S.TableCardRows>
+        </S.TableCardContent>
+      </S.TableCard>
+    )
+  })
 
   return (
     <S.CustomersTable>
       <FormProvider {...useFormProps}>
-        <Table columns={columns} data={customers} isLoading={isLoading} />
+        <Table
+          columns={columns}
+          data={customers}
+          isLoading={isLoading}
+          noDataText="Покупатели отсутствуют"
+        />
 
-        <S.TableCardsList>
-          {!isLoading ? tableCards : <Skeleton count={3} height={249} />}
-        </S.TableCardsList>
+        <TableCardsList
+          cards={tableCards}
+          isLoading={isLoading}
+          skeletonHeight={253}
+          noDataText="Покупатели отсутствуют"
+        />
       </FormProvider>
     </S.CustomersTable>
   )

@@ -28,20 +28,10 @@ export const AccountLayout = ({ children }: AccountLayoutProps) => {
   const { user, isAccountLoading } = useAuth()
   const router = useRouter()
 
-  const getMenuPathByRole = (role: UserRoleType) => {
-    switch (role) {
-      case 'Person':
-      case 'PersonEntity':
-      case 'Entity':
-        return ROUTE_NAMES.CUSTOMER
-      case 'Supplier':
-        return ROUTE_NAMES.SUPPLIER
-      case 'Manager':
-        return ROUTE_NAMES.MANAGER
-      default:
-        return '/'
-    }
-  }
+  const isSidebarVisible =
+    router.pathname === '/customer' ||
+    router.pathname === '/manager' ||
+    router.pathname === '/supplier'
 
   const accesses: Accesses = {
     manager: ['Manager'],
@@ -66,6 +56,21 @@ export const AccountLayout = ({ children }: AccountLayoutProps) => {
       return false
     } else {
       return true
+    }
+  }
+
+  const getMenuPathByRole = (role: UserRoleType) => {
+    switch (role) {
+      case 'Person':
+      case 'PersonEntity':
+      case 'Entity':
+        return ROUTE_NAMES.CUSTOMER
+      case 'Supplier':
+        return ROUTE_NAMES.SUPPLIER
+      case 'Manager':
+        return ROUTE_NAMES.MANAGER
+      default:
+        return '/'
     }
   }
 
@@ -102,7 +107,7 @@ export const AccountLayout = ({ children }: AccountLayoutProps) => {
         )}
       </S.BackToMenu>
 
-      <S.Content>
+      <S.Content isSidebarVisible={isSidebarVisible}>
         {!isAccountLoading && user ? <AccountSidebar /> : <Skeleton height={381} />}
 
         <S.Right>

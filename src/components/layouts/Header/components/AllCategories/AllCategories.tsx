@@ -32,12 +32,12 @@ export const AllCategories = () => {
   const categories = [
     {
       label: 'Оригинальные запчасти',
-      link: ROUTE_NAMES.ORIGINAL_SPARE_PARTS,
+      link: ROUTE_NAMES.CATEGORIES_ORIGINAL_SPARE_PARTS,
       icon: <BrakersIcon />
     },
     {
       label: 'Неоригинальные запчасти',
-      link: ROUTE_NAMES.NOT_ORIGINAL_SPARE_PARTS,
+      link: ROUTE_NAMES.NOT_CATEGORIES_ORIGINAL_SPARE_PARTS,
       icon: <EngineIcon />
     },
     {
@@ -89,7 +89,7 @@ export const AllCategories = () => {
   })
 
   return (
-    <S.AllCategories>
+    <S.AllCategories open={isPopperOpen}>
       <S.CategoriesButton open={isPopperOpen} onClick={togglePopper} startIcon={<GridIcon />}>
         Все категории
       </S.CategoriesButton>

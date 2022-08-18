@@ -13,8 +13,8 @@ interface OnRequisitesSubmitProps {
   purpose: 'edit' | 'add'
   requisites: {
     name: string
-    accountNumber: number
-    bik: number
+    accountNumber: string
+    bik: string
   }
 }
 
@@ -23,8 +23,8 @@ interface RequisitesModalProps {
   requisites?: {
     id?: number
     name: string
-    accountNumber: number
-    bik: number
+    accountNumber: string
+    bik: string
   }
 }
 

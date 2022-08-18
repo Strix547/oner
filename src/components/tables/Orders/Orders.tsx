@@ -3,8 +3,8 @@ import Link from 'next/link'
 import { Column } from 'react-table'
 import Typography from '@mui/material/Typography'
 
-import { OrderStatusBadge } from 'components'
-import { Table, Button, Skeleton } from 'ui'
+import { OrderStatusBadge, TableCardsList } from 'components'
+import { Table, Button } from 'ui'
 
 import { numberToPrice, formatOrder } from 'utils'
 import { OrderStatus, Order } from 'types/orders'
@@ -139,75 +139,77 @@ export const OrdersTable = ({
     [orderPath, onArchiveToggle]
   )
 
-  const tableCards = orders.length ? (
-    orders.map(formatOrder).map((order) => {
-      const { id, status, products, paymentType, delivery, priceTotal, date } = order
+  const tableCards = orders.map(formatOrder).map((order) => {
+    const { id, status, products, paymentType, delivery, priceTotal, date } = order
 
-      const ableToMoveInArchive = status === 'completed' || status === 'cancelled_2'
-      const productsString = products.join(', ')
-      const slicedProductsString =
-        productsString.length >= 45
-          ? products.join(', ').slice(0, 45).concat('...')
-          : productsString
-      const currentOrder = orders.find((order: Order) => order.id === id)
+    const ableToMoveInArchive = status === 'completed' || status === 'cancelled_2'
+    const productsString = products.join(', ')
+    const slicedProductsString =
+      productsString.length >= 45 ? products.join(', ').slice(0, 45).concat('...') : productsString
+    const currentOrder = orders.find((order: Order) => order.id === id)
 
-      return (
-        <S.TableCard key={id}>
-          <S.TableCardTop>
-            <Link href={`${orderPath}/${id}`} passHref>
-              <S.Link>№ {id}</S.Link>
-            </Link>
+    return (
+      <S.TableCard key={id}>
+        <S.TableCardTop>
+          <Link href={`${orderPath}/${id}`} passHref>
+            <S.Link>№ {id}</S.Link>
+          </Link>
 
-            <S.TableCardTopRight>
-              <span>{new Date(date).toLocaleDateString()}</span>
-              {ableToMoveInArchive && (
-                <Button
-                  variant="text"
-                  onClick={() => {
-                    onArchiveToggle(id, Boolean(currentOrder?.isArchived))
-                  }}
-                >
-                  <DownloadIcon />
-                </Button>
-              )}
-            </S.TableCardTopRight>
-          </S.TableCardTop>
+          <S.TableCardTopRight>
+            <span>{new Date(date).toLocaleDateString()}</span>
+            {ableToMoveInArchive && (
+              <Button
+                variant="text"
+                onClick={() => {
+                  onArchiveToggle(id, Boolean(currentOrder?.isArchived))
+                }}
+              >
+                <DownloadIcon />
+              </Button>
+            )}
+          </S.TableCardTopRight>
+        </S.TableCardTop>
 
-          <S.TableCardContent>
-            <S.TableCardRows>
-              <Typography>Статус</Typography>
-              <OrderStatusBadge status={status} />
+        <S.TableCardContent>
+          <S.TableCardRows>
+            <Typography>Статус</Typography>
+            <OrderStatusBadge status={status} />
 
-              <Typography>Состав заказа</Typography>
-              <Typography>{slicedProductsString}</Typography>
+            <Typography>Состав заказа</Typography>
+            <Typography>{slicedProductsString}</Typography>
 
-              <Typography>Тип оплаты</Typography>
-              <Typography>{paymentType}</Typography>
+            <Typography>Тип оплаты</Typography>
+            <Typography>{paymentType}</Typography>
 
-              <Typography>Тип доставки, стоимость</Typography>
-              <Typography>
-                {delivery.type} <br />
-                <S.DeliveryPrice>{numberToPrice(delivery.price)}</S.DeliveryPrice>
-              </Typography>
+            <Typography>Тип доставки, стоимость</Typography>
+            <Typography>
+              {delivery.type} <br />
+              <S.DeliveryPrice>{numberToPrice(delivery.price)}</S.DeliveryPrice>
+            </Typography>
 
-              <Typography>Общая сумма</Typography>
-              <S.PriceTotal>{numberToPrice(priceTotal)}</S.PriceTotal>
-            </S.TableCardRows>
-          </S.TableCardContent>
-        </S.TableCard>
-      )
-    })
-  ) : (
-    <S.NoDataText>Данные отсутствуют</S.NoDataText>
-  )
+            <Typography>Общая сумма</Typography>
+            <S.PriceTotal>{numberToPrice(priceTotal)}</S.PriceTotal>
+          </S.TableCardRows>
+        </S.TableCardContent>
+      </S.TableCard>
+    )
+  })
 
   return (
     <S.OrdersTable>
-      <Table columns={columns} data={orders.map(formatOrder)} isLoading={isLoading} />
+      <Table
+        columns={columns}
+        data={orders.map(formatOrder)}
+        isLoading={isLoading}
+        noDataText="Заказы отсутствуют"
+      />
 
-      <S.TableCardsList>
-        {!isLoading ? tableCards : <Skeleton count={3} height={222} />}
-      </S.TableCardsList>
+      <TableCardsList
+        cards={tableCards}
+        isLoading={isLoading}
+        noDataText="Заказы отсутствуют"
+        skeletonHeight={273}
+      />
     </S.OrdersTable>
   )
 }

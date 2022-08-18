@@ -2,7 +2,8 @@ import { useMemo } from 'react'
 import { Column } from 'react-table'
 import Link from 'next/link'
 
-import { Table, Skeleton } from 'ui'
+import { TableCardsList } from 'components'
+import { Table } from 'ui'
 
 import { Order, OrderDocument } from 'types/orders'
 
@@ -90,44 +91,40 @@ export const OrdersAccountingTable = ({
     })
   }
 
-  const tableCards = orders.length ? (
-    selectOrdersProps(orders).map((order) => {
-      const { id, dateTime, documents } = order
+  const tableCards = selectOrdersProps(orders).map((order) => {
+    const { id, dateTime, documents } = order
 
-      const documentsList = documents.map(({ id, name }) => {
-        return (
-          <S.Document key={id}>
-            <FileIcon />
-            <span>{name}</span>
-          </S.Document>
-        )
-      })
-
+    const documentsList = documents.map(({ id, name }) => {
       return (
-        <S.TableCard key={id}>
-          <S.TableCardTop>
-            <Link href={`${orderPath}/${id}`} passHref>
-              <S.Link>№ {id}</S.Link>
-            </Link>
-
-            <span>{new Date(dateTime).toLocaleDateString()}</span>
-          </S.TableCardTop>
-
-          <S.TableCardContent>
-            {documents.length ? documentsList : 'Документы отсутствуют'}
-          </S.TableCardContent>
-        </S.TableCard>
+        <S.Document key={id}>
+          <FileIcon />
+          <span>{name}</span>
+        </S.Document>
       )
     })
-  ) : (
-    <S.NoDataText>Данные отсутствуют</S.NoDataText>
-  )
+
+    return (
+      <S.TableCard key={id}>
+        <S.TableCardTop>
+          <Link href={`${orderPath}/${id}`} passHref>
+            <S.Link>№ {id}</S.Link>
+          </Link>
+
+          <span>{new Date(dateTime).toLocaleDateString()}</span>
+        </S.TableCardTop>
+
+        <S.TableCardContent>
+          {documents.length ? documentsList : 'Документы отсутствуют'}
+        </S.TableCardContent>
+      </S.TableCard>
+    )
+  })
 
   return (
     <S.OrdersAccountingTable>
       <Table data={selectOrdersProps(orders)} columns={columns} isLoading={isLoading} />
 
-      {!isLoading ? tableCards : <Skeleton count={3} height={200} />}
+      <TableCardsList cards={tableCards} isLoading={isLoading} skeletonHeight={200} />
     </S.OrdersAccountingTable>
   )
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 
 import { Button } from 'ui'
@@ -26,8 +26,8 @@ interface CustomerOrderDetailsProps {
   deliveryType: OptionType
   paymentType: OptionType
   editable?: boolean
-  onPaymentTypeChange: (paymentTypeId: number) => void
-  onDeliveryTypeChange: (deliveryTypeId: number) => void
+  onPaymentTypeChange: (id: number) => void
+  onDeliveryTypeChange: (id: number) => void
 }
 
 export const CustomerOrderDetails = ({
@@ -38,32 +38,15 @@ export const CustomerOrderDetails = ({
   onPaymentTypeChange,
   onDeliveryTypeChange
 }: CustomerOrderDetailsProps) => {
-  const useFormProps = useForm<FormFields>()
-  const { watch, reset } = useFormProps
-  const deliveryTypeWatch = watch('deliveryType')
-  const paymentTypeWatch = watch('paymentType')
-
-  const [isPaymentTypeEditable, setPaymentTypeEditable] = useState(false)
-  const [isDeliveryTypeEditable, setDeliveryTypeEditable] = useState(false)
-
-  useEffect(() => {
-    reset({
+  const useFormProps = useForm<FormFields>({
+    defaultValues: {
       deliveryType: deliveryType.id,
       paymentType: paymentType.id
-    })
-  }, [deliveryType, paymentType, reset])
-
-  useEffect(() => {
-    if (paymentTypeWatch && paymentTypeWatch !== paymentType.id) {
-      onPaymentTypeChange(paymentTypeWatch)
     }
-  }, [paymentTypeWatch])
+  })
 
-  useEffect(() => {
-    if (deliveryTypeWatch && deliveryTypeWatch !== deliveryType.id) {
-      onDeliveryTypeChange(deliveryTypeWatch)
-    }
-  }, [deliveryTypeWatch])
+  const [isPaymentTypeEditing, setPaymentTypeEditing] = useState(false)
+  const [isDeliveryTypeEditing, setDeliveryTypeEditing] = useState(false)
 
   const { city, street, house, building, apartment } = address
 
@@ -75,7 +58,8 @@ export const CustomerOrderDetails = ({
 
         <FormProvider {...useFormProps}>
           <S.Label>Тип оплаты</S.Label>
-          {!isPaymentTypeEditable ? (
+
+          {!isPaymentTypeEditing ? (
             <S.ValueEditable>
               {paymentType.title}
 
@@ -83,7 +67,7 @@ export const CustomerOrderDetails = ({
                 <Button
                   variant="text"
                   onClick={() => {
-                    setPaymentTypeEditable(true)
+                    setPaymentTypeEditing(true)
                   }}
                 >
                   <PenIcon />
@@ -91,11 +75,12 @@ export const CustomerOrderDetails = ({
               )}
             </S.ValueEditable>
           ) : (
-            <PaymentTypeSelect name="paymentType" />
+            <PaymentTypeSelect name="paymentType" onChange={onPaymentTypeChange} />
           )}
 
           <S.Label>Тип доставки</S.Label>
-          {!isDeliveryTypeEditable ? (
+
+          {!isDeliveryTypeEditing ? (
             <S.ValueEditable>
               {deliveryType.title}
 
@@ -103,7 +88,7 @@ export const CustomerOrderDetails = ({
                 <Button
                   variant="text"
                   onClick={() => {
-                    setDeliveryTypeEditable(true)
+                    setDeliveryTypeEditing(true)
                   }}
                 >
                   <PenIcon />
@@ -111,7 +96,7 @@ export const CustomerOrderDetails = ({
               )}
             </S.ValueEditable>
           ) : (
-            <DeliveryTypeSelect name="deliveryType" />
+            <DeliveryTypeSelect name="deliveryType" onChange={onDeliveryTypeChange} />
           )}
         </FormProvider>
       </S.Left>

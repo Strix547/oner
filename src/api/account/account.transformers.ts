@@ -2,7 +2,7 @@ import * as ApiTypes from './account.types'
 
 import { User, RequisitesItem, Address } from 'types/account'
 
-export const transformMe = (me: ApiTypes.Me): User => {
+export const transformMe = (me: ApiTypes.User): User => {
   const {
     id,
     phone,

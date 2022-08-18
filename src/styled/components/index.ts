@@ -5,7 +5,6 @@ import { Badge } from './Badge'
 import { NoDataText } from './NoDataText'
 import { List, ListItem, Label, Value } from './LabelValueList'
 import {
-  TableCardsList,
   TableCard,
   TableCardTop,
   TableCardContent,
@@ -22,7 +21,6 @@ export {
   ListItem,
   Label,
   Value,
-  TableCardsList,
   TableCard,
   TableCardTop,
   TableCardContent,

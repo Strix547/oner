@@ -7,8 +7,8 @@ import * as S from './Requisites.styled'
 
 interface FormFields {
   name: string
-  accountNumber: number
-  bik: number
+  accountNumber: string
+  bik: string
 }
 
 interface OnSubmitProps {

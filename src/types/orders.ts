@@ -40,7 +40,7 @@ export interface OrderDocument {
   orderId: number
   createdDateTime: string
   name: string
-  file: File
+  file: string
   size: string
 }
 

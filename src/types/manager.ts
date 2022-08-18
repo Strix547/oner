@@ -20,7 +20,7 @@ export interface AccountingFile {
   id: number
   name: string
   size: string
-  file: File
+  file: string
   uploaded: string
   accounting: number
 }
@@ -34,8 +34,8 @@ export interface AccountingItem {
 
 export interface RequisitesItem {
   id: number
-  accountNumber: number
-  bik: number
+  accountNumber: string
+  bik: string
   name: string
 }
 

@@ -3,7 +3,8 @@ import Link from 'next/link'
 import { Column } from 'react-table'
 import Typography from '@mui/material/Typography'
 
-import { Table, Skeleton } from 'ui'
+import { TableCardsList } from 'components'
+import { Table } from 'ui'
 
 import { numberToPrice } from 'utils'
 import { Order } from 'types/orders'
@@ -103,53 +104,57 @@ export const OrdersReceiptsTable = ({
     })
   }
 
-  const tableCards = orders.length ? (
-    selectOrderProps(orders).map((order) => {
-      const { id, orderDate, status, paymentAmount, paymentDate, documents } = order
+  const tableCards = selectOrderProps(orders).map((order) => {
+    const { id, orderDate, status, paymentAmount, paymentDate, documents } = order
 
-      return (
-        <S.TableCard key={id}>
-          <S.TableCardTop>
-            <Link href={`${orderPath}/${id}`} passHref>
-              <S.Link>№ {id}</S.Link>
-            </Link>
+    return (
+      <S.TableCard key={id}>
+        <S.TableCardTop>
+          <Link href={`${orderPath}/${id}`} passHref>
+            <S.Link>№ {id}</S.Link>
+          </Link>
 
-            <span>{new Date(orderDate).toLocaleDateString()}</span>
-          </S.TableCardTop>
+          <span>{new Date(orderDate).toLocaleDateString()}</span>
+        </S.TableCardTop>
 
-          <S.TableCardContent>
-            <S.TableCardRows>
-              <Typography>Статус заказа</Typography>
-              <S.OrderStatus status={status}>Активный</S.OrderStatus>
+        <S.TableCardContent>
+          <S.TableCardRows>
+            <Typography>Статус заказа</Typography>
+            <S.OrderStatus status={status}>Активный</S.OrderStatus>
 
-              <Typography>Сумма перевода</Typography>
-              <Typography component="span" fontWeight={600}>
-                {numberToPrice(paymentAmount)}
-              </Typography>
+            <Typography>Сумма перевода</Typography>
+            <Typography component="span" fontWeight={600}>
+              {numberToPrice(paymentAmount)}
+            </Typography>
 
-              <Typography>Дата перевода</Typography>
-              <Typography>{new Date(paymentDate).toLocaleDateString()}</Typography>
+            <Typography>Дата перевода</Typography>
+            <Typography>{new Date(paymentDate).toLocaleDateString()}</Typography>
 
-              <Typography>Документы по заказу</Typography>
-              <S.DocumentButton variant="text" styled="transparent">
-                <DocumnetIcon />
-              </S.DocumentButton>
-            </S.TableCardRows>
-          </S.TableCardContent>
-        </S.TableCard>
-      )
-    })
-  ) : (
-    <S.NoDataText>Данные отсутствуют</S.NoDataText>
-  )
+            <Typography>Документы по заказу</Typography>
+            <S.DocumentButton variant="text" styled="transparent">
+              <DocumnetIcon />
+            </S.DocumentButton>
+          </S.TableCardRows>
+        </S.TableCardContent>
+      </S.TableCard>
+    )
+  })
 
   return (
     <S.OrdersReceiptsTable>
-      <Table columns={columns} data={selectOrderProps(orders)} isLoading={isLoading} />
+      <Table
+        columns={columns}
+        data={selectOrderProps(orders)}
+        isLoading={isLoading}
+        noDataText="Поступления отсутствуют"
+      />
 
-      <S.TableCardsList>
-        {!isLoading ? tableCards : <Skeleton count={3} height={228} />}
-      </S.TableCardsList>
+      <TableCardsList
+        cards={tableCards}
+        isLoading={isLoading}
+        noDataText="Поступления отсутствуют"
+        skeletonHeight={228}
+      />
     </S.OrdersReceiptsTable>
   )
 }

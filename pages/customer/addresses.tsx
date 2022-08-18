@@ -14,12 +14,12 @@ interface OnAddressSubmitProps {
   purpose: 'edit' | 'add'
   address: {
     name: string
-    postalCode: number
+    postalCode: string
     city: string
     street: string
     house: string
-    building?: number
-    apartment: number
+    building?: string
+    apartment: string
   }
 }
 
@@ -47,7 +47,7 @@ const CustomerAddressesPage = () => {
     }
 
     if (purpose === 'add') {
-      addAddress.mutateAsync({ userId, ...address })
+      addAddress.mutate({ userId, ...address })
     }
   }
 

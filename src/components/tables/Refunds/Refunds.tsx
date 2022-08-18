@@ -3,8 +3,8 @@ import { Column } from 'react-table'
 import Link from 'next/link'
 import Typography from '@mui/material/Typography'
 
-import { OrderStatusBadge } from 'components'
-import { Table, Skeleton } from 'ui'
+import { OrderStatusBadge, TableCardsList } from 'components'
+import { Table } from 'ui'
 
 import { OrderStatus, RefundItem } from 'types/orders'
 
@@ -80,47 +80,51 @@ export const RefundsTable = ({ refunds = [], orderPath, isLoading }: RefundsTabl
     })
   }
 
-  const tableCards = refunds.length ? (
-    selectRefundsProps(refunds).map((refund) => {
-      const { orderId, orderDate, orderStatus, refundId, refundDate } = refund
+  const tableCards = selectRefundsProps(refunds).map((refund) => {
+    const { orderId, orderDate, orderStatus, refundId, refundDate } = refund
 
-      return (
-        <S.TableCard key={refundId}>
-          <S.TableCardTop>
-            <Link href={`${orderPath}/${orderId}`} passHref>
-              <S.Link>№ {orderId}</S.Link>
-            </Link>
-          </S.TableCardTop>
+    return (
+      <S.TableCard key={refundId}>
+        <S.TableCardTop>
+          <Link href={`${orderPath}/${orderId}`} passHref>
+            <S.Link>№ {orderId}</S.Link>
+          </Link>
+        </S.TableCardTop>
 
-          <S.TableCardContent>
-            <S.TableCardRows>
-              <Typography>Дата заказа</Typography>
-              <Typography>{new Date(orderDate).toLocaleDateString()}</Typography>
+        <S.TableCardContent>
+          <S.TableCardRows>
+            <Typography>Дата заказа</Typography>
+            <Typography>{new Date(orderDate).toLocaleDateString()}</Typography>
 
-              <Typography>Статус заказа</Typography>
-              <OrderStatusBadge status={orderStatus} />
+            <Typography>Статус заказа</Typography>
+            <OrderStatusBadge status={orderStatus} />
 
-              <Typography>Номер возврата</Typography>
-              <Typography>№ {refundId}</Typography>
+            <Typography>Номер возврата</Typography>
+            <Typography>№ {refundId}</Typography>
 
-              <Typography>Дата возврата</Typography>
-              <Typography>{new Date(refundDate).toLocaleDateString()}</Typography>
-            </S.TableCardRows>
-          </S.TableCardContent>
-        </S.TableCard>
-      )
-    })
-  ) : (
-    <S.NoDataText>Данные отсутствуют</S.NoDataText>
-  )
+            <Typography>Дата возврата</Typography>
+            <Typography>{new Date(refundDate).toLocaleDateString()}</Typography>
+          </S.TableCardRows>
+        </S.TableCardContent>
+      </S.TableCard>
+    )
+  })
 
   return (
     <S.RefundsTable>
-      <Table columns={columns} data={selectRefundsProps(refunds)} isLoading={isLoading} />
+      <Table
+        columns={columns}
+        data={selectRefundsProps(refunds)}
+        isLoading={isLoading}
+        noDataText="Возвраты отсутствуют"
+      />
 
-      <S.TableCardsList>
-        {!isLoading ? tableCards : <Skeleton count={3} height={222} />}
-      </S.TableCardsList>
+      <TableCardsList
+        cards={tableCards}
+        isLoading={isLoading}
+        noDataText="Возвраты отсутствуют"
+        skeletonHeight={222}
+      />
     </S.RefundsTable>
   )
 }

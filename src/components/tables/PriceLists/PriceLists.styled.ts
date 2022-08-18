@@ -2,13 +2,11 @@ import styled from 'styled-components'
 
 import {
   Box,
-  TableCardsList,
   TableCard,
   TableCardTop,
   TableCardContent,
   TableCardRows,
-  TableCardActions,
-  NoDataText
+  TableCardActions
 } from 'styled/components'
 import { media } from 'styled/media'
 
@@ -16,21 +14,13 @@ import { Badge } from 'styled/components/Badge'
 import { Table, TableRow } from 'ui/Table/Table.styled'
 import { CancelButton } from 'common/buttons/Cancel/Cancel.styled'
 import { DownloadButton } from 'common/buttons/Download/Download.styled'
+import { TableCardsList } from 'components/TableCardsList/TableCardsList.styled'
 
 const media1300 = media.createMedia(1300)
 const media900 = media.createMedia(900)
 const media680 = media.createMedia(680)
 
-export {
-  Badge,
-  TableCardsList,
-  TableCard,
-  TableCardTop,
-  TableCardContent,
-  TableCardRows,
-  TableCardActions,
-  NoDataText
-}
+export { Badge, TableCard, TableCardTop, TableCardContent, TableCardRows, TableCardActions }
 
 export const TableBox = styled(Box)`
   ${media680} {

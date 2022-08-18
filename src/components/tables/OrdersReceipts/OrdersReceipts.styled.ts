@@ -2,19 +2,18 @@ import styled, { css } from 'styled-components'
 
 import {
   Link,
-  TableCardsList,
   TableCard,
   TableCardTop,
   TableCardContent,
   TableCardRows,
-  TableCardActions,
-  NoDataText
+  TableCardActions
 } from 'styled/components'
 import { media } from 'styled/media'
 
 import { Button } from 'ui'
 
 import { Table, TableRow } from 'ui/Table/Table.styled'
+import { TableCardsList } from 'components/TableCardsList/TableCardsList.styled'
 
 type OrderStatus = 'active'
 
@@ -26,16 +25,7 @@ const media1260 = media.createMedia(1260)
 const media800 = media.createMedia(800)
 const media730 = media.createMedia(730)
 
-export {
-  Link,
-  TableCardsList,
-  TableCard,
-  TableCardTop,
-  TableCardContent,
-  TableCardRows,
-  TableCardActions,
-  NoDataText
-}
+export { Link, TableCard, TableCardTop, TableCardContent, TableCardRows, TableCardActions }
 
 export const OrdersReceiptsTable = styled.div`
   ${Table} {

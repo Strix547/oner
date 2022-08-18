@@ -23,8 +23,8 @@ export interface User {
 export interface RequisitesItem {
   id: number
   name: string
-  accountNumber: number
-  bik: number
+  accountNumber: string
+  bik: string
 }
 
 export interface Address {

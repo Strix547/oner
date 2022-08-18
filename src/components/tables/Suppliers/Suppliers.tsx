@@ -4,8 +4,9 @@ import Link from 'next/link'
 import Typography from '@mui/material/Typography'
 import { FormProvider, useForm } from 'react-hook-form'
 
+import { TableCardsList } from 'components'
 import { EditButton } from 'common/buttons'
-import { Table, Switch, Skeleton } from 'ui'
+import { Table, Switch } from 'ui'
 
 import { ROUTE_NAMES } from 'core'
 import { formatPhone } from 'utils'
@@ -122,47 +123,51 @@ export const SuppliersTable = ({
     []
   )
 
-  const tableCards = suppliers.length ? (
-    suppliers.map((supplier) => {
-      const { id, name, inn, phone, fullName, email } = supplier
+  const tableCards = suppliers.map((supplier) => {
+    const { id, name, inn, phone, fullName, email } = supplier
 
-      return (
-        <S.TableCard key={id}>
-          <S.TableCardTop>
-            <Link href={`${ROUTE_NAMES.MANAGER_SUPPLIERS}/${id}`} passHref>
-              <S.Link>{name}</S.Link>
-            </Link>
+    return (
+      <S.TableCard key={id}>
+        <S.TableCardTop>
+          <Link href={`${ROUTE_NAMES.MANAGER_SUPPLIERS}/${id}`} passHref>
+            <S.Link>{name}</S.Link>
+          </Link>
 
-            {renderActions(id, email)}
-          </S.TableCardTop>
+          {renderActions(id, email)}
+        </S.TableCardTop>
 
-          <S.TableCardContent>
-            <S.TableCardRows>
-              <Typography>ИНН</Typography>
-              <Typography fontWeight={500}>{inn}</Typography>
+        <S.TableCardContent>
+          <S.TableCardRows>
+            <Typography>ИНН</Typography>
+            <Typography fontWeight={500}>{inn}</Typography>
 
-              <Typography>Телефон</Typography>
-              <Typography>{formatPhone(phone)}</Typography>
+            <Typography>Телефон</Typography>
+            <Typography>{formatPhone(phone)}</Typography>
 
-              <Typography>Контактное лицо</Typography>
-              <Typography>{fullName}</Typography>
-            </S.TableCardRows>
-          </S.TableCardContent>
-        </S.TableCard>
-      )
-    })
-  ) : (
-    <S.NoDataText>Данные отсутствуют</S.NoDataText>
-  )
+            <Typography>Контактное лицо</Typography>
+            <Typography>{fullName}</Typography>
+          </S.TableCardRows>
+        </S.TableCardContent>
+      </S.TableCard>
+    )
+  })
 
   return (
     <S.SuppliersTable>
       <FormProvider {...useFormProps}>
-        <Table columns={columns} data={suppliers} isLoading={isLoading} />
+        <Table
+          columns={columns}
+          data={suppliers}
+          isLoading={isLoading}
+          noDataText="Поставщики отсутствуют"
+        />
 
-        <S.TableCardsList>
-          {!isLoading ? tableCards : <Skeleton count={3} height={181} />}
-        </S.TableCardsList>
+        <TableCardsList
+          cards={tableCards}
+          isLoading={isLoading}
+          noDataText="Поставщики отсутствуют"
+          skeletonHeight={181}
+        />
       </FormProvider>
     </S.SuppliersTable>
   )

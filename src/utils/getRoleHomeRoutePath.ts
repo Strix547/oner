@@ -13,6 +13,6 @@ export const getRoleHomeRoutePath = (role?: UserRoleType) => {
     case 'PersonEntity':
       return ROUTE_NAMES.CUSTOMER_PERSONAL_INFO
     default:
-      return ROUTE_NAMES.CUSTOMER_PERSONAL_INFO
+      return '/'
   }
 }

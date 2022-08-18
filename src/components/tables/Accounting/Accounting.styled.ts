@@ -2,31 +2,21 @@ import styled from 'styled-components'
 
 import {
   Link,
-  TableCardsList,
   TableCard,
   TableCardTop,
   TableCardContent,
   TableCardRows,
-  TableCardActions,
-  NoDataText
+  TableCardActions
 } from 'styled/components'
 import { media } from 'styled/media'
 
 import { Table, TableRow } from 'ui/Table/Table.styled'
 import { DownloadButton } from 'common/buttons/Download/Download.styled'
+import { TableCardsList } from 'components/TableCardsList/TableCardsList.styled'
 
 const media660 = media.createMedia(660)
 
-export {
-  Link,
-  TableCardsList,
-  TableCard,
-  TableCardTop,
-  TableCardContent,
-  TableCardRows,
-  TableCardActions,
-  NoDataText
-}
+export { Link, TableCard, TableCardTop, TableCardContent, TableCardRows, TableCardActions }
 
 export const AccountingTable = styled.div`
   ${TableRow} {

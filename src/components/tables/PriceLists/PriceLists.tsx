@@ -2,8 +2,9 @@ import { Column } from 'react-table'
 import { useMemo } from 'react'
 import Typography from '@mui/material/Typography'
 
-import { Table, Skeleton } from 'ui'
+import { Table } from 'ui'
 import { CancelButton, DownloadButton } from 'common/buttons'
+import { TableCardsList } from 'components'
 
 import { PriceList, PriceListStatus } from 'types/supplier'
 
@@ -193,49 +194,43 @@ export const PriceListsTable = ({
     []
   )
 
-  const activePriceListCards = priceLists.length ? (
-    selectActivePriceListsProps(priceLists).map((priceList) => {
-      const { id, publicationDate, uploadDate, status, moderatorComment } = priceList
+  const activePriceListCards = selectActivePriceListsProps(priceLists).map((priceList) => {
+    const { id, publicationDate, uploadDate, status, moderatorComment } = priceList
 
-      return (
-        <S.TableCard key={id}>
-          <S.TableCardContent>
-            <CancelButton
-              onClick={() => {
-                if (onPriceListCancel) {
-                  onPriceListCancel(id)
-                }
-              }}
-            />
+    return (
+      <S.TableCard key={id}>
+        <S.TableCardContent>
+          <CancelButton
+            onClick={() => {
+              if (onPriceListCancel) {
+                onPriceListCancel(id)
+              }
+            }}
+          />
 
-            <S.TableCardRows>
-              <Typography>ID</Typography>
-              <Typography>№ {id}</Typography>
+          <S.TableCardRows>
+            <Typography>ID</Typography>
+            <Typography>№ {id}</Typography>
 
-              <Typography>Дата загрузки</Typography>
-              <Typography>
-                {uploadDate ? new Date(uploadDate).toLocaleDateString() : '-'}
-              </Typography>
+            <Typography>Дата загрузки</Typography>
+            <Typography>{uploadDate ? new Date(uploadDate).toLocaleDateString() : '-'}</Typography>
 
-              <Typography>Дата публикации</Typography>
-              <Typography>{new Date(publicationDate).toLocaleDateString()}</Typography>
+            <Typography>Дата публикации</Typography>
+            <Typography>{new Date(publicationDate).toLocaleDateString()}</Typography>
 
-              <Typography>Статус</Typography>
-              {renderStatusBadge(status)}
+            <Typography>Статус</Typography>
+            {renderStatusBadge(status)}
 
-              <Typography>Комментарии модератора</Typography>
-              <Typography>{moderatorComment ?? '-'}</Typography>
-            </S.TableCardRows>
-          </S.TableCardContent>
-        </S.TableCard>
-      )
-    })
-  ) : (
-    <S.NoDataText>Данные отсутствуют</S.NoDataText>
-  )
+            <Typography>Комментарии модератора</Typography>
+            <Typography>{moderatorComment ?? '-'}</Typography>
+          </S.TableCardRows>
+        </S.TableCardContent>
+      </S.TableCard>
+    )
+  })
 
-  const messagesErrorsPriceListCards = priceLists.length ? (
-    selectMessagesErrorsPriceListsProps(priceLists).map((priceList) => {
+  const messagesErrorsPriceListCards = selectMessagesErrorsPriceListsProps(priceLists).map(
+    (priceList) => {
       const { id, uploadDate, fileName, statusDescription, errorMessage } = priceList
       return (
         <S.TableCard key={id}>
@@ -266,10 +261,10 @@ export const PriceListsTable = ({
           </S.TableCardContent>
         </S.TableCard>
       )
-    })
-  ) : (
-    <S.NoDataText>Данные отсутствуют</S.NoDataText>
+    }
   )
+
+  const noDataText = 'Прайс-листы отсутствуют'
 
   return type === 'active' ? (
     <S.ActivePriceListsTable>
@@ -278,11 +273,15 @@ export const PriceListsTable = ({
         isLoading={isLoading}
         data={selectActivePriceListsProps(priceLists)}
         columns={activePriceListColumns}
+        noDataText={noDataText}
       />
 
-      <S.TableCardsList>
-        {!isLoading ? activePriceListCards : <Skeleton count={3} height={220} />}
-      </S.TableCardsList>
+      <TableCardsList
+        cards={activePriceListCards}
+        isLoading={isLoading}
+        noDataText={noDataText}
+        skeletonHeight={220}
+      />
     </S.ActivePriceListsTable>
   ) : (
     <S.MessagesErrorsPriceListTable>
@@ -290,11 +289,15 @@ export const PriceListsTable = ({
         isLoading={isLoading}
         data={selectMessagesErrorsPriceListsProps(priceLists)}
         columns={messagesErrorsPriceListColumns}
+        noDataText={noDataText}
       />
 
-      <S.TableCardsList>
-        {!isLoading ? messagesErrorsPriceListCards : <Skeleton count={3} height={220} />}
-      </S.TableCardsList>
+      <TableCardsList
+        cards={messagesErrorsPriceListCards}
+        isLoading={isLoading}
+        noDataText={noDataText}
+        skeletonHeight={220}
+      />
     </S.MessagesErrorsPriceListTable>
   )
 }

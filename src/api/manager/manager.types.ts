@@ -49,7 +49,7 @@ interface AccountingFile {
   id: number
   name: string
   size: string
-  file: File
+  file: string
   uploaded: string
   accounting: number
 }
@@ -62,9 +62,9 @@ export interface AccountingItem {
 }
 
 export interface RequisitesItem {
-  account_number: number
-  bik: number
   id: number
+  account_number: string
+  bik: string
   title: string
   user: {
     email: string
@@ -155,8 +155,8 @@ export interface RequisiteItem {
   id: number
   user: RequisitesUser
   title: string
-  account_number: number
-  bik: number
+  account_number: string
+  bik: string
 }
 
 export interface GetRequisites {

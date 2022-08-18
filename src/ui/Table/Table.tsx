@@ -11,9 +11,16 @@ interface TableProps {
   columns: Column<any>[]
   data: any[]
   isLoading?: boolean
+  noDataText?: string
 }
 
-export const Table = ({ headGray = false, columns, data, isLoading }: TableProps) => {
+export const Table = ({
+  headGray = false,
+  columns,
+  data,
+  isLoading,
+  noDataText = 'Данные отсутствуют'
+}: TableProps) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
     {
       columns,
@@ -76,7 +83,7 @@ export const Table = ({ headGray = false, columns, data, isLoading }: TableProps
               )
             })
           ) : (
-            <S.NoDataText>Данные отсутствуют</S.NoDataText>
+            <S.NoDataText>{noDataText}</S.NoDataText>
           )}{' '}
         </S.TableBody>
       ) : (

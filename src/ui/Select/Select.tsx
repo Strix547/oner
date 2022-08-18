@@ -49,7 +49,17 @@ export const Select = ({
           <S.SelectFormControl>
             {label && <S.SelectInputLabel>{label}</S.SelectInputLabel>}
 
-            <S.Select {...props} {...field}>
+            <S.Select
+              {...props}
+              {...field}
+              onChange={(e, child) => {
+                if (props.onChange) {
+                  props.onChange(e, child)
+                }
+
+                return field.onChange(e)
+              }}
+            >
               {menuItems}
             </S.Select>
 

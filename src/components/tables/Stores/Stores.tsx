@@ -4,7 +4,8 @@ import { useForm, FormProvider } from 'react-hook-form'
 import Link from 'next/link'
 import Typography from '@mui/material/Typography'
 
-import { Table, Switch, Skeleton } from 'ui'
+import { TableCardsList } from 'components'
+import { Table, Switch } from 'ui'
 import { EditButton } from 'common/buttons'
 
 import { Store, StoreStatus } from 'types/supplier'
@@ -165,53 +166,57 @@ export const StoresTable = ({
     })
   }
 
-  const tableCards = stores.length ? (
-    selectStoreProps(stores).map((store) => {
-      const { id, name, city, phone, email, status, address } = store
+  const tableCards = selectStoreProps(stores).map((store) => {
+    const { id, name, city, phone, email, status, address } = store
 
-      return (
-        <S.TableCard key={id}>
-          <S.TableCardTop>
-            <Link href={`${storePath}/${id}`} passHref>
-              <S.Link>{name}</S.Link>
-            </Link>
+    return (
+      <S.TableCard key={id}>
+        <S.TableCardTop>
+          <Link href={`${storePath}/${id}`} passHref>
+            <S.Link>{name}</S.Link>
+          </Link>
 
-            <S.TableCardTopRight>{renderStoreActions(id)}</S.TableCardTopRight>
-          </S.TableCardTop>
+          <S.TableCardTopRight>{renderStoreActions(id)}</S.TableCardTopRight>
+        </S.TableCardTop>
 
-          <S.TableCardContent>
-            <S.TableCardRows>
-              <Typography>Город</Typography>
-              <Typography>{city}</Typography>
+        <S.TableCardContent>
+          <S.TableCardRows>
+            <Typography>Город</Typography>
+            <Typography>{city}</Typography>
 
-              <Typography>Адрес</Typography>
-              <Typography>{address}</Typography>
+            <Typography>Адрес</Typography>
+            <Typography>{address}</Typography>
 
-              <Typography>Телефон</Typography>
-              <Typography>{phone}</Typography>
+            <Typography>Телефон</Typography>
+            <Typography>{phone}</Typography>
 
-              <Typography>Эл. почта</Typography>
-              <Typography>{email}</Typography>
+            <Typography>Эл. почта</Typography>
+            <Typography>{email}</Typography>
 
-              <Typography>Статус</Typography>
-              {renderStatusBadge(status)}
-            </S.TableCardRows>
-          </S.TableCardContent>
-        </S.TableCard>
-      )
-    })
-  ) : (
-    <S.NoDataText>Данные отсутствуют</S.NoDataText>
-  )
+            <Typography>Статус</Typography>
+            {renderStatusBadge(status)}
+          </S.TableCardRows>
+        </S.TableCardContent>
+      </S.TableCard>
+    )
+  })
 
   return (
     <S.StoresTable>
       <FormProvider {...useFormProps}>
-        <Table columns={columns} data={selectStoreProps(stores)} isLoading={isLoading} />
+        <Table
+          columns={columns}
+          data={selectStoreProps(stores)}
+          isLoading={isLoading}
+          noDataText="Магазины отсутствуют"
+        />
 
-        <S.TableCardsList>
-          {!isLoading ? tableCards : <Skeleton count={3} height={277} />}
-        </S.TableCardsList>
+        <TableCardsList
+          cards={tableCards}
+          isLoading={isLoading}
+          noDataText="Магазины отсутствуют"
+          skeletonHeight={277}
+        />
       </FormProvider>
     </S.StoresTable>
   )

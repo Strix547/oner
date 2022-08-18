@@ -2,32 +2,22 @@ import styled from 'styled-components'
 
 import {
   Link,
-  TableCardsList,
   TableCard,
   TableCardTop,
   TableCardContent,
   TableCardRows,
-  TableCardActions,
-  NoDataText
+  TableCardActions
 } from 'styled/components'
 import { media } from 'styled/media'
 
 import { Table, TableRow } from 'ui/Table/Table.styled'
 import { Button } from 'ui/Button/Button.styled'
+import { TableCardsList } from 'components/TableCardsList/TableCardsList.styled'
 
 const media1300 = media.createMedia(1300)
 const media900 = media.createMedia(900)
 
-export {
-  Link,
-  TableCardsList,
-  TableCard,
-  TableCardTop,
-  TableCardContent,
-  TableCardRows,
-  TableCardActions,
-  NoDataText
-}
+export { Link, TableCard, TableCardTop, TableCardContent, TableCardRows, TableCardActions }
 
 export const PriceTotal = styled.p`
   font-weight: 500;

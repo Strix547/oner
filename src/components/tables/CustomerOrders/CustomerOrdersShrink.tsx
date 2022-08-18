@@ -3,7 +3,7 @@ import { Column } from 'react-table'
 import Link from 'next/link'
 import Typography from '@mui/material/Typography'
 
-import { OrderStatusBadge } from 'components'
+import { OrderStatusBadge, TableCardsList } from 'components'
 import { Table } from 'ui'
 
 import { formatOrder, numberToPrice } from 'utils'
@@ -90,51 +90,47 @@ export const CustomerOrdersShrinkTable = ({ orders = [], orderPath }: CustomerOr
     }
   })
 
-  const tableCards = orders.length ? (
-    tableOrdersData.map((order) => {
-      const { id, date, status, paymentType, deliveryType, deliveryPrice, priceTotal } = order
+  const tableCards = tableOrdersData.map((order) => {
+    const { id, date, status, paymentType, deliveryType, deliveryPrice, priceTotal } = order
 
-      return (
-        <S.TableCard key={id}>
-          <S.TableCardTop>
-            <Link href={`${orderPath}/${id}`} passHref>
-              <S.Link>№ {id}</S.Link>
-            </Link>
-          </S.TableCardTop>
+    return (
+      <S.TableCard key={id}>
+        <S.TableCardTop>
+          <Link href={`${orderPath}/${id}`} passHref>
+            <S.Link>№ {id}</S.Link>
+          </Link>
+        </S.TableCardTop>
 
-          <S.TableCardContent>
-            <S.TableCardRows>
-              <Typography>Дата заказа</Typography>
-              <Typography>{new Date(date).toLocaleDateString()}</Typography>
+        <S.TableCardContent>
+          <S.TableCardRows>
+            <Typography>Дата заказа</Typography>
+            <Typography>{new Date(date).toLocaleDateString()}</Typography>
 
-              <Typography>Статус</Typography>
-              <OrderStatusBadge status={status} />
+            <Typography>Статус</Typography>
+            <OrderStatusBadge status={status} />
 
-              <Typography>Тип оплаты</Typography>
-              <Typography>{paymentType}</Typography>
+            <Typography>Тип оплаты</Typography>
+            <Typography>{paymentType}</Typography>
 
-              <Typography>Тип доставки</Typography>
-              <Typography>{deliveryType}</Typography>
+            <Typography>Тип доставки</Typography>
+            <Typography>{deliveryType}</Typography>
 
-              <Typography>Стоимость доставки</Typography>
-              <Typography fontWeight={500}>{numberToPrice(deliveryPrice)}</Typography>
+            <Typography>Стоимость доставки</Typography>
+            <Typography fontWeight={500}>{numberToPrice(deliveryPrice)}</Typography>
 
-              <Typography>Общая сумма</Typography>
-              <Typography fontWeight={500}>{numberToPrice(priceTotal)}</Typography>
-            </S.TableCardRows>
-          </S.TableCardContent>
-        </S.TableCard>
-      )
-    })
-  ) : (
-    <S.NoDataText>Данные отсутствуют</S.NoDataText>
-  )
+            <Typography>Общая сумма</Typography>
+            <Typography fontWeight={500}>{numberToPrice(priceTotal)}</Typography>
+          </S.TableCardRows>
+        </S.TableCardContent>
+      </S.TableCard>
+    )
+  })
 
   return (
     <S.CustomerOrdersShrinkTable>
-      <Table columns={columns} data={tableOrdersData} />
+      <Table columns={columns} data={tableOrdersData} noDataText="Заказы отсутствуют" />
 
-      <S.TableCardsList>{tableCards}</S.TableCardsList>
+      <TableCardsList cards={tableCards} noDataText="Заказы отсутствуют" />
     </S.CustomerOrdersShrinkTable>
   )
 }

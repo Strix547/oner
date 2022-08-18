@@ -10,11 +10,15 @@ import { ButtonContent } from 'ui/Button/Button.styled'
 const media666 = media.createMedia(666)
 const media540 = media.createMedia(540)
 
+interface AllCategoriesProps {
+  open: boolean
+}
+
 interface CategoriesButtonProps extends ButtonProps {
   open: boolean
 }
 
-export const AllCategories = styled.div`
+export const AllCategories = styled.div<AllCategoriesProps>`
   position: relative;
   z-index: 100;
 
@@ -23,15 +27,20 @@ export const AllCategories = styled.div`
       width: 100%;
     }
   }
-`
 
+  ${({ open }) =>
+    open &&
+    css`
+      z-index: 1400;
+    `}
+`
 export const CategoriesButton = styled((props: CategoriesButtonProps) => <Button {...props} />)`
   position: relative;
   z-index: 10;
   height: 44px;
 
   ${ButtonContent} {
-    margin-top: 3px;
+    margin-top: 1px;
   }
 
   ${media666} {

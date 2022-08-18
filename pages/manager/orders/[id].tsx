@@ -52,8 +52,8 @@ interface OnRequisitesSubmitProps {
   purpose: 'edit' | 'add'
   requisites: {
     name: string
-    accountNumber: number
-    bik: number
+    accountNumber: string
+    bik: string
   }
 }
 
@@ -62,8 +62,8 @@ interface RequisitesModalProps {
   requisites?: {
     id?: number
     name: string
-    accountNumber: number
-    bik: number
+    accountNumber: string
+    bik: string
   }
 }
 
@@ -84,7 +84,11 @@ const ManagerOrderPage = () => {
       enabled: !!orderId
     }
   )
-  const changeProductCount = useMutation(managerAPI.changeOrderProduct)
+  const changeProductCount = useMutation(managerAPI.changeOrderProduct, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['order', orderId])
+    }
+  })
   const cancelOrder = useMutation(managerAPI.cancelOrder, {
     onError: () => {
       toast.error('Ошибка отмены заказа')

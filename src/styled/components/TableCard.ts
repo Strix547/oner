@@ -1,17 +1,5 @@
 import styled from 'styled-components'
 
-import { SkeletonItem } from 'ui/Skeleton/Skeleton.styled'
-
-export const TableCardsList = styled.div`
-  display: none;
-
-  ${SkeletonItem} {
-    &:not(:last-child) {
-      margin-bottom: 10px;
-    }
-  }
-`
-
 export const TableCard = styled.div`
   background: #ffffff;
   box-shadow: 0px 2px 5px rgba(38, 34, 45, 0.03), 0px 2px 10px rgba(38, 34, 45, 0.02);

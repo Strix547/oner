@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { useForm, FormProvider } from 'react-hook-form'
-import { toast } from 'react-toastify'
 import Typography from '@mui/material/Typography'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
@@ -12,9 +11,10 @@ import { Pagination } from 'components/common'
 import { OrderStatusSelect } from 'common'
 import { DateRangePicker } from 'ui'
 
-import { chatAPI, ordersAPI } from 'api'
+import { chatAPI } from 'api'
 import { OrderStatus } from 'types/orders'
 import { ROUTE_NAMES } from 'core'
+import { useOrders } from 'hooks'
 
 import * as S from 'styled/pages/customer/Orders'
 
@@ -24,30 +24,21 @@ interface FilterFields {
 }
 
 const CustomerOrdersPage = () => {
-  const useFormProps = useForm<FilterFields>()
-  const { watch } = useFormProps
   const router = useRouter()
   const queryClient = useQueryClient()
+  const useFormProps = useForm<FilterFields>()
+  const { watch } = useFormProps
 
   const { status, dates } = watch()
   const [startDate, endDate] = dates || []
   const [ordersPage, setOrdersPage] = useState(1)
 
-  const { data: orders, isLoading: isOrdersLoading } = useQuery(
-    ['orders', ordersPage, status, endDate],
-    () => ordersAPI.getOrders({ page: ordersPage, status, startDate, endDate })
-  )
+  const { orders, isOrdersLoading, cancelOrder } = useOrders({
+    keys: [ordersPage, status, endDate],
+    props: { page: ordersPage, status, startDate, endDate }
+  })
 
   const { data: chats = [], isLoading: isChatsLoading } = useQuery('chats', chatAPI.getChats)
-
-  const cancelOrder = useMutation(ordersAPI.cancelOrder, {
-    onError: () => {
-      toast.error('Ошибка отмены заказа')
-    },
-    onSuccess: () => {
-      toast.success('Заказ успешно отменён')
-    }
-  })
 
   const createChat = useMutation(chatAPI.createChat, {
     onSuccess: () => {
@@ -55,7 +46,7 @@ const CustomerOrdersPage = () => {
     }
   })
 
-  const onChatOpen = async (orderId: number) => {
+  const toChatPage = async (orderId: number) => {
     const isChatExist = chats.some((chat) => chat.orderId === orderId)
 
     if (isChatExist) {
@@ -74,41 +65,43 @@ const CustomerOrdersPage = () => {
   }
 
   return (
-    <S.CustomerOrdersPage>
+    <>
       <Head>
         <title>История заказов</title>
       </Head>
 
-      <AccountPageTitle
-        endAdornment={
-          <FormProvider {...useFormProps}>
-            <S.Filters>
-              <S.Filter>
-                <Typography component="span">Статус</Typography>
-                <OrderStatusSelect />
-              </S.Filter>
+      <S.CustomerOrdersPage>
+        <AccountPageTitle
+          endAdornment={
+            <FormProvider {...useFormProps}>
+              <S.Filters>
+                <S.Filter>
+                  <Typography component="span">Статус</Typography>
+                  <OrderStatusSelect />
+                </S.Filter>
 
-              <S.Filter>
-                <Typography component="span">Дата</Typography>
+                <S.Filter>
+                  <Typography component="span">Дата</Typography>
 
-                <DateRangePicker />
-              </S.Filter>
-            </S.Filters>
-          </FormProvider>
-        }
-      >
-        История заказов
-      </AccountPageTitle>
+                  <DateRangePicker />
+                </S.Filter>
+              </S.Filters>
+            </FormProvider>
+          }
+        >
+          История заказов
+        </AccountPageTitle>
 
-      <CustomerOrdersTable
-        orders={orders?.results}
-        isLoading={isOrdersLoading || isChatsLoading}
-        onOrderCancel={cancelOrder.mutate}
-        onChatOpen={onChatOpen}
-      />
+        <CustomerOrdersTable
+          orders={orders?.results}
+          isLoading={isOrdersLoading || isChatsLoading}
+          onOrderCancel={cancelOrder.mutate}
+          onChatOpen={toChatPage}
+        />
 
-      <Pagination page={ordersPage} itemsCount={orders?.count} onChange={setOrdersPage} />
-    </S.CustomerOrdersPage>
+        <Pagination page={ordersPage} itemsCount={orders?.count} onChange={setOrdersPage} />
+      </S.CustomerOrdersPage>
+    </>
   )
 }
 

@@ -1,4 +1,5 @@
 import { useQuery } from 'react-query'
+import { SelectProps as MuiSelectProps } from '@mui/material/Select'
 
 import { Select } from 'ui'
 
@@ -6,12 +7,17 @@ import { shipmentAPI } from 'api'
 
 import * as S from './DeliveryTypeSelect.styled'
 
-interface DeliveryTypeSelectProps {
+interface DeliveryTypeSelectProps extends Omit<MuiSelectProps, 'onChange'> {
   name: string
   label?: string
+  onChange: (deliveryTypeId: number) => void
 }
 
-export const DeliveryTypeSelect = ({ name, label = 'Тип доставки' }: DeliveryTypeSelectProps) => {
+export const DeliveryTypeSelect = ({
+  name,
+  label = 'Тип доставки',
+  onChange
+}: DeliveryTypeSelectProps) => {
   const { data: deliveryTypes = [], isLoading: isDeliveryTypesLoading } = useQuery(
     'shipmnent-types',
     shipmentAPI.getDeliveryTypes
@@ -31,6 +37,9 @@ export const DeliveryTypeSelect = ({ name, label = 'Тип доставки' }: 
         label={label}
         options={deliveryTypesOptions}
         isLoading={isDeliveryTypesLoading}
+        onChange={({ target }) => {
+          onChange(target.value as number)
+        }}
       />
     </S.DeliveryTypeSelect>
   )

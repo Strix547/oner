@@ -3,33 +3,22 @@ import styled from 'styled-components'
 import {
   Link,
   Badge,
-  TableCardsList,
   TableCard,
   TableCardTop,
   TableCardContent,
   TableCardRows,
-  TableCardActions,
-  NoDataText
+  TableCardActions
 } from 'styled/components'
 import { media } from 'styled/media'
 
 import { Table, TableRow } from 'ui/Table/Table.styled'
 import { EditButton } from 'common/buttons/Edit/Edit.styled'
+import { TableCardsList } from 'components/TableCardsList/TableCardsList.styled'
 
 const media1300 = media.createMedia(1300)
 const media880 = media.createMedia(880)
 
-export {
-  Link,
-  Badge,
-  TableCardsList,
-  TableCard,
-  TableCardTop,
-  TableCardContent,
-  TableCardRows,
-  TableCardActions,
-  NoDataText
-}
+export { Link, Badge, TableCard, TableCardTop, TableCardContent, TableCardRows, TableCardActions }
 
 export const StoresTable = styled.div`
   ${TableRow} {

@@ -3,9 +3,9 @@ import { Column } from 'react-table'
 import Link from 'next/link'
 import Typography from '@mui/material/Typography'
 
-import { Table, Button, Skeleton } from 'ui'
+import { Table, Button } from 'ui'
 import { CancelButton, ChatButton } from 'common/buttons'
-import { OrderStatusBadge } from 'components'
+import { OrderStatusBadge, TableCardsList } from 'components'
 
 import { ROUTE_NAMES } from 'core'
 import { numberToPrice, formatOrder } from 'utils'
@@ -113,65 +113,61 @@ export const CustomerOrdersTable = ({
     [onOrderCancel]
   )
 
-  const tableCardsList = orders.length ? (
-    orders.map(formatOrder).map((order) => {
-      const { id, date, delivery, paymentType, priceTotal, status } = order
+  const tableCards = orders.map(formatOrder).map((order) => {
+    const { id, date, delivery, paymentType, priceTotal, status } = order
 
-      return (
-        <S.TableCard key={id}>
-          <S.TableCardTop>
-            <Link href={`${ROUTE_NAMES.CUSTOMER_ORDERS}/${id}`} passHref>
-              <S.Link>№ {id}</S.Link>
-            </Link>
+    return (
+      <S.TableCard key={id}>
+        <S.TableCardTop>
+          <Link href={`${ROUTE_NAMES.CUSTOMER_ORDERS}/${id}`} passHref>
+            <S.Link>№ {id}</S.Link>
+          </Link>
 
-            <span>{new Date(date).toLocaleDateString()}</span>
-          </S.TableCardTop>
+          <span>{new Date(date).toLocaleDateString()}</span>
+        </S.TableCardTop>
 
-          <S.TableCardContent>
-            <S.TableCardRows>
-              <Typography>Тип доставки</Typography>
-              <Typography>{delivery.type}</Typography>
+        <S.TableCardContent>
+          <S.TableCardRows>
+            <Typography>Тип доставки</Typography>
+            <Typography>{delivery.type}</Typography>
 
-              <Typography>Тип оплаты</Typography>
-              <Typography>{paymentType}</Typography>
+            <Typography>Тип оплаты</Typography>
+            <Typography>{paymentType}</Typography>
 
-              <Typography>Стоимость</Typography>
-              <Typography fontWeight={500}>{numberToPrice(priceTotal)}</Typography>
+            <Typography>Стоимость</Typography>
+            <Typography fontWeight={500}>{numberToPrice(priceTotal)}</Typography>
 
-              <Typography>Статус</Typography>
-              <OrderStatusBadge status={status} />
-            </S.TableCardRows>
+            <Typography>Статус</Typography>
+            <OrderStatusBadge status={status} />
+          </S.TableCardRows>
 
-            <S.TableCardActions>
-              <Button
-                color="gray"
-                variant="outlined"
-                startIcon={<CrossIcon />}
-                onClick={() => {
-                  onOrderCancel(id)
-                }}
-              >
-                Отменить
-              </Button>
+          <S.TableCardActions>
+            <Button
+              color="gray"
+              variant="outlined"
+              startIcon={<CrossIcon />}
+              onClick={() => {
+                onOrderCancel(id)
+              }}
+            >
+              Отменить
+            </Button>
 
-              <Button
-                color="gray"
-                variant="outlined"
-                startIcon={<ChatIcon />}
-                onClick={() => {
-                  onChatOpen(id)
-                }}
-              >
-                Поддержка
-              </Button>
-            </S.TableCardActions>
-          </S.TableCardContent>
-        </S.TableCard>
-      )
-    })
-  ) : (
-    <S.NoDataText>Данные отсутствуют</S.NoDataText>
-  )
+            <Button
+              color="gray"
+              variant="outlined"
+              startIcon={<ChatIcon />}
+              onClick={() => {
+                onChatOpen(id)
+              }}
+            >
+              Поддержка
+            </Button>
+          </S.TableCardActions>
+        </S.TableCardContent>
+      </S.TableCard>
+    )
+  })
 
   return (
     <S.CustomerOrdersTable>
@@ -184,11 +180,15 @@ export const CustomerOrdersTable = ({
             actions: null
           }
         })}
+        noDataText="Заказы отсутствуют"
       />
 
-      <S.TableCardsList>
-        {!isLoading ? tableCardsList : <Skeleton count={3} height={282} />}
-      </S.TableCardsList>
+      <TableCardsList
+        cards={tableCards}
+        isLoading={isLoading}
+        noDataText="Заказы отсутствуют"
+        skeletonHeight={282}
+      />
     </S.CustomerOrdersTable>
   )
 }

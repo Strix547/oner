@@ -9,7 +9,7 @@ import СardIcon from 'public/icons/card.svg'
 interface RequisitesCardProps {
   id: number
   name: string
-  accountNumber: number
+  accountNumber: string
   onEdit?: () => void
   onDelete?: () => void
   asRadio?: boolean
