@@ -3,7 +3,7 @@ import axios from 'axios'
 import { getCookie } from 'utils'
 
 export const API = axios.create({
-  baseURL: '/api/v1',
+  baseURL: 'http://api.oner.ru/api/v1',
   withCredentials: true
 })
 
