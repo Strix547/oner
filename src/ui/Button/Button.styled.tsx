@@ -61,55 +61,57 @@ const getColorStyles = (color: Color) => {
 export const Button = styled(({ styled, color, ...props }: ButtonProps) => (
   <MuiButton {...props} />
 ))`
-  padding: 0 20px;
-  min-width: auto;
-  height: 48px;
-  background: var(--color-primary);
-  border-radius: 6px;
-  box-shadow: none;
-  font-family: 'TTCommons';
-  font-size: 18px;
-  line-height: 22px;
-  text-transform: unset;
-
-  &:hover {
+  &&& {
+    padding: 0 20px;
+    min-width: auto;
+    height: 48px;
     background: var(--color-primary);
+    border-radius: 6px;
     box-shadow: none;
-  }
+    font-family: 'TTCommons';
+    font-size: 18px;
+    line-height: 22px;
+    text-transform: unset;
 
-  &:active {
-    box-shadow: none;
-  }
+    &:hover {
+      background: var(--color-primary);
+      box-shadow: none;
+    }
 
-  &.button-outlined {
-    color: var(--color-primary);
-    border: 2px solid var(--color-primary);
-    background: #fff;
-  }
+    &:active {
+      box-shadow: none;
+    }
 
-  .button-start-icon {
-    margin-left: 0;
-    margin-right: 10px;
-  }
+    &.button-outlined {
+      color: var(--color-primary);
+      border: 2px solid var(--color-primary);
+      background: #fff;
+    }
 
-  .button-end-icon {
-    margin-right: 0;
-    margin-left: 10px;
-  }
+    .button-start-icon {
+      margin-left: 0;
+      margin-right: 10px;
+    }
 
-  &.button-text {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 20px;
-    height: auto;
-    background: transparent;
-    color: var(--color-black);
-  }
+    .button-end-icon {
+      margin-right: 0;
+      margin-left: 10px;
+    }
 
-  .circular-progress {
-    color: #fff;
-  }
+    &.button-text {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 20px;
+      height: auto;
+      background: transparent;
+      color: var(--color-black);
+    }
 
-  ${({ styled }) => styled && getStyledStyles(styled)}
-  ${({ color }) => color && getColorStyles(color)}
+    .circular-progress {
+      color: #fff;
+    }
+
+    ${({ styled }) => styled && getStyledStyles(styled)}
+    ${({ color }) => color && getColorStyles(color)}
+  }
 `

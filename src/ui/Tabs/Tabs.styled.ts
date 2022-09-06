@@ -7,62 +7,68 @@ import { media } from 'styled/media'
 import { scrollStyles } from 'styled/scroll'
 
 export const Tabs = styled(MuiTabs)`
-  width: 100%;
-  min-height: 39px;
-  box-sizing: border-box;
-  overflow-x: auto;
+  &&& {
+    width: 100%;
+    min-height: 39px;
+    box-sizing: border-box;
+    overflow-x: auto;
 
-  ${scrollStyles('gray')}
+    ${scrollStyles('gray')}
 
-  &::-webkit-scrollbar {
-    height: 5px;
-  }
+    &::-webkit-scrollbar {
+      height: 5px;
+    }
 
-  .tabs-indicator {
-    height: 3px;
-    bottom: -1px;
-    background: var(--color-primary);
-  }
+    .tabs-indicator {
+      height: 3px;
+      bottom: -1px;
+      background: var(--color-primary);
+    }
 
-  .tabs-scroller {
-    overflow: visible !important;
-  }
+    .tabs-scroller {
+      overflow: visible !important;
+    }
 
-  .tabs-flex-container {
-    position: absolute;
+    .tabs-flex-container {
+      position: absolute;
+    }
   }
 `
 
 export const Tab = styled(MuiTab)`
-  justify-content: flex-start;
-  max-width: 100%;
-  min-width: auto;
-  height: 100%;
-  min-height: 40px;
-  padding: 0;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 22px;
-  color: var(--color-black);
-  text-transform: none;
+  &&& {
+    justify-content: flex-start;
+    max-width: 100%;
+    min-width: auto;
+    height: 100%;
+    min-height: 40px;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    color: var(--color-black);
+    text-transform: none;
 
-  &:not(:last-child) {
-    margin-right: 30px;
-  }
-
-  &.tab-selected {
-    color: var(--color-primary);
-  }
-
-  ${media.mobile} {
     &:not(:last-child) {
-      margin-right: 15px;
+      margin-right: 30px;
+    }
+
+    &.tab-selected {
+      color: var(--color-primary);
+    }
+
+    ${media.mobile} {
+      &:not(:last-child) {
+        margin-right: 15px;
+      }
     }
   }
 `
 
 export const TabPanel = styled(MuiTabPanel)`
-  padding: 0;
+  &&& {
+    padding: 0;
+  }
 `
 
 export const TabsBox = styled.div`
