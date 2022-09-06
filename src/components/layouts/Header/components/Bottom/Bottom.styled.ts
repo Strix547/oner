@@ -5,7 +5,6 @@ import { Wrapper } from 'styled/components'
 
 import { SparePartSearch } from '../SparePartSearch/SparePartSearch.styled'
 import { ShoppingCartLink } from '../ShoppingCartLink/ShoppingCartLink.styled'
-import { Autocomplete } from 'ui/Autocomplete/Autocomplete.styled'
 
 const media666 = media.createMedia(666)
 
@@ -23,12 +22,6 @@ export const BottomWrapper = styled(Wrapper)`
     display: none;
     max-width: 100%;
     margin-left: 10px;
-
-    ${Autocomplete} {
-      .autocomplete-input-root {
-        padding: 3.5px 12px 4.5px 10px !important;
-      }
-    }
   }
 
   ${media666} {
@@ -69,25 +62,25 @@ export const NavItem = styled.li`
     }
   }
 
-  ${media.createMedia(1242)} {
+  ${media.createMedia(1258)} {
     &:nth-child(6) {
       display: none;
     }
   }
 
-  ${media.createMedia(1119)} {
+  ${media.createMedia(1135)} {
     &:nth-child(5) {
       display: none;
     }
   }
 
-  ${media.createMedia(1024)} {
+  ${media.createMedia(1040)} {
     &:nth-child(4) {
       display: none;
     }
   }
 
-  ${media.createMedia(820)} {
+  ${media.createMedia(836)} {
     &:nth-child(3) {
       display: none;
     }

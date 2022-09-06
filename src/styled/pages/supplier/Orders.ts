@@ -15,19 +15,15 @@ export const TopFilters = styled.div`
   gap: 20px;
 
   ${TextField} {
-    background: #fff;
+    /* background: #fff; */
 
-    .text-field-input-root {
-      height: 48px;
-    }
-
-    .input-adornment {
+    /* .input-adornment {
       margin-top: -3px;
 
       svg {
         fill: #92979e;
       }
-    }
+    } */
   }
 
   ${DateRangePicker} {

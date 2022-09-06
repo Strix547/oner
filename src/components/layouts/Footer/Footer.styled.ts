@@ -274,7 +274,6 @@ export const NavAccordionContainer = styled.div`
 export const NavAccordion = styled(MuiAccordion)`
   background: transparent;
   box-shadow: none;
-  border-bottom: none;
 
   &::before {
     display: none;

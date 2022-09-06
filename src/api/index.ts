@@ -7,6 +7,7 @@ import * as managerAPI from './manager/manager'
 import * as shopAPI from './shop/shop'
 import * as shipmentAPI from './shipment/shipment'
 import * as constantsAPI from './constants/constants'
+import * as catalogsAPI from './catalogs/catalogs'
 
 export {
   authAPI,
@@ -17,5 +18,6 @@ export {
   managerAPI,
   shopAPI,
   shipmentAPI,
-  constantsAPI
+  constantsAPI,
+  catalogsAPI
 }

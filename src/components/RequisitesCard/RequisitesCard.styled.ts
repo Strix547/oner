@@ -59,7 +59,6 @@ export const Info = styled.div`
   // name
   p:first-child {
     white-space: normal;
-    text-overflow: unset;
   }
 
   p:nth-child(2) {

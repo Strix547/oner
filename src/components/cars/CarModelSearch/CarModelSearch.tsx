@@ -22,7 +22,7 @@ interface CarModelSearchProps {
 
 export const CarModelSearch = ({ onSearchByVin, onSearchByBodyNumber }: CarModelSearchProps) => {
   const useFormProps = useForm<SearchField>()
-  const { getValues } = useFormProps
+  const { getValues, setValue } = useFormProps
 
   return (
     <S.CarModelSearch>
@@ -51,9 +51,14 @@ export const CarModelSearch = ({ onSearchByVin, onSearchByBodyNumber }: CarModel
 
           <S.ExampleRow>
             <Typography component="span">Например:</Typography>
-            <Link href="/" passHref>
-              <S.Link>WAUBH54B11N111054</S.Link>
-            </Link>
+            <S.Link
+              as="span"
+              onClick={() => {
+                setValue('modelVinSearch', 'WAUBH54B11N111054')
+              }}
+            >
+              WAUBH54B11N111054
+            </S.Link>
           </S.ExampleRow>
         </S.VinSearch>
 
@@ -83,9 +88,14 @@ export const CarModelSearch = ({ onSearchByVin, onSearchByBodyNumber }: CarModel
 
           <S.ExampleRow>
             <Typography component="span">Например:</Typography>
-            <Link href="/" passHref>
-              <S.Link>AGH30-0115914</S.Link>
-            </Link>
+            <S.Link
+              as="span"
+              onClick={() => {
+                setValue('modelBodyNumberSearch', 'AGH30-0115914')
+              }}
+            >
+              AGH30-0115914
+            </S.Link>
           </S.ExampleRow>
         </S.BodyNumberSearch>
       </FormProvider>

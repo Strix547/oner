@@ -6,7 +6,7 @@ import { ImageFile } from 'types/common'
 import * as S from './ImagesDropzone.styled'
 
 import CrossIcon from 'public/icons/cross.svg'
-import PlusIcon from 'public/icons/plus.svg'
+import PlusIcon from 'public/icons/plus-1.svg'
 
 interface ImagesDropzoneProps {
   images: ImageFile[]

@@ -62,7 +62,7 @@ export const StoreForm = ({
           </>
         ) : (
           <S.SkeletonGrid>
-            <Skeleton count={5} height={47.88} />
+            <Skeleton count={5} height={48} />
           </S.SkeletonGrid>
         )}
 

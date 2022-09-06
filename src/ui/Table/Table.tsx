@@ -6,21 +6,23 @@ import * as S from './Table.styled'
 
 import SortIcon from 'public/icons/sort.svg'
 
-interface TableProps {
+interface TableProps<T> {
   headGray?: boolean
   columns: Column<any>[]
   data: any[]
   isLoading?: boolean
   noDataText?: string
+  onRowClick?: (row: T) => void
 }
 
-export const Table = ({
+export const Table = <T extends {}>({
   headGray = false,
   columns,
   data,
   isLoading,
-  noDataText = 'Данные отсутствуют'
-}: TableProps) => {
+  noDataText = 'Данные отсутствуют',
+  onRowClick
+}: TableProps<T>) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
     {
       columns,
@@ -75,7 +77,14 @@ export const Table = ({
               prepareRow(row)
 
               return (
-                <S.TableRow {...row.getRowProps()}>
+                <S.TableRow
+                  {...row.getRowProps()}
+                  onClick={() => {
+                    if (onRowClick) {
+                      onRowClick(row.original)
+                    }
+                  }}
+                >
                   {row.cells.map((cell) => {
                     return <S.TableCell {...cell.getCellProps()}>{cell.render('Cell')}</S.TableCell>
                   })}

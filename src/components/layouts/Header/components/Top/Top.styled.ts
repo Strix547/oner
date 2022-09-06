@@ -64,7 +64,8 @@ export const LogoImg = styled.div`
 
 export const LogoImgMobile = styled.div`
   display: none;
-  height: 24px;
+  width: 85.5px;
+  height: 23px;
 
   ${media666} {
     display: block;
@@ -96,9 +97,9 @@ export const LogoGear = styled.span`
   }
 
   ${media666} {
-    width: 24px;
-    height: 24px;
-    top: 1px;
+    width: 23.18px;
+    height: 23.18px;
+    top: 0;
   }
 `
 

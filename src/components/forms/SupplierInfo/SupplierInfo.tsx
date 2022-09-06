@@ -52,7 +52,7 @@ const ContactPersonForm = ({ contactPerson, isChanging, onSubmit }: ContactPerso
           <PersonFields />
         ) : (
           <S.SkeletonGrid>
-            <Skeleton count={5} height={47.88} />
+            <Skeleton count={5} height={48} />
           </S.SkeletonGrid>
         )}
 
@@ -120,7 +120,7 @@ const LegalPersonForm = ({
           </>
         ) : (
           <S.SkeletonGrid>
-            <Skeleton count={9} height={47.88} />
+            <Skeleton count={9} height={48} />
           </S.SkeletonGrid>
         )}
 

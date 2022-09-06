@@ -25,13 +25,16 @@ export const TextField = styled(MuiTextField)`
 
   .text-field-input-root {
     border-radius: 6px;
-    padding: 6.5px 12px 4.5px 10px;
+    padding: 0 10px;
+    background: #fff;
 
     .text-field-input {
+      height: auto;
       font-size: 18px;
       color: var(--color-black);
-      padding: 6.5px 4px 4.5px 10px;
+      padding: 16px 4px 11px 10px;
       line-height: 18px;
+      box-sizing: border-box;
 
       &::placeholder {
         color: #55556d;

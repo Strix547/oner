@@ -16,7 +16,6 @@ export const Address = styled.div`
     &:nth-child(2) {
       margin-top: 10px;
       white-space: normal;
-      text-overflow: unset;
     }
 
     &:nth-child(3) {

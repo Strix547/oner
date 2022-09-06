@@ -89,9 +89,9 @@ export const SelectInputLabel = styled(MuiInputLabel)`
     background: #fff;
   }
 
-  &.input-label-filled {
+  /* &.input-label-filled {
     display: none;
-  }
+  } */
 
   &.input-label-focused {
     color: #55556d;

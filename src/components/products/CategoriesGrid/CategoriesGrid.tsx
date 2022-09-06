@@ -31,7 +31,7 @@ export const ProductsCategoriesGrid = () => {
     {
       title: 'Неоригинальные запчасти',
       amount: 730,
-      link: ROUTE_NAMES.NOT_ORIGINAL_SPARE_PARTS,
+      link: ROUTE_NAMES.NON_ORIGINAL_SPARE_PARTS,
       icon: <EngineIcon />
     },
     {

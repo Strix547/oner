@@ -24,10 +24,13 @@ const SearchItemBase = styled.div`
     margin-top: 10px;
 
     .text-field-input-root {
-      padding: 9px 12px 7px 10px;
+      padding-right: 5px;
 
       .text-field-input {
         font-size: 16px;
+        padding-top: 17px;
+        padding-bottom: 13px;
+        line-height: 20px;
       }
     }
 
@@ -35,8 +38,10 @@ const SearchItemBase = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
       width: 40px;
       height: 40px;
+      max-height: 100%;
       background: rgba(107, 89, 204, 0.1);
       box-shadow: 0px 2px 5px rgba(38, 34, 45, 0.03);
       border-radius: 6px;
@@ -80,7 +85,7 @@ export const ExampleRow = styled.div`
     line-height: 18px;
   }
 
-  span {
+  span:first-child {
     margin-right: 3px;
     font-weight: 500;
     color: #7a7680;
@@ -88,5 +93,6 @@ export const ExampleRow = styled.div`
 
   ${Link} {
     font-weight: 400;
+    cursor: pointer;
   }
 `

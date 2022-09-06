@@ -11,6 +11,7 @@ import {
   TableCardRows,
   TableCardActions
 } from './TableCard'
+import { Letter } from './Letter'
 
 export {
   Wrapper,
@@ -26,5 +27,6 @@ export {
   TableCardContent,
   TableCardRows,
   TableCardActions,
-  NoDataText
+  NoDataText,
+  Letter
 }

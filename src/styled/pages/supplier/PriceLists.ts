@@ -40,7 +40,6 @@ export const PriceListUploadContent = styled.div`
 
   p {
     white-space: normal;
-    text-overflow: unset;
   }
 
   p:nth-child(2) {

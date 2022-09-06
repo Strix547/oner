@@ -12,6 +12,8 @@ import { OrderProductsTable } from './OrderProducts/OrderProducts'
 import { PriceListsTable } from './PriceLists/PriceLists'
 import { ShopProductsCatalogTable } from './ShopProductsCatalog/ShopProductsCatalog'
 import { OrdersAccountingTable } from './OrdersAccounting/OrdersAccounting'
+import { SparePartDetailsTable } from './SparePartDetails/SparePartDetails'
+import { CarDetailsTable } from './CarDetails/CarDetails'
 
 export {
   SuppliersTable,
@@ -27,5 +29,7 @@ export {
   OrderProductsTable,
   PriceListsTable,
   ShopProductsCatalogTable,
-  OrdersAccountingTable
+  OrdersAccountingTable,
+  SparePartDetailsTable,
+  CarDetailsTable
 }

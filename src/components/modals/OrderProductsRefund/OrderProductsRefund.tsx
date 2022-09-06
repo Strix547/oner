@@ -31,7 +31,6 @@ export const OrderProductsRefundModal = ({
     }
   })
   const { handleSubmit } = useFormProps
-  console.log(products)
 
   const productOptions = products.map(({ id, name }) => {
     return {

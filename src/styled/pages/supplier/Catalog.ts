@@ -9,15 +9,7 @@ export const SearchRow = styled.div`
   margin-bottom: 15px;
 
   ${TextField} {
-    background: #fff;
-
-    .text-field-input-root {
-      height: 48px;
-    }
-
     .input-adornment {
-      margin-top: -3px;
-
       svg {
         fill: #92979e;
       }

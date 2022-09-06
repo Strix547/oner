@@ -2,13 +2,15 @@ import { createGlobalStyle } from 'styled-components'
 
 import { resetStyles } from './resetStyles'
 import { variablesStyles } from './variables'
+import { npgrogressStyles } from './nprogress'
 
 export const GlobalStyles = createGlobalStyle`
   ${resetStyles}
   ${variablesStyles}
+  ${npgrogressStyles}
 
   body {
-    font-family: 'TTCommons';
+    font-family: 'TTCommons', sans-serif;
     font-size: 16px;
     color: var(--color-black);
     background: #F9F9FB;

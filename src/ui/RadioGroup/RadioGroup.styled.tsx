@@ -14,7 +14,6 @@ export const RadioGroupFormControlLabel = styled(MuiFormControlLabel)`
 
   & > span:last-child {
     padding-top: 3px;
-    text-overflow: unset;
     white-space: normal;
   }
 `

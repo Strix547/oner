@@ -34,7 +34,6 @@ export const ModalTop = styled.div`
     font-size: 20px;
     line-height: 26px;
     white-space: normal;
-    text-overflow: unset;
   }
 `
 

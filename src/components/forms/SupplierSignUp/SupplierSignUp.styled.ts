@@ -17,7 +17,6 @@ export const StepBox = styled(Box)`
 
   h2,
   h4 {
-    text-overflow: unset;
     white-space: normal;
   }
 

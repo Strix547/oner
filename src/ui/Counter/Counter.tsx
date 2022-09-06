@@ -4,7 +4,7 @@ import { Button } from 'ui'
 
 import * as S from './Counter.styled'
 
-import MinusIcon from 'public/icons/minus.svg'
+import MinusIcon from 'public/icons/minus-1.svg'
 import PlusIcon from 'public/icons/plus-3.svg'
 
 interface CounterProps {

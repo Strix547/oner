@@ -30,7 +30,7 @@ export const Footer = () => {
       tag: 'Каталоги',
       items: [
         { label: 'Оригинальные запчасти', link: ROUTE_NAMES.ORIGINAL_SPARE_PARTS },
-        { label: 'Неоригинальные запчасти', link: ROUTE_NAMES.NOT_ORIGINAL_SPARE_PARTS },
+        { label: 'Неоригинальные запчасти', link: ROUTE_NAMES.NON_ORIGINAL_SPARE_PARTS },
         { label: 'Запчасти для ТО', link: ROUTE_NAMES.MAINTENANCE_SPARE_PARTS },
         { label: 'Автомасла', link: ROUTE_NAMES.CAR_OILS },
         { label: 'Аккумуляторы', link: ROUTE_NAMES.ACCUMULATORS },

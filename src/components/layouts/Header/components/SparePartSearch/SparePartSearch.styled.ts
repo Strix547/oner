@@ -1,34 +1,25 @@
 import styled from 'styled-components'
 
-import { Autocomplete } from 'ui/Autocomplete/Autocomplete.styled'
-
-export { TextField } from 'ui/TextField/TextField.styled'
+import { TextField } from 'ui/TextField/TextField.styled'
 
 export const SparePartSearch = styled.div`
   max-width: 487px;
   width: 100%;
   margin-left: 17.63px;
 
-  ${Autocomplete} {
-    width: 100%;
-
-    .autocomplete-input-root {
+  ${TextField} {
+    .text-field-input-root {
       background: #f4f5f7;
 
-      .autocomplete-input {
-        padding-top: 8.5px;
-        padding-bottom: 4.5px;
+      .text-field-input {
+        padding: 15px 4px 11px 10px;
         font-size: 16px;
-        color: #505255;
+        color: #55556d;
 
         &::placeholder {
-          color: #505255;
+          color: #55556d;
         }
       }
-    }
-
-    svg {
-      fill: var(--color-primary);
     }
   }
 `

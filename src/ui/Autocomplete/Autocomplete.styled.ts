@@ -11,18 +11,20 @@ interface Autocomplete {
 export { TextField }
 
 export const Autocomplete = styled.div<Autocomplete>`
-  .autocomplete-input-root {
-    border-radius: 6px;
-    padding: 5.5px 12px 6.5px 10px !important;
+  .autocomplete {
+    .autocomplete-input-root {
+      border-radius: 6px;
+      padding: 5.5px 12px 6.5px 10px;
 
-    .autocomplete-input {
-      padding: 6.5px 4px 6.5px 10px;
-      line-height: 18px;
+      .autocomplete-input {
+        padding: 6.5px 4px 6.5px 10px;
+        line-height: 18px;
 
-      &::placeholder {
-        font-family: 'TTCommons';
-        color: #55556d;
-        opacity: 1;
+        &::placeholder {
+          font-family: 'TTCommons';
+          color: #55556d;
+          opacity: 1;
+        }
       }
     }
   }

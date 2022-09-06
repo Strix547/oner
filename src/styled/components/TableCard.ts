@@ -32,7 +32,6 @@ export const TableCardRows = styled.div`
   p {
     font-size: 14px;
     white-space: normal;
-    text-overflow: unset;
 
     &:nth-child(odd) {
       color: #55556d;

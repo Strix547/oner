@@ -18,7 +18,6 @@ import { AddressList } from './AddressList/AddressList'
 import { PriceListDropzone } from './PriceListDropzone/PriceListDropzone'
 import { Chat } from './Chat/Chat'
 import { TableCardsList } from './TableCardsList/TableCardsList'
-import { CarModelSearch } from './CarModelSearch/CarModelSearch'
 
 export {
   Notifications,
@@ -40,6 +39,5 @@ export {
   AddressList,
   PriceListDropzone,
   Chat,
-  TableCardsList,
-  CarModelSearch
+  TableCardsList
 }

@@ -16,7 +16,6 @@ export const StoreTop = styled(Box)`
 
   h2 {
     font-family: 'TTCommons';
-    text-overflow: unset;
     white-space: normal;
   }
 

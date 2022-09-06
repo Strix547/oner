@@ -101,7 +101,6 @@ export const OrdersTable = styled.div`
 
 export const ColumnShrink = styled.div`
   p {
-    text-overflow: unset;
     white-space: normal;
   }
 `
