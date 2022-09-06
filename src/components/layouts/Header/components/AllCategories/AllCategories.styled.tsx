@@ -48,9 +48,11 @@ export const CategoriesButton = styled((props: CategoriesButtonProps) => <Button
     padding: 0;
     flex-shrink: 0;
 
-    .button-start-icon {
-      margin-right: 0;
-      margin-left: 0;
+    &&& {
+      .button-start-icon {
+        margin-right: 0;
+        margin-left: 0;
+      }
     }
 
     ${ButtonContent} {

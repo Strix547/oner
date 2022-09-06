@@ -51,20 +51,22 @@ export const CategoryLink = styled.a`
 `
 
 export const Accordion = styled(MuiAccordion)`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  box-shadow: none;
+  &&& {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-shadow: none;
 
-  &::before {
-    display: none;
-  }
+    &::before {
+      display: none;
+    }
 
-  & ~ ${CategoryLink} {
-    margin-left: 10px;
+    & ~ ${CategoryLink} {
+      margin-left: 10px;
 
-    &:first-of-type {
-      margin-top: 10px;
+      &:first-of-type {
+        margin-top: 10px;
+      }
     }
   }
 `
@@ -82,49 +84,50 @@ export const ExpandIcon = styled.div`
 `
 
 export const AccordionSummary = styled(MuiAccordionSummary)`
-  flex-direction: row-reverse;
-  padding: 8px 18px 8px 8px;
-  min-height: 24px;
-  transition: 0.3s;
+  &&& {
+    flex-direction: row-reverse;
+    padding: 8px 18px 8px 8px;
+    min-height: 24px;
+    transition: 0.3s;
 
-  &:hover {
-    background: rgba(107, 89, 204, 0.1);
-    border-radius: 6px;
+    &:hover {
+      background: rgba(107, 89, 204, 0.1);
+      border-radius: 6px;
+
+      .accordion-summary-content {
+        p {
+          color: var(--color-primary);
+        }
+      }
+
+      ${ExpandIcon} {
+        border-color: transparent;
+
+        svg path {
+          stroke: var(--color-primary);
+        }
+      }
+    }
 
     .accordion-summary-content {
+      margin: 0 0 0 10px;
+
       p {
-        color: var(--color-primary);
+        font-size: 18px;
+        line-height: 22px;
+        color: #3d3d4b;
+        transition: 0.3s;
       }
     }
 
-    ${ExpandIcon} {
-      border-color: transparent;
-
-      svg path {
-        stroke: var(--color-primary);
-      }
+    .accordion-expand-icon-container {
+      transform: rotate(0deg);
     }
-  }
-
-  .accordion-summary-content {
-    margin: 0 0 0 10px;
-
-    p {
-      font-size: 18px;
-      line-height: 22px;
-      color: #3d3d4b;
-      transition: 0.3s;
-    }
-  }
-
-  .accordion-expand-icon-container {
-    transform: rotate(0deg);
-  }
-
-  &.accordion-summary-expanded {
   }
 `
 
 export const AccordionDetails = styled(MuiAccordionDetails)`
-  padding: 12px 20px 15px 42px;
+  &&& {
+    padding: 12px 20px 15px 42px;
+  }
 `

@@ -46,47 +46,53 @@ export const OrdersAccountingTable = styled.div`
 export const DocumentsCell = styled.div``
 
 export const DocumentsAccordion = styled(MuiAccordion)`
-  background: transparent;
-  box-shadow: none;
-  border-bottom: none;
+  &&& {
+    background: transparent;
+    box-shadow: none;
+    border-bottom: none;
 
-  &::before {
-    display: none;
-  }
+    &::before {
+      display: none;
+    }
 
-  &:not(:last-child) {
-    margin-bottom: 15px;
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
   }
 `
 
 export const DocumentsAccordionSummary = styled(MuiAccordionSummary)`
-  min-height: 24px;
-  padding: 0;
+  &&& {
+    min-height: 24px;
+    padding: 0;
 
-  .accordion-summary-content {
-    display: flex;
-    align-items: center;
-    margin: 0;
-    margin-right: 5px;
+    .accordion-summary-content {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      margin-right: 5px;
 
-    span {
-      margin-top: 6px;
-      margin-left: 10px;
+      span {
+        margin-top: 6px;
+        margin-left: 10px;
+      }
     }
-  }
 
-  .accordion-expand-icon-container {
-    transform: rotate(90deg);
+    .accordion-expand-icon-container {
+      transform: rotate(90deg);
 
-    svg {
-      margin-left: 3px;
+      svg {
+        margin-left: 3px;
+      }
     }
   }
 `
 
 export const DocumentsAccordionDetails = styled(MuiAccordionDetails)`
-  margin-top: 15px;
-  padding: 0;
+  &&& {
+    margin-top: 15px;
+    padding: 0;
+  }
 `
 
 export const Document = styled.div`

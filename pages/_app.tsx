@@ -85,7 +85,7 @@ export default function MyApp({ Component, pageProps, router }: AppProps) {
         />
       </Head>
 
-      <GlobalStyles injectFirst />
+      <GlobalStyles />
 
       <MuiThemeProvider theme={muiTheme}>
         <QueryClientProvider client={queryClient}>
