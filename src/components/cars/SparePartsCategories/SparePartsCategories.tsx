@@ -67,7 +67,11 @@ export const SparePartsCategories = ({ categoryGroups = [] }: SparePartsCategori
               return renderAccordion(id, name, subCategories)
             }
 
-            return <S.CategoryLink href="/">{name}</S.CategoryLink>
+            return (
+              <S.CategoryLink key={id} href="/">
+                {name}
+              </S.CategoryLink>
+            )
           })}
         </S.AccordionDetails>
       </S.Accordion>
