@@ -1,19 +1,26 @@
-import type { AppProps } from 'next/app'
 import { NextComponentType, NextPageContext } from 'next'
 import { useState, useEffect } from 'react'
 import { Hydrate, QueryClient, QueryClientConfig, QueryClientProvider } from 'react-query'
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles'
+import { CacheProvider } from '@emotion/react'
+import { Global } from '@emotion/react'
 import Head from 'next/head'
 import NProgress from 'nprogress'
 
 import { AccountLayout, PageLayout } from 'components/layouts'
 import { Notifications } from 'components'
+import { createEmotionCache } from 'core'
 
 import { AuthProvider } from 'providers'
 
-import { GlobalStyles, muiTheme } from 'styled'
+import { globalStyles, muiTheme } from 'styled'
 import 'public/fonts/fonts.css'
 import 'swiper/css'
+
+import type { AppProps } from 'next/app'
+import type { NextPage } from 'next'
+import type { EmotionCache } from '@emotion/react'
+import type { DehydratedState } from 'react-query'
 
 const queryClientConfig: QueryClientConfig = {
   defaultOptions: {
@@ -26,7 +33,19 @@ const queryClientConfig: QueryClientConfig = {
 
 NProgress.configure({ showSpinner: false })
 
-export default function MyApp({ Component, pageProps, router }: AppProps) {
+type AppPropsWithCache = AppProps<{ dehydratedState: DehydratedState }> & {
+  Component: NextPage
+  emotionCache?: EmotionCache
+}
+
+const clientSideEmotionCache = createEmotionCache()
+
+export default function MyApp({
+  Component,
+  emotionCache = clientSideEmotionCache,
+  pageProps,
+  router
+}: AppPropsWithCache) {
   const [queryClient] = useState(() => new QueryClient(queryClientConfig))
 
   // nprogress loading indicator
@@ -60,7 +79,8 @@ export default function MyApp({ Component, pageProps, router }: AppProps) {
     const withoutLayoutPathnames = [
       '/',
       '/original-spare-parts/models',
-      '/non-original-spare-parts'
+      '/non-original-spare-parts',
+      '/models'
     ]
 
     const component = <Component {...pageProps} />
@@ -77,7 +97,7 @@ export default function MyApp({ Component, pageProps, router }: AppProps) {
   }
 
   return (
-    <>
+    <CacheProvider value={emotionCache}>
       <Head>
         <meta
           name="viewport"
@@ -85,7 +105,7 @@ export default function MyApp({ Component, pageProps, router }: AppProps) {
         />
       </Head>
 
-      <GlobalStyles />
+      <Global styles={globalStyles} />
 
       <MuiThemeProvider theme={muiTheme}>
         <QueryClientProvider client={queryClient}>
@@ -96,6 +116,6 @@ export default function MyApp({ Component, pageProps, router }: AppProps) {
 
         <Notifications />
       </MuiThemeProvider>
-    </>
+    </CacheProvider>
   )
 }

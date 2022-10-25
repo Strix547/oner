@@ -1,4 +1,6 @@
-import styled, { css } from 'styled-components'
+import styled from '@emotion/styled'
+import { css } from '@emotion/react'
+
 import ReactCodeInput from 'react-verification-code-input'
 
 export const CodeInput = styled(({ error, ...props }) => <ReactCodeInput {...props} />)`

@@ -5,7 +5,6 @@ import { SendEmailModal } from './SendEmail/SendEmail'
 import { ChangeOrderStatusModal } from './ChangeOrderStatus/ChangeOrderStatus'
 import { SupplierOrderRefundModal } from './SupplierOrderRefund/SupplierOrderRefund'
 import { OrderProductsRefundModal } from './OrderProductsRefund/OrderProductsRefund'
-import { CarSelectParamsModal } from './CarSelectParams/CarSelectParams'
 
 export {
   RequisitesModal,
@@ -14,6 +13,5 @@ export {
   SendEmailModal,
   ChangeOrderStatusModal,
   SupplierOrderRefundModal,
-  OrderProductsRefundModal,
-  CarSelectParamsModal
+  OrderProductsRefundModal
 }

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 import { media } from 'styled/media'
 import { Wrapper } from 'styled/components'

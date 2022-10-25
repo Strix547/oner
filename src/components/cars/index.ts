@@ -4,5 +4,18 @@ import { SparePartsCategories } from './SparePartsCategories/SparePartsCategorie
 import { CarModels } from './CarModels/CarModels'
 import { SparePartView } from './SparePartView/SparePartView'
 import { CarBrands } from './CarBrands/CarBrands'
+import { FindedCarCard } from './FindedCarCard/FindedCarCard'
+import { CarSearchByParams } from './CarSearchByParams/CarSearchByParams'
+import { SparePartsUnits } from './SparePartsUnits/SparePartsUnits'
 
-export { CarModelSearch, CarBrandsList, SparePartsCategories, CarModels, SparePartView, CarBrands }
+export {
+  CarModelSearch,
+  CarBrandsList,
+  SparePartsCategories,
+  CarModels,
+  SparePartView,
+  CarBrands,
+  FindedCarCard,
+  CarSearchByParams,
+  SparePartsUnits
+}

@@ -3,10 +3,14 @@ import * as ApiTypes from './catalogs.types'
 import {
   CarBrands,
   CarBrand,
-  FindedCarDetails,
   FindedCar,
   Category,
-  CategoryGroup
+  CategoryGroup,
+  SparePartUnit,
+  FindedCarByVinOrBodyNumber,
+  UnitDetailInfo,
+  UnitDetailUnit,
+  UnitDetail
 } from 'types/catalogs'
 
 export const transformCarBrands = (brands: ApiTypes.CarBrands): CarBrands => {
@@ -28,26 +32,6 @@ export const transformCarBrands = (brands: ApiTypes.CarBrands): CarBrands => {
 
   return Object.fromEntries(transformedBrands)
 }
-
-// export const transformSparePartsCategory = (
-//   category: ApiTypes.SparePartsCategory
-// ): SparePartsCategory => {
-//   const {
-//     categoryid: categoryId,
-//     name,
-//     code,
-//     childrens,
-//     parentcategoryid: parentCategoryId
-//   } = category
-
-//   return {
-//     parentCategoryId,
-//     categoryId,
-//     name,
-//     code,
-//     childrens: childrens === 'false' ? false : true
-//   }
-// }
 
 export const transformCarSearchOptions = (params: ApiTypes.CarSearchOptions) => {
   const {
@@ -77,29 +61,6 @@ export const transformCarSearchOptions = (params: ApiTypes.CarSearchOptions) => 
   }
 }
 
-export const transformFindedCarDetails = (details: ApiTypes.FindedCarDetails): FindedCarDetails => {
-  const {
-    filter_level: filterLevel,
-    market,
-    name,
-    prodrange: prodRange,
-    engine,
-    engine_info: engineInfo,
-    sales_code: salesCode,
-    transmission
-  } = details
-
-  return {
-    name,
-    prodRange,
-    market,
-    engine,
-    engineInfo,
-    salesCode,
-    transmission
-  }
-}
-
 export const transformFindedCar = (car: ApiTypes.FindedCar): FindedCar => {
   const { brand, catalog, details, name, ssd, vehicleid: vehicleId } = car
 
@@ -108,7 +69,7 @@ export const transformFindedCar = (car: ApiTypes.FindedCar): FindedCar => {
     vehicleId,
     brand,
     catalog,
-    details: transformFindedCarDetails(details),
+    details,
     ssd
   }
 }
@@ -145,5 +106,94 @@ export const transformSparePartsCategoryGroup = (group: ApiTypes.CategoryGroup):
     id,
     name,
     categories: categories.map(transformSparePartsCategory)
+  }
+}
+
+export const transformSparePartUnits = (units: ApiTypes.SparePartUnit[]): SparePartUnit[] => {
+  return units.map((unit) => {
+    const {
+      unitid: unitId,
+      code,
+      imageurl: imageUrl,
+      largeimageurl: imageLargeUrl,
+      name,
+      ssd
+    } = unit
+
+    return {
+      unitId,
+      code,
+      name,
+      ssd,
+      imageUrl,
+      imageLargeUrl
+    }
+  })
+}
+
+export const transformFindedCarByVinOrBodyNumber = (
+  car: ApiTypes.FindedCarByVinOrBodyNumber
+): FindedCarByVinOrBodyNumber => {
+  const { attributes, brand, catalog, name, ssd, units, vehicleid: vehicleId } = car
+
+  return {
+    brand,
+    name,
+    catalog,
+    ssd,
+    vehicleId,
+    attributes: Object.values(attributes),
+    units: transformSparePartUnits(units)
+  }
+}
+
+export const transformUnitDetail = (detail: ApiTypes.UnitDetail): UnitDetail => {
+  const { unit_info, units } = detail
+
+  const transformUnitInfo = (info: ApiTypes.UnitDetailInfo): UnitDetailInfo => {
+    const {
+      code,
+      imageurl: imageUrl,
+      largeimageurl: largeImageUrl,
+      name,
+      ssd,
+      unitid: unitId
+    } = info
+
+    return {
+      code,
+      imageUrl,
+      largeImageUrl,
+      name,
+      ssd,
+      unitId
+    }
+  }
+
+  const transformUnits = (units: ApiTypes.UnitDetailUnit[]): UnitDetailUnit[] => {
+    return units.map((unit) => {
+      const {
+        codeonimage: codeOnImage,
+        name,
+        oem,
+        ssd,
+        details,
+        image_positions: imagePositions
+      } = unit
+
+      return {
+        codeOnImage,
+        name,
+        oem,
+        ssd,
+        details,
+        imagePositions
+      }
+    })
+  }
+
+  return {
+    unitInfo: transformUnitInfo(unit_info),
+    units: transformUnits(units)
   }
 }

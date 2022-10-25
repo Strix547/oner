@@ -1,64 +1,75 @@
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import { Button } from 'ui'
+
+import { UnitDetailUnit } from 'types/catalogs'
 
 import * as S from './SparePartDetails.styled'
 
 import InfoIcon from 'public/icons/info.svg'
+import { ROUTE_NAMES } from 'core'
 
-export const SparePartDetailsTable = () => {
-  const details = [
-    {
-      id: 1,
-      code: '4M0133837',
-      name: 'Воздушный фильтр'
-    },
-    {
-      id: 2,
-      code: '4M0133837',
-      name: 'Шланг забора воздуха'
-    },
-    {
-      id: 3,
-      code: '4M0133837',
-      name: 'Хомут'
-    }
-  ]
+interface SparePartDetailsTableProps {
+  units: UnitDetailUnit[]
+}
 
-  const actions = (
-    <S.ActionsRow>
-      <Button>Купить</Button>
-      <InfoIcon />
-    </S.ActionsRow>
-  )
+export const SparePartDetailsTable = ({ units }: SparePartDetailsTableProps) => {
+  const router = useRouter()
 
-  const tableCards = details.map(({ id, code, name }) => {
+  const catalog = router.query.catalog as string
+  const vehicleId = router.query.vehicleId as string
+
+  const toQuickDetailsPage = (ssd: string, catalog: string, oem: string, vehicleId: string) => {
+    router.push({
+      pathname: ROUTE_NAMES.ORIGINAL_SPARE_PARTS_QUICK_DETAILS,
+      query: {
+        catalog,
+        vehicleId,
+        oem,
+        ssd
+      }
+    })
+  }
+
+  const tableCards = units.map(({ codeOnImage, name, oem, ssd }) => {
     return (
-      <S.TableCard key={id}>
+      <S.TableCard key={oem}>
         <S.TableCardRow>
           <S.TableCardCell>№</S.TableCardCell>
-          <S.TableCardCell>{id}</S.TableCardCell>
+          <S.TableCardCell>{codeOnImage}</S.TableCardCell>
         </S.TableCardRow>
 
         <S.TableCardRow>
           <S.TableCardCell>Номер</S.TableCardCell>
           <S.TableCardCell>
-            <Link href="/" passHref>
-              <S.DetailLink>{code}</S.DetailLink>
-            </Link>
+            <S.DetailNumber>{oem}</S.DetailNumber>
           </S.TableCardCell>
         </S.TableCardRow>
 
         <S.TableCardRow>
           <S.TableCardCell>Наименование</S.TableCardCell>
           <S.TableCardCell>
-            <S.DetailName>{name}</S.DetailName>
+            <S.DetailName>
+              {name[0]}
+              {name.slice(1).toLowerCase()}
+            </S.DetailName>
           </S.TableCardCell>
         </S.TableCardRow>
 
         <S.TableCardRow>
           <S.TableCardCell>Купить</S.TableCardCell>
-          <S.TableCardCell>{actions}</S.TableCardCell>
+          <S.TableCardCell>
+            <S.ActionsRow>
+              <Button
+                onClick={() => {
+                  toQuickDetailsPage(ssd, catalog, oem, vehicleId)
+                }}
+              >
+                Купить
+              </Button>
+              <InfoIcon />
+            </S.ActionsRow>
+          </S.TableCardCell>
         </S.TableCardRow>
       </S.TableCard>
     )
@@ -77,22 +88,34 @@ export const SparePartDetailsTable = () => {
         </S.TableHead>
 
         <S.TableBody>
-          {details.map(({ id, code, name }) => {
+          {units.map(({ codeOnImage, name, oem, ssd }) => {
             return (
-              <S.TableRow key={id}>
-                <S.TableCell>{id}</S.TableCell>
+              <S.TableRow key={oem}>
+                <S.TableCell>{codeOnImage}</S.TableCell>
 
                 <S.TableCell>
-                  <Link href="/" passHref>
-                    <S.DetailLink>{code}</S.DetailLink>
-                  </Link>
+                  <S.DetailNumber>{oem}</S.DetailNumber>
                 </S.TableCell>
 
                 <S.TableCell>
-                  <S.DetailName>{name}</S.DetailName>
+                  <S.DetailName>
+                    {name[0]}
+                    {name.slice(1).toLowerCase()}
+                  </S.DetailName>
                 </S.TableCell>
 
-                <S.TableCell>{actions}</S.TableCell>
+                <S.TableCell>
+                  <S.ActionsRow>
+                    <Button
+                      onClick={() => {
+                        toQuickDetailsPage(ssd, catalog, oem, vehicleId)
+                      }}
+                    >
+                      Купить
+                    </Button>
+                    <InfoIcon />
+                  </S.ActionsRow>
+                </S.TableCell>
               </S.TableRow>
             )
           })}

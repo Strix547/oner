@@ -59,3 +59,69 @@ export interface CategoryGroup {
   name: string
   categories: Category[]
 }
+
+export interface SparePartUnit {
+  unitId: string
+  code: string
+  name: string
+  ssd: string
+  imageUrl: string
+  imageLargeUrl: string
+}
+
+export interface FindedCarAttribute {
+  name: string
+  value: string
+}
+
+export interface FindedCarByVinOrBodyNumber {
+  attributes: FindedCarAttribute[]
+  brand: string
+  name: string
+  catalog: string
+  ssd: string
+  vehicleId: number
+  units: SparePartUnit[]
+}
+
+export interface UnitDetailInfo {
+  code: string
+  imageUrl: string
+  largeImageUrl: string
+  name: string
+  ssd: string
+  unitId: string
+}
+
+export interface UnitDetailImagePositions {
+  code: string
+  type: string
+  x1: string
+  x2: string
+  y1: string
+  y2: string
+}
+
+export interface UnitDetailUnitDetails {
+  amount: string
+  family: string
+  familyName: string
+  macrofamily: string
+  measurementUnit: string
+  pattern: string
+  weigth: string
+}
+
+export interface UnitDetailUnit {
+  codeOnImage: string
+  name: string
+  oem: string
+  ssd: string
+  imagePositions: UnitDetailImagePositions
+  details: UnitDetailUnitDetails
+}
+
+export interface UnitDetail {
+  unitInfo: UnitDetailInfo
+  units: UnitDetailUnit[]
+}

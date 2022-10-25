@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 export const DateRangePicker = styled.div`
   position: relative;
@@ -217,4 +217,5 @@ export const ResetButton = styled.button`
   border: none;
   background: transparent;
   transform: translateY(-50%);
+  cursor: pointer;
 `

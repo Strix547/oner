@@ -1,4 +1,4 @@
-import { GlobalStyles } from './GlobalStyles'
+import { globalStyles } from './globalStyles'
 import { muiTheme } from './muiTheme'
 
-export { GlobalStyles, muiTheme }
+export { globalStyles, muiTheme }

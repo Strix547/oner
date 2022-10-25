@@ -71,30 +71,35 @@ export const Table = <T extends {}>({
       </S.TableHead>
 
       {!isLoading ? (
-        <S.TableBody {...getTableBodyProps()}>
-          {data && data?.length ? (
-            rows.map((row) => {
-              prepareRow(row)
+        <S.TableBodyContainer>
+          <S.TableBody {...getTableBodyProps()}>
+            {data && data?.length ? (
+              rows.map((row) => {
+                prepareRow(row)
 
-              return (
-                <S.TableRow
-                  {...row.getRowProps()}
-                  onClick={() => {
-                    if (onRowClick) {
-                      onRowClick(row.original)
-                    }
-                  }}
-                >
-                  {row.cells.map((cell) => {
-                    return <S.TableCell {...cell.getCellProps()}>{cell.render('Cell')}</S.TableCell>
-                  })}
-                </S.TableRow>
-              )
-            })
-          ) : (
-            <S.NoDataText>{noDataText}</S.NoDataText>
-          )}{' '}
-        </S.TableBody>
+                return (
+                  <S.TableRow
+                    {...row.getRowProps()}
+                    onClick={() => {
+                      if (onRowClick) {
+                        // @ts-ignore
+                        onRowClick(row.original)
+                      }
+                    }}
+                  >
+                    {row.cells.map((cell) => {
+                      return (
+                        <S.TableCell {...cell.getCellProps()}>{cell.render('Cell')}</S.TableCell>
+                      )
+                    })}
+                  </S.TableRow>
+                )
+              })
+            ) : (
+              <S.NoDataText>{noDataText}</S.NoDataText>
+            )}
+          </S.TableBody>
+        </S.TableBodyContainer>
       ) : (
         <Skeleton height={200} />
       )}

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 import { media } from 'styled/media'
 
@@ -48,7 +48,7 @@ export const TableBody = styled.div`
     position: relative;
     transition: 0.3s;
 
-    &::before {
+    &:not(:last-child)::before {
       content: '';
       position: absolute;
       bottom: 0;
@@ -97,10 +97,15 @@ export const ActionsRow = styled.div`
     span {
       margin-top: 2px;
     }
+
+    &:hover {
+      color: #fff;
+      background: var(--color-primary);
+    }
   }
 `
 
-export const DetailLink = styled.a`
+export const DetailNumber = styled.span`
   font-weight: 500;
   color: var(--color-primary);
 `

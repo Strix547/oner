@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 import { Button } from 'ui'
 
@@ -8,7 +8,7 @@ interface LinkItemProps {
   active?: boolean
 }
 
-export const AccountSidebar = styled(Box).attrs({ as: 'aside' })`
+export const AccountSidebar = styled(Box)`
   padding: 10px;
   background: #ffffff;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.05);

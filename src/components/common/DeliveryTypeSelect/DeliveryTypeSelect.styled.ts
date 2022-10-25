@@ -1,5 +1,3 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
-export const DeliveryTypeSelect = styled.div`
-
-`
+export const DeliveryTypeSelect = styled.div``

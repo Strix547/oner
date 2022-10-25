@@ -4,7 +4,10 @@ import {
   transformCarBrands,
   transformSparePartsCategoryGroup,
   transformCarSearchOptions,
-  transformFindedCar
+  transformFindedCar,
+  transformFindedCarByVinOrBodyNumber,
+  transformSparePartUnits,
+  transformUnitDetail
 } from './catalogs.transformers'
 
 import {
@@ -15,8 +18,14 @@ import {
   CarSearchOptions,
   FindedCar,
   CategoryGroups,
-  SearchByVin,
-  SearchByCarBodyNumber
+  SearchCarByVin,
+  SearchCarByBodyNumber,
+  FindedCarByVinOrBodyNumber,
+  GetSparePartsUnits,
+  GetSparePartUnitDetail,
+  SparePartUnit,
+  UnitDetail,
+  GetQuickDetail
 } from './catalogs.types'
 
 export const getCarBrands = async () => {
@@ -53,15 +62,17 @@ export const findCar = async ({ brandCode, ssd }: FindCar) => {
   return data.cars.map(transformFindedCar)
 }
 
-export const quickDetail = async () => {
-  return API.get('/quick-detail/', {
+export const getQuickDetail = async ({ catalog, vehicleId, quickGroupId, ssd }: GetQuickDetail) => {
+  const { data } = await API.get('/quick-detail/', {
     params: {
-      catalog: 'AU1394',
-      vehicle_id: '659',
-      quickgroup_id: '323',
-      ssd: '$*KwHl0cDTmIeBluLl46Lkwb2piY6Q4OLi5vD2-b-WqvK19PHprqLdgvT98PWlvPGuurz1g4KR9frx8e2ivO325eLu-vHx46K87fbzkYbu8_-uou-09PHq9_TlnsCw3uX0_fD1s7Lxrrq89ZKBiJX0_fOs9P_19uvw9YWahqz9AAAAAANJxdk=$'
+      catalog: catalog,
+      vehicle_id: vehicleId,
+      quickgroup_id: quickGroupId,
+      ssd
     }
   })
+
+  return data
 }
 
 export const getSparePartsCategories = async ({
@@ -98,18 +109,50 @@ export const findOEM = async () => {
   })
 }
 
-export const searchByVin = async ({ vin, catalogCode }: SearchByVin) => {
-  return API.get('/search/', { params: { vin, catalog: catalogCode } })
+export const searchCarByVin = async ({ vin, catalogCode }: SearchCarByVin) => {
+  const { data: findedCar } = await API.get<FindedCarByVinOrBodyNumber>('/search/', {
+    params: { vin, catalog: catalogCode }
+  })
+
+  return transformFindedCarByVinOrBodyNumber(findedCar)
 }
 
-export const searchByCarBodyNumber = async ({
-  code,
-  number,
-  catalogCode
-}: SearchByCarBodyNumber) => {
-  return API.get('/code-frame/', { params: { code, number, catalog: catalogCode } })
+export const searchCarByBodyNumber = async ({ bodyNumber, catalogCode }: SearchCarByBodyNumber) => {
+  const [code, number] = bodyNumber.split('-')
+
+  const { data: findedCar } = await API.get<FindedCarByVinOrBodyNumber>('/code-frame/', {
+    params: { code, number, catalog: catalogCode }
+  })
+
+  return transformFindedCarByVinOrBodyNumber(findedCar)
 }
 
 export const getCatalogInfo = async (catalogCode: string) => {
   return API.get('/catalog-info/', { params: { catalog: 'BMW201910' } })
+}
+
+export const getSparePartsUnits = async ({ vehicleId, catalog, ssd }: GetSparePartsUnits) => {
+  const {
+    data: { data }
+  } = await API.get<{ data: SparePartUnit[] }>('/list-units', {
+    params: {
+      vehicle_id: vehicleId,
+      catalog,
+      ssd
+    }
+  })
+
+  return transformSparePartUnits(data)
+}
+
+export const getSparePartUnitDetail = async ({ catalog, ssd, unitId }: GetSparePartUnitDetail) => {
+  const { data } = await API.get<UnitDetail>('/detail-by-unit', {
+    params: {
+      catalog,
+      ssd,
+      unit_id: unitId
+    }
+  })
+
+  return transformUnitDetail(data)
 }

@@ -1,10 +1,10 @@
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 
 import { Header, Footer } from 'components/layouts'
 
 import * as S from './Page.styled'
 
-export const PageLayout: FC = ({ children }) => {
+export const PageLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <S.PageLayout>
       <Header />

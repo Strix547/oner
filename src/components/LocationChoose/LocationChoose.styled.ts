@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 import { media } from 'styled/media'
 
@@ -9,6 +9,7 @@ export const LocationChoose = styled.div``
 export const CurrentLocation = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   span {
     margin-left: 5px;

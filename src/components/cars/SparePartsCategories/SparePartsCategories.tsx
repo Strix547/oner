@@ -1,9 +1,9 @@
 import { FormProvider, useForm } from 'react-hook-form'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import InputAdornment from '@mui/material/InputAdornment'
 import Typography from '@mui/material/Typography'
 
-import { TextField } from 'ui'
+import { TextField, Skeleton } from 'ui'
 
 import { CategoryGroup } from 'types/catalogs'
 
@@ -19,9 +19,13 @@ interface SearchFields {
 
 interface SparePartsCategoriesProps {
   categoryGroups?: CategoryGroup[]
+  isLoading: boolean
 }
 
-export const SparePartsCategories = ({ categoryGroups = [] }: SparePartsCategoriesProps) => {
+export const SparePartsCategories = ({
+  categoryGroups = [],
+  isLoading = true
+}: SparePartsCategoriesProps) => {
   const useFormProps = useForm<SearchFields>()
   const { watch } = useFormProps
   const [expandedItems, setExpandedItems] = useState<string[]>([])
@@ -36,13 +40,35 @@ export const SparePartsCategories = ({ categoryGroups = [] }: SparePartsCategori
     setExpandedItems(expandedItems.filter((expandedItem) => expandedItem !== item))
   }
 
+  const getAllSubCategoryNames = (sub: any[]) => {
+    return sub.reduce((prev, { id, name, subCategories }) => {
+      if (subCategories?.length) {
+        return [...prev, ...getAllSubCategoryNames(subCategories)]
+      }
+
+      return [...prev, { id, name: name.toLowerCase() }]
+    }, [])
+  }
+
   const renderAccordion = (id: string, name: string, sub: any[]) => {
-    const sortedWithSubFirst = sub.sort((a, b) => b.subCategories?.length - a.subCategories?.length)
+    const search = categoryGroupSearch?.toLowerCase()
+
+    if (
+      categoryGroupSearch &&
+      !getAllSubCategoryNames(sub).some(({ name }) => name.toLowerCase().includes(search))
+    ) {
+      return null
+    }
+
+    const withSubCategoriesFirst = sub.sort(
+      (a, b) => b?.subCategories?.length - a?.subCategories?.length
+    )
 
     return (
       <S.Accordion
+        key={id}
         square
-        expanded={expandedItems.includes(name)}
+        expanded={expandedItems.includes(name) || Boolean(search)}
         onChange={(_, expanded) => {
           if (expanded) {
             addToExapndedItems(name)
@@ -52,9 +78,10 @@ export const SparePartsCategories = ({ categoryGroups = [] }: SparePartsCategori
         }}
       >
         <S.AccordionSummary
+          key={name}
           expandIcon={
             <S.ExpandIcon>
-              {expandedItems.includes(name) ? <MinusIcon /> : <PlusIcon />}
+              {expandedItems.includes(name) || Boolean(search) ? <MinusIcon /> : <PlusIcon />}
             </S.ExpandIcon>
           }
         >
@@ -62,43 +89,59 @@ export const SparePartsCategories = ({ categoryGroups = [] }: SparePartsCategori
         </S.AccordionSummary>
 
         <S.AccordionDetails>
-          {sortedWithSubFirst.map(({ id, name, subCategories }) => {
+          {withSubCategoriesFirst.map(({ id, name, subCategories }) => {
             if (subCategories?.length) {
               return renderAccordion(id, name, subCategories)
             }
 
-            return (
-              <S.CategoryLink key={id} href="/">
-                {name}
-              </S.CategoryLink>
-            )
+            if (name.toLowerCase().includes(search)) {
+              return (
+                <S.CategoryLink key={id} href="/">
+                  {name}
+                </S.CategoryLink>
+              )
+            }
           })}
         </S.AccordionDetails>
       </S.Accordion>
     )
   }
 
+  const accordions = useMemo(() => {
+    return categoryGroups
+      .map(({ id, name, categories }) => renderAccordion(id, name, categories))
+      .filter((item) => item)
+  }, [categoryGroups, expandedItems, categoryGroupSearch])
+
   return (
     <S.SparePartsCategories>
-      <FormProvider {...useFormProps}>
-        <S.SearchRow>
-          <TextField
-            name="categoryGroupSearch"
-            placeholder="Поиск по имени группы"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <LoupeIcon />
-                </InputAdornment>
-              )
-            }}
-          />
-        </S.SearchRow>
-      </FormProvider>
+      {!isLoading && categoryGroups.length ? (
+        <>
+          <FormProvider {...useFormProps}>
+            <S.SearchRow>
+              <TextField
+                name="categoryGroupSearch"
+                placeholder="Поиск по имени группы"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <LoupeIcon />
+                    </InputAdornment>
+                  )
+                }}
+              />
+            </S.SearchRow>
+          </FormProvider>
 
-      <S.CategoriesGroups>
-        {categoryGroups.map(({ id, name, categories }) => renderAccordion(id, name, categories))}
-      </S.CategoriesGroups>
+          {categoryGroupSearch && !accordions.length ? (
+            <S.NoDataText>Ничего не найдено</S.NoDataText>
+          ) : (
+            <S.CategoriesGroups>{accordions}</S.CategoriesGroups>
+          )}
+        </>
+      ) : (
+        <Skeleton width={350} height={553} />
+      )}
     </S.SparePartsCategories>
   )
 }

@@ -1,4 +1,5 @@
-import styled, { css } from 'styled-components'
+import styled from '@emotion/styled'
+import { css } from '@emotion/react'
 
 import { NoDataText } from 'styled/components'
 
@@ -134,3 +135,5 @@ export const SortAsc = styled.div`
 export const HeadCellText = styled.div`
   position: relative;
 `
+
+export const TableBodyContainer = styled.div``

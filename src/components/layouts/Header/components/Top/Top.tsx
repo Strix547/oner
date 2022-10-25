@@ -40,56 +40,20 @@ export const HeaderTop = ({ nav }: HeaderTopProps) => {
           <Link href={ROUTE_NAMES.MAIN}>
             <a>
               <S.LogoImg>
-                <Image
-                  src={logo}
-                  layout="fill"
-                  // layout="fixed"
-                  // width={147}
-                  // height={40}
-                  alt="oner"
-                  priority
-                  quality={100}
-                />
+                <Image src={logo} layout="fill" alt="oner" priority quality={100} />
               </S.LogoImg>
 
               <S.LogoImgMobile>
-                <Image
-                  src={logoMobile}
-                  layout="fill"
-                  // layout="fixed"
-                  // width={85.5}
-                  // height={23}
-                  alt="oner"
-                  priority
-                  quality={100}
-                />
+                <Image src={logoMobile} layout="fill" alt="oner" priority quality={100} />
               </S.LogoImgMobile>
 
               <S.LogoGear>
                 <S.LogoGearImg>
-                  <Image
-                    src={logoGear}
-                    layout="fill"
-                    // layout="fixed"
-                    // width={40}
-                    // height={40}
-                    alt="oner"
-                    priority
-                    quality={100}
-                  />
+                  <Image src={logoGear} layout="fill" alt="oner" priority quality={100} />
                 </S.LogoGearImg>
 
                 <S.LogoGearImgMobile>
-                  <Image
-                    src={logoGearMobile}
-                    layout="fill"
-                    // layout="fixed"
-                    // width={24}
-                    // height={24}
-                    alt="oner"
-                    priority
-                    quality={100}
-                  />
+                  <Image src={logoGearMobile} layout="fill" alt="oner" priority quality={100} />
                 </S.LogoGearImgMobile>
               </S.LogoGear>
             </a>

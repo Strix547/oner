@@ -1,7 +1,6 @@
 import React from 'react'
 import Typography from '@mui/material/Typography'
 import InputAdornment from '@mui/material/InputAdornment'
-import Link from 'next/link'
 import { useForm, FormProvider } from 'react-hook-form'
 
 import { TextField } from 'ui'
@@ -22,7 +21,7 @@ interface CarModelSearchProps {
 
 export const CarModelSearch = ({ onSearchByVin, onSearchByBodyNumber }: CarModelSearchProps) => {
   const useFormProps = useForm<SearchField>()
-  const { getValues, setValue } = useFormProps
+  const { getValues } = useFormProps
 
   return (
     <S.CarModelSearch>
@@ -51,10 +50,11 @@ export const CarModelSearch = ({ onSearchByVin, onSearchByBodyNumber }: CarModel
 
           <S.ExampleRow>
             <Typography component="span">Например:</Typography>
+
             <S.Link
               as="span"
               onClick={() => {
-                setValue('modelVinSearch', 'WAUBH54B11N111054')
+                onSearchByVin('WAUBH54B11N111054')
               }}
             >
               WAUBH54B11N111054
@@ -88,10 +88,11 @@ export const CarModelSearch = ({ onSearchByVin, onSearchByBodyNumber }: CarModel
 
           <S.ExampleRow>
             <Typography component="span">Например:</Typography>
+
             <S.Link
               as="span"
               onClick={() => {
-                setValue('modelBodyNumberSearch', 'AGH30-0115914')
+                onSearchByBodyNumber('AGH30-0115914')
               }}
             >
               AGH30-0115914

@@ -1,4 +1,5 @@
-import styled, { css } from 'styled-components'
+import styled from '@emotion/styled'
+import { css } from '@emotion/react'
 import MuiButton, { ButtonProps as MuiButtonProps } from '@mui/material/Button'
 
 type StyledVariants = 'transparent'
@@ -61,57 +62,55 @@ const getColorStyles = (color: Color) => {
 export const Button = styled(({ styled, color, ...props }: ButtonProps) => (
   <MuiButton {...props} />
 ))`
-  &&& {
-    padding: 0 20px;
-    min-width: auto;
-    height: 48px;
+  padding: 0 20px;
+  min-width: auto;
+  height: 48px;
+  background: var(--color-primary);
+  border-radius: 6px;
+  box-shadow: none;
+  font-family: 'TTCommons';
+  font-size: 18px;
+  line-height: 22px;
+  text-transform: unset;
+
+  &:hover {
     background: var(--color-primary);
-    border-radius: 6px;
     box-shadow: none;
-    font-family: 'TTCommons';
-    font-size: 18px;
-    line-height: 22px;
-    text-transform: unset;
-
-    &:hover {
-      background: var(--color-primary);
-      box-shadow: none;
-    }
-
-    &:active {
-      box-shadow: none;
-    }
-
-    &.button-outlined {
-      color: var(--color-primary);
-      border: 2px solid var(--color-primary);
-      background: #fff;
-    }
-
-    .button-start-icon {
-      margin-left: 0;
-      margin-right: 10px;
-    }
-
-    .button-end-icon {
-      margin-right: 0;
-      margin-left: 10px;
-    }
-
-    &.button-text {
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 20px;
-      height: auto;
-      background: transparent;
-      color: var(--color-black);
-    }
-
-    .circular-progress {
-      color: #fff;
-    }
-
-    ${({ styled }) => styled && getStyledStyles(styled)}
-    ${({ color }) => color && getColorStyles(color)}
   }
+
+  &:active {
+    box-shadow: none;
+  }
+
+  &.button-outlined {
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    background: #fff;
+  }
+
+  .button-start-icon {
+    margin-left: 0;
+    margin-right: 10px;
+  }
+
+  .button-end-icon {
+    margin-right: 0;
+    margin-left: 10px;
+  }
+
+  &.button-text {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    height: auto;
+    background: transparent;
+    color: var(--color-black);
+  }
+
+  .circular-progress {
+    color: #fff;
+  }
+
+  ${({ styled }) => styled && getStyledStyles(styled)}
+  ${({ color }) => color && getColorStyles(color)}
 `

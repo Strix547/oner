@@ -1,16 +1,19 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 export const UserEntry = styled.div`
   display: flex;
   align-items: center;
 
-  a:first-of-type {
-    margin-left: 10px;
+  svg {
+    margin-right: 10px;
   }
 
   & > span,
   a span {
-    margin: 0 6px;
     padding-top: 5px;
+  }
+
+  & > span {
+    margin: 0 6px;
   }
 `

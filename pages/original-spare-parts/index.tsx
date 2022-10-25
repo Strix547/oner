@@ -1,19 +1,29 @@
 import Head from 'next/head'
-import Typography from '@mui/material/Typography'
-import { dehydrate, QueryClient, useQuery } from 'react-query'
+import { useRouter } from 'next/router'
 
 import { PageTitle } from 'components'
-import { CarModelSearch, CarBrandsList } from 'components/cars'
+import { CarModelSearch, CarSearchByParams } from 'components/cars'
 
-import { catalogsAPI } from 'api'
+import { ROUTE_NAMES } from 'core'
 
 import * as S from 'styled/pages/catalogs/OriginalSpareParts'
 
 const CategoriesOriginalSparePartsPage = () => {
-  const searchModelByVin = (vin: string) => {}
-  const searchModelByBodyNumber = (bodyNumber: string) => {}
+  const router = useRouter()
 
-  const { data: brands } = useQuery('brands', catalogsAPI.getCarBrands)
+  const searchByVin = (vin: string) => {
+    router.push({
+      pathname: ROUTE_NAMES.ORIGINAL_SPARE_PARTS_VEHICLES,
+      query: { vin }
+    })
+  }
+
+  const searchByBodyNumber = (bodyNumber: string) => {
+    router.push({
+      pathname: ROUTE_NAMES.ORIGINAL_SPARE_PARTS_VEHICLES,
+      query: { bodyNumber }
+    })
+  }
 
   return (
     <>
@@ -24,29 +34,24 @@ const CategoriesOriginalSparePartsPage = () => {
       <S.CategoriesOriginalSparePartsPage>
         <PageTitle>Каталоги оригинальных запчастей</PageTitle>
 
-        <CarModelSearch
-          onSearchByVin={searchModelByVin}
-          onSearchByBodyNumber={searchModelByBodyNumber}
-        />
+        <CarModelSearch onSearchByVin={searchByVin} onSearchByBodyNumber={searchByBodyNumber} />
 
-        <Typography variant="h2">Поиск модели по каталогу производителя:</Typography>
-
-        <CarBrandsList brands={brands} />
+        <CarSearchByParams />
       </S.CategoriesOriginalSparePartsPage>
     </>
   )
 }
 
-export async function getStaticProps() {
-  const queryClient = new QueryClient()
+// export async function getStaticProps() {
+//   const queryClient = new QueryClient()
 
-  await queryClient.prefetchQuery('brands', catalogsAPI.getCarBrands)
+//   await queryClient.prefetchQuery('brands', catalogsAPI.getCarBrands)
 
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient)
-    }
-  }
-}
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient)
+//     }
+//   }
+// }
 
 export default CategoriesOriginalSparePartsPage

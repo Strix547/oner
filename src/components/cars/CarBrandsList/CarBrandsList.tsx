@@ -1,33 +1,28 @@
-import { useState } from 'react'
 import Link from 'next/link'
-import Masonry from '@mui/lab/Masonry'
 
-import { CarSelectParamsModal } from 'components/modals'
+import { Skeleton } from 'ui'
 
-import { CarBrand, CarBrands } from 'types/catalogs'
+import { ROUTE_NAMES } from 'core'
+import { CarBrands } from 'types/catalogs'
 
 import * as S from './CarBrandsList.styled'
 
 interface CarBrandsListProps {
   brands?: CarBrands
+  isLoading: boolean
 }
 
-export const CarBrandsList = ({ brands = {} }: CarBrandsListProps) => {
-  const [selectedBrand, setSelectedBrand] = useState<CarBrand | null>(null)
-
+export const CarBrandsList = ({ brands = {}, isLoading }: CarBrandsListProps) => {
   const brandsByLetterList = Object.entries(brands)
     .filter(([letter, brands]) => Boolean(brands.length))
     .map(([letter, brands]) => {
       const brandsList = brands.map((brand) => {
-        const { name } = brand
+        const { name, code } = brand
         return (
-          <li
-            key={name}
-            onClick={() => {
-              setSelectedBrand(brand)
-            }}
-          >
-            <S.Brand>{name}</S.Brand>
+          <li key={name}>
+            <Link href={`${ROUTE_NAMES.MODELS}/?brandCode=${code}`} passHref>
+              <S.BrandLink>{name}</S.BrandLink>
+            </Link>
           </li>
         )
       })
@@ -41,23 +36,14 @@ export const CarBrandsList = ({ brands = {} }: CarBrandsListProps) => {
       )
     })
 
-  const allBrands = Object.entries(brands).reduce<CarBrand[]>((prev, [letter, brands]) => {
-    return [...prev, ...brands]
-  }, [])
-
   return (
     <S.CarBrandsList>
-      <Masonry spacing={2.5}>{brandsByLetterList}</Masonry>
-
-      {selectedBrand && (
-        <CarSelectParamsModal
-          open={Boolean(selectedBrand)}
-          defaultBrand={selectedBrand}
-          brands={allBrands}
-          onClose={() => {
-            setSelectedBrand(null)
-          }}
-        />
+      {!isLoading ? (
+        <S.Masonry spacing={2.5}>{brandsByLetterList}</S.Masonry>
+      ) : (
+        <S.MasonrySkeleton>
+          <Skeleton count={8} height={148} />
+        </S.MasonrySkeleton>
       )}
     </S.CarBrandsList>
   )

@@ -130,7 +130,7 @@ export const AccountSidebar = () => {
   })
 
   return (
-    <S.AccountSidebar>
+    <S.AccountSidebar as="aside">
       <ul>
         {navLinkItems}
 

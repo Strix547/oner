@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 import { List, ListItem, Label, Value } from 'styled/components'
 import { media } from 'styled/media'

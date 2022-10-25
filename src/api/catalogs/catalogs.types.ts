@@ -1,31 +1,3 @@
-// type SearchParamsType =
-//   | 'Серия' series
-//   | 'Тип кузова' body
-//   | 'Год выпуска' year
-//   | 'Модель' model
-//   | 'Рынок' market
-//   | 'Каталог' catalogue
-//   | 'Тип серии' series
-//   | 'Модельный год' model
-//   | 'Год' year
-//   | 'Vehicle Type' vehicle
-//   | 'Vehicle Family' vehicle
-//   | 'Регион' region
-//   | 'Тип' type
-//   | 'Тип ТС' vehicle
-//   | 'Семейство' functional
-//   | 'Модификация' adjustment
-//   | 'Кузов' body
-//   | 'Категория' category
-//   | 'Тип агрегата' unit
-//   | 'Торговое обозначение' trade
-//   | 'Модельный ряд' model
-//   | 'Market' market
-//   | 'Vehicle Name' vehicle
-//   | 'Year' year
-//   | 'Catalog' shop
-//   | 'Model' model
-
 export interface CarBrand {
   code: string
   brand: string
@@ -72,21 +44,10 @@ export interface CarSearchOptions {
   value?: string
 }
 
-export interface FindedCarDetails {
-  filter_level: null
-  market: string
-  name: string
-  prodrange: string
-  engine?: string
-  engine_info?: string
-  sales_code?: string
-  transmission?: string
-}
-
 export interface FindedCar {
   brand: string
   catalog: string
-  details: FindedCarDetails
+  details: object
   name: string
   ssd: string
   vehicleid: string
@@ -126,13 +87,99 @@ export interface CategoryGroups {
   groups: CategoryGroup[]
 }
 
-export interface SearchByVin {
+export interface SearchCarByVin {
   vin: string
   catalogCode?: string
 }
 
-export interface SearchByCarBodyNumber {
-  code: string
-  number: string
+export interface SearchCarByBodyNumber {
+  bodyNumber: string
   catalogCode?: string
+}
+
+export interface FindedCarAttrs {
+  [key: string]: {
+    name: string
+    value: string
+  }
+}
+
+export interface SparePartUnit {
+  code: string
+  imageurl: string
+  largeimageurl: string
+  name: string
+  ssd: string
+  unitid: string
+}
+
+export interface FindedCarByVinOrBodyNumber {
+  attributes: FindedCarAttrs
+  brand: string
+  catalog: string
+  name: string
+  ssd: string
+  vehicleid: number
+  units: SparePartUnit[]
+}
+
+export interface GetSparePartsUnits {
+  vehicleId: string
+  ssd: string
+  catalog: string
+}
+
+export interface GetSparePartUnitDetail {
+  catalog: string
+  unitId: string
+  ssd: string
+}
+
+export interface UnitDetailInfo {
+  code: string
+  imageurl: string
+  largeimageurl: string
+  name: string
+  ssd: string
+  unitid: string
+}
+
+export interface UnitDetailImagePositions {
+  code: string
+  type: string
+  x1: string
+  x2: string
+  y1: string
+  y2: string
+}
+
+export interface UnitDetailUnitDetails {
+  amount: string
+  family: string
+  familyName: string
+  macrofamily: string
+  measurementUnit: string
+  pattern: string
+  weigth: string
+}
+
+export interface UnitDetailUnit {
+  codeonimage: string
+  name: string
+  oem: string
+  ssd: string
+  image_positions: UnitDetailImagePositions
+  details: UnitDetailUnitDetails
+}
+
+export interface UnitDetail {
+  unit_info: UnitDetailInfo
+  units: UnitDetailUnit[]
+}
+
+export interface GetQuickDetail {
+  catalog: string
+  vehicleId: string
+  quickGroupId: string
+  ssd: string
 }

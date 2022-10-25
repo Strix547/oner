@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 import { TextField } from 'ui/TextField/TextField.styled'
 import { Select } from 'ui/Select/Select.styled'

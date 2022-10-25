@@ -1,15 +1,13 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import MuiModal from '@mui/material/Modal'
 
 import { Box } from 'styled/components'
 import { media } from 'styled/media'
 
 export const Modal = styled(MuiModal)`
-  &&& {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 export const ModalContent = styled(Box)`

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import MuiAccordion from '@mui/material/Accordion'
 import MuiAccordionSummary from '@mui/material/AccordionSummary'
 import MuiAccordionDetails from '@mui/material/AccordionDetails'
@@ -272,46 +272,40 @@ export const NavAccordionContainer = styled.div`
 `
 
 export const NavAccordion = styled(MuiAccordion)`
-  &&& {
-    background: transparent;
-    box-shadow: none;
+  background: transparent;
+  box-shadow: none;
 
-    &::before {
-      display: none;
-    }
+  &::before {
+    display: none;
+  }
 
-    &:not(:last-child) {
-      margin-bottom: 15px;
-    }
+  &:not(:last-child) {
+    margin-bottom: 15px;
   }
 `
 
 export const NavAccordionSummary = styled(MuiAccordionSummary)`
-  &&& {
-    min-height: 24px;
-    padding: 0;
+  min-height: 24px;
+  padding: 0;
 
-    .accordion-summary-content {
-      margin: 0;
+  .accordion-summary-content {
+    margin: 0;
 
-      p {
-        color: #fff;
-      }
+    p {
+      color: #fff;
     }
+  }
 
-    .accordion-expand-icon-container {
-      transform: rotate(90deg);
+  .accordion-expand-icon-container {
+    transform: rotate(90deg);
 
-      svg path {
-        stroke: #fff;
-      }
+    svg path {
+      stroke: #fff;
     }
   }
 `
 
 export const NavAccordionDetails = styled(MuiAccordionDetails)`
-  &&& {
-    margin-top: 15px;
-    padding: 0;
-  }
+  margin-top: 15px;
+  padding: 0;
 `

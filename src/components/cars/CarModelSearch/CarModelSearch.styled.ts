@@ -1,8 +1,11 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 import { Box, Link } from 'styled/components'
+import { media } from 'styled/media'
 
 import { TextField } from 'ui/TextField/TextField.styled'
+
+const media1100 = media.createMedia(1100)
 
 export { Link }
 
@@ -14,6 +17,21 @@ export const CarModelSearch = styled(Box)`
 
   h4 {
     line-height: 30px;
+  }
+
+  ${media1100} {
+    padding: 30px 20px 25px;
+  }
+
+  ${media.tablet} {
+    flex-direction: column;
+    padding: 30px 20px;
+  }
+
+  ${media.mobile} {
+    h4 {
+      font-size: 18px;
+    }
   }
 `
 
@@ -61,6 +79,10 @@ const SearchItemBase = styled.div`
       }
     }
   }
+
+  ${media.tablet} {
+    width: 100%;
+  }
 `
 
 export const VinSearch = styled(SearchItemBase)``
@@ -73,6 +95,16 @@ export const Divider = styled.div`
   background: #e8e3e3;
   margin: 0 70px;
   align-self: flex-start;
+
+  ${media1100} {
+    margin: 0 33px;
+  }
+
+  ${media.tablet} {
+    width: 100%;
+    height: 1px;
+    margin: 30px 0;
+  }
 `
 
 export const ExampleRow = styled.div`

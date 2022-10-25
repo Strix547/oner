@@ -17,7 +17,9 @@ export const UserEntry = () => {
   if (isAccountLoading) {
     return (
       <S.UserEntry>
-        <Skeleton width={153} height={24} />
+        <UserIcon />
+
+        <Skeleton width={131.47} height={24} />
       </S.UserEntry>
     )
   }
